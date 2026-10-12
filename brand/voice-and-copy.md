@@ -30,4 +30,5 @@ Results first. Say what the business gets, not how the work is done.
 
 - Sentence case for headings and buttons.
 - Buttons are verbs: "Book a call," "Start a project," "See our services."
-- Placeholders stay in [BRACKETS] until real content exists: [YOUR PRICE], [X] WEEKS, [NUMBER] founding spots.
+- Placeholders stay in [BRACKETS] until real content exists: [X] WEEKS, [NUMBER] founding spots.
+- No prices, revision rounds, or change-request rules on the site. Those are settled on the call and in the written agreement.

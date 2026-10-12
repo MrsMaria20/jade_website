@@ -38,9 +38,10 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 ### 2. Services preview: paper (`#services`)
 - Label: `TODO`
 - Header: **Two ways to get your website live.**
-- Two package cards (light and dark, side by side):
-  - **Launch** · one or two pages, a minimal marketing site. DRAFT: "A focused site that puts your business in front of the right people." From [YOUR PRICE] · [X] weeks
-  - **Studio** · the complete, built-out website. DRAFT: "A full website that represents your whole business." From [YOUR PRICE] · [Y] weeks
+- Two starting-point cards (light and dark, side by side). **No prices and no revision or change rules on the site**; budget and exact scope are settled on the call. A line under the cards: "Most projects start here. We confirm the exact scope on a call."
+  - **Launch** · one or two pages, a minimal marketing site. DRAFT: "A focused site that puts your business in front of the right people and makes it easy to get in touch." Includes: contact form, booking link, search basics, domain connection. Timeline: about a week.
+  - **Studio** · the complete, built-out website. DRAFT: "A complete website that represents your whole business, with a page for everything your customers look for." Includes: everything in Launch, plus more pages; scope confirmed on a call. Timeline: 2 to 3 weeks.
+  - Timelines are ranges; the clock starts once scope is agreed and content is received.
 - Slim three-step strip (names avoid the word "Launch"): DRAFT: **Talk it through** (we define what your site needs) → **We build it** (we handle every step) → **You're live** (in [X] weeks).
 - Founding clients strip (dashed border): The first [NUMBER] projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`)
 - Button: **See our services** (→ `/services`)
@@ -127,5 +128,6 @@ The Markdown body holds the brief and figure captions.
 - `TODO:` [YOUR EMAIL] (e.g. hello@jadeagentic.com)
 - `TODO:` [CALENDLY URL]
 - `TODO:` [TALLY FORM URL] (only if the project form is kept)
-- `TODO:` prices, final timeline wording (the hero says "[X] weeks"; with 4 to 7 days and 2 to 3 weeks as real ranges, this needs rewording, e.g. "in as little as a week" or "within one to three weeks"), page counts, founding spots ([NUMBER])
+- `TODO:` final timeline wording for the hero (it says "[X] weeks"; with real ranges of about a week to 3 weeks, reword, e.g. "in as little as a week" or "within one to three weeks"), founding spots ([NUMBER])
+- Decided: no prices on the site; price, budget, revisions, and change rules are covered on the call and in the written agreement.
 - `TODO:` social links
