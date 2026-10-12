@@ -1,0 +1,1283 @@
+<!doctype html>
+<!--
+  ======================================================================
+  F&F II Site · Work (desktop)
+  Not a planned page. Reference for honest 'new studio' work framing
+  and the case-study card.
+  ======================================================================
+  How to read this file
+    - It is a design-canvas source file, not a normal web page: {{double-brace}}
+      values and ref= attributes are filled in by the canvas runtime.
+    - <helmet> ...... fonts loaded for the mockup
+    - <style> ....... shared classes and keyframes (reveal, drift, hover states)
+    - markup ........ the sections, top to bottom, each labeled with a comment
+    - <script type="text/x-dc"> at the bottom ... all behaviour: field painting,
+      ASCII doves, bloom, scroll + pointer handling. Port logic from here.
+    - Inline style="" values are the exact spacing, sizes and colors to match.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Jade Agentic — General · Field &amp; Flight II · Work</title>
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <!-- ========== FONTS (Google Fonts) — loaded by the canvas runtime ========== -->
+      <helmet>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+        />
+        <!-- ========== SHARED STYLES — classes, keyframes, hover and reveal states ========== -->
+        <style>
+          body {
+            margin: 0;
+            background: #16261c;
+            color: #efebdf;
+            font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+          }
+          a {
+            color: inherit;
+            text-decoration: none;
+          }
+          .scroller {
+            scroll-behavior: smooth;
+          }
+          .scroller::-webkit-scrollbar {
+            width: 10px;
+          }
+          .scroller::-webkit-scrollbar-thumb {
+            background: rgba(157, 181, 146, 0.4);
+            border-radius: 10px;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+          }
+          .site {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+          }
+          .hl {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.04em;
+          }
+          .hl > span {
+            display: inline-block;
+            animation: rise 1.3s cubic-bezier(0.2, 0.7, 0.15, 1) both;
+          }
+          .fu {
+            animation: fadeUp 1.2s cubic-bezier(0.2, 0.7, 0.15, 1) both;
+          }
+          @keyframes rise {
+            from {
+              transform: translateY(110%);
+            }
+            to {
+              transform: none;
+            }
+          }
+          @keyframes fadeUp {
+            from {
+              opacity: 0;
+              transform: translateY(18px);
+            }
+            to {
+              opacity: 1;
+              transform: none;
+            }
+          }
+          @keyframes drift {
+            from {
+              transform: scale(1.12) translateX(-2.5%);
+            }
+            to {
+              transform: scale(1.12) translateX(2.5%);
+            }
+          }
+          .field {
+            animation: drift 38s ease-in-out infinite alternate;
+          }
+          .rv {
+            opacity: 0;
+            transform: translateY(30px);
+            transition:
+              opacity 1.1s cubic-bezier(0.2, 0.7, 0.15, 1),
+              transform 1.1s cubic-bezier(0.2, 0.7, 0.15, 1);
+          }
+          .rv.in {
+            opacity: 1;
+            transform: none;
+          }
+          .stage {
+            transition:
+              opacity 0.6s ease,
+              transform 0.6s ease;
+          }
+          .btn {
+            transition:
+              transform 0.25s ease,
+              background-color 0.25s ease,
+              color 0.25s ease;
+          }
+          .btn:hover {
+            transform: translateY(-2px);
+          }
+          .note,
+          .chip {
+            transition:
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              opacity 0.3s ease,
+              color 0.3s ease;
+          }
+          .chip {
+            cursor: pointer;
+          }
+          button:focus-visible,
+          a:focus-visible,
+          input:focus-visible {
+            outline: 2px solid #bfd3cc;
+            outline-offset: 2px;
+          }
+          .site button:focus-visible {
+            outline-color: #c0673a;
+          }
+          .cv-jade {
+            background-color: #16261c;
+            background-image:
+              radial-gradient(circle at 70% 30%, rgba(157, 181, 146, 0.35) 0 2px, transparent 3px),
+              repeating-linear-gradient(0deg, rgba(157, 181, 146, 0.12) 0 1px, transparent 1px 14px),
+              linear-gradient(160deg, #2e4a36, #16261c);
+          }
+          .cv-bakery {
+            background-color: #f1e3ca;
+            background-image:
+              radial-gradient(circle at 78% 28%, #f6d9a8 0 70px, transparent 71px),
+              radial-gradient(ellipse at 40% 110%, #c98b4e 0 140px, transparent 141px);
+          }
+          .cv-roof {
+            background-color: #3e4541;
+            background-image:
+              repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0 3px, transparent 3px 26px),
+              repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0 2px, transparent 2px 40px),
+              linear-gradient(160deg, #5a625d, #2c312e);
+          }
+          .cv-alder {
+            background-color: #e3e9e1;
+            background-image:
+              radial-gradient(ellipse at 20% 120%, #9fb8a8 0 200px, transparent 201px),
+              radial-gradient(ellipse at 80% 125%, #c9d8ce 0 240px, transparent 241px),
+              radial-gradient(circle at 75% 25%, #f4f1ea 0 50px, transparent 51px);
+          }
+          .cv-open {
+            background-color: #e9e4d8;
+            border: 1.5px dashed rgba(28, 36, 31, 0.4);
+            box-sizing: border-box;
+          }
+          .nomo .hl > span,
+          .nomo .fu,
+          .nomo .field {
+            animation: none;
+          }
+          .nomo .rv {
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .hl > span,
+            .fu,
+            .field {
+              animation: none;
+            }
+            .rv {
+              opacity: 1;
+              transform: none;
+              transition: none;
+            }
+            .scroller,
+            .site {
+              scroll-behavior: auto;
+            }
+          }
+        </style>
+      </helmet>
+      <div
+        class="{{rootClass}}"
+        style="position: relative; width: 1440px; height: 900px; overflow: hidden; background: #16261c"
+      >
+        <div
+          class="scroller"
+          ref="{{setScroller}}"
+          style="position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden"
+        >
+
+          <!-- ========== HERO (short, 640px) — field, doves, nav, page headline ========== -->
+          <section id="top" style="position: relative; height: 640px; padding: 16px; box-sizing: border-box">
+            <div
+              onMouseMove="{{onHeroMove}}"
+              onMouseLeave="{{onHeroLeave}}"
+              style="
+                position: relative;
+                height: 608px;
+                border-radius: 28px;
+                overflow: hidden;
+                background-color: #1b2e22;
+              "
+            >
+              <div ref="{{setFieldWrap}}" style="position: absolute; inset: -40px">
+                <canvas
+                  class="field"
+                  ref="{{setField}}"
+                  aria-hidden="true"
+                  style="
+                    position: absolute;
+                    inset: 0;
+                    width: 1488px;
+                    height: 948px;
+                    display: block;
+                    filter: blur(26px) saturate(1.08);
+                  "
+                ></canvas>
+              </div>
+              <svg
+                aria-hidden="true"
+                width="1408"
+                height="608"
+                style="
+                  position: absolute;
+                  inset: 0;
+                  opacity: 0.16;
+                  mix-blend-mode: overlay;
+                  pointer-events: none;
+                "
+              >
+                <filter id="grainP">
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.85"
+                    numOctaves="2"
+                    stitchTiles="stitch"
+                  ></feTurbulence>
+                </filter>
+                <rect width="100%" height="100%" filter="url(#grainP)"></rect>
+              </svg>
+              <canvas
+                ref="{{setBirds}}"
+                role="img"
+                aria-label="White doves drawn in points of light flying across a blurred green field"
+                style="position: absolute; inset: 0; width: 1408px; height: 608px; display: block"
+              ></canvas>
+              <!-- ========== NAV — notched navigation cut into the top of the frame ========== -->
+              <nav
+                aria-label="Main"
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 780px;
+                  height: 72px;
+                  box-sizing: border-box;
+                  padding: 0 12px 0 28px;
+                  background: #16261c;
+                  border-radius: 0 0 26px 26px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  z-index: 5;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: 0;
+                    left: -26px;
+                    width: 26px;
+                    height: 26px;
+                    background: radial-gradient(circle at 0 100%, transparent 25.5px, #16261c 26px);
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 0;
+                    right: -26px;
+                    width: 26px;
+                    height: 26px;
+                    background: radial-gradient(circle at 100% 100%, transparent 25.5px, #16261c 26px);
+                  "
+                ></div>
+                <a href="#top" style="display: flex; align-items: center; gap: 10px">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#EFEBDF"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 14 C6 9 9 9 12 12 C15 7 19 6 22 8 C18 9 16 12 14 15 C11 17 6 17 2 14 Z"
+                    ></path>
+                  </svg>
+                  <span
+                    style="
+                      font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                      font-size: 26px;
+                      font-weight: 500;
+                    "
+                  >
+                    Jade Agentic
+                  </span>
+                </a>
+                <div style="display: flex; align-items: center; gap: 28px; font-size: 15px">
+                  <a
+                    href="#top"
+                    style="padding-bottom: 3px; border-bottom: 1px solid transparent; color: #c9d2c3"
+                  >
+                    Services
+                  </a>
+                  <a
+                    href="#top"
+                    aria-current="page"
+                    style="padding-bottom: 3px; border-bottom: 1px solid #efebdf; color: #efebdf"
+                  >
+                    Work
+                  </a>
+                  <a
+                    href="#top"
+                    style="padding-bottom: 3px; border-bottom: 1px solid transparent; color: #c9d2c3"
+                  >
+                    About
+                  </a>
+                  <a
+                    href="#top"
+                    style="padding-bottom: 3px; border-bottom: 1px solid transparent; color: #c9d2c3"
+                  >
+                    Contact
+                  </a>
+                </div>
+                <a
+                  class="btn"
+                  href="#top"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    height: 48px;
+                    padding: 0 6px 0 20px;
+                    border-radius: 999px;
+                    background: #efebdf;
+                    color: #16261c;
+                    font-size: 15px;
+                    font-weight: 500;
+                  "
+                >
+                  Book a call
+                  <span
+                    style="
+                      width: 36px;
+                      height: 36px;
+                      border-radius: 50%;
+                      background: #2e4a36;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="#EFEBDF"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M3 11 L11 3 M5 3 H11 V9"></path>
+                    </svg>
+                  </span>
+                </a>
+              </nav>
+              <div
+                class="fu"
+                style="
+                  position: absolute;
+                  left: 64px;
+                  top: 124px;
+                  font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.2em;
+                  color: #c9d2c3;
+                  z-index: 2;
+                  animation-delay: 0.2s;
+                "
+              >
+                JADEAGENTIC.COM
+                <span style="color: #9db592">/ WORK</span>
+              </div>
+              <div style="position: absolute; left: 60px; bottom: 56px; z-index: 2; pointer-events: none">
+                <h1
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 132px;
+                    line-height: 0.88;
+                    letter-spacing: -0.03em;
+                  "
+                >
+                  <span class="hl"><span style="animation-delay: 0.25s">Work, in</span></span>
+                  <span class="hl">
+                    <span style="animation-delay: 0.41s">
+                      the
+                      <em>open.</em>
+                    </span>
+                  </span>
+                </h1>
+              </div>
+              <p
+                class="fu"
+                style="
+                  position: absolute;
+                  right: 64px;
+                  bottom: 64px;
+                  width: 360px;
+                  margin: 0;
+                  font-size: 17px;
+                  line-height: 1.6;
+                  color: #e1e5db;
+                  z-index: 2;
+                  animation-delay: 0.8s;
+                "
+              >
+                Real projects as they happen, and concept work that shows how we approach yours. Always
+                labeled, never dressed up.
+              </p>
+            </div>
+          </section>
+
+          <!-- ========== SECTION 01 · SELECTED WORK — intro + project cards ========== -->
+          <section
+            style="
+              background: #e9e4d8;
+              color: #1c241f;
+              padding: 130px 104px 120px;
+              display: flex;
+              flex-direction: column;
+              gap: 44px;
+            "
+          >
+            <div
+              class="rv"
+              style="
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 80px;
+                align-items: end;
+              "
+            >
+              <div style="display: flex; flex-direction: column; gap: 18px">
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; color: {{accent}}"
+                >
+                  01 · SELECTED WORK
+                </span>
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 72px;
+                    line-height: 0.95;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  Built so far, and
+                  <em>how we think.</em>
+                </h2>
+              </div>
+              <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3a453e; max-width: 470px">
+                Jade Agentic is a new studio, so we show our work honestly: real projects as they happen, and
+                clearly labeled concept work that shows the thinking we bring to yours.
+              </p>
+            </div>
+            <div role="group" aria-label="Filter work" class="rv" style="display: flex; gap: 8px">
+              <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+                <button
+                  class="chip"
+                  type="button"
+                  onClick="{{f.pick}}"
+                  aria-pressed="{{f.pressed}}"
+                  style="border: 1px solid {{f.border}}; background: {{f.bg}}; color: {{f.color}}; font-family: 'Instrument Sans', sans-serif; height: 44px; padding: 0 20px; border-radius: 999px; font-size: 15px"
+                >
+                  {{f.label}}
+                </button>
+              </sc-for>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+              <sc-for list="{{projects}}" as="p" hint-placeholder-count="4">
+                <article style="display: flex; flex-direction: column; gap: 16px">
+                  <div
+                    class="{{p.cover}}"
+                    style="
+                      position: relative;
+                      height: 340px;
+                      border-radius: 24px;
+                      overflow: hidden;
+                      display: flex;
+                      align-items: flex-end;
+                      padding: 26px;
+                      box-sizing: border-box;
+                    "
+                  >
+                    <span
+                      style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 54px; line-height: 0.95; white-space: pre-line; color: {{p.coverInk}}"
+                    >
+                      {{p.mark}}
+                    </span>
+                    <span
+                      style="
+                        position: absolute;
+                        top: 20px;
+                        left: 20px;
+                        padding: 6px 12px;
+                        border-radius: 999px;
+                        background: rgba(239, 235, 223, 0.88);
+                        color: #1c241f;
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 10.5px;
+                        letter-spacing: 0.16em;
+                      "
+                    >
+                      {{p.kindLabel}}
+                    </span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline">
+                    <span
+                      style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 32px"
+                    >
+                      {{p.title}}
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 11px;
+                        letter-spacing: 0.14em;
+                        color: #56665c;
+                      "
+                    >
+                      {{p.type}}
+                    </span>
+                  </div>
+                  <span style="font-size: 15.5px; line-height: 1.6; color: #3a453e">{{p.desc}}</span>
+                  <span
+                    style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.1em; color: {{accent}}"
+                  >
+                    {{p.tags}}
+                  </span>
+                </article>
+              </sc-for>
+            </div>
+          </section>
+
+          <!-- ========== SECTION 02 · CASE STUDY (IN PROGRESS) card ========== -->
+          <section style="padding: 16px 16px 16px">
+            <div
+              style="
+                border-radius: 28px;
+                background: #16261c;
+                color: #efebdf;
+                padding: 100px 88px;
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+              "
+            >
+              <div
+                class="rv"
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(2, minmax(0, 1fr));
+                  gap: 80px;
+                  align-items: end;
+                "
+              >
+                <div style="display: flex; flex-direction: column; gap: 18px">
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 12px;
+                      letter-spacing: 0.2em;
+                      color: #9db592;
+                    "
+                  >
+                    CASE STUDY · IN PROGRESS
+                  </span>
+                  <h2
+                    style="
+                      margin: 0;
+                      font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                      font-weight: 400;
+                      font-size: 72px;
+                      line-height: 0.95;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Building
+                    <em>jadeagentic.com</em>
+                  </h2>
+                </div>
+                <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #c9d2c3; max-width: 470px">
+                  Our own site is our first case study: from a mood board of doves, gardenias, and ASCII art
+                  to a fast, fully built website. Here&#39;s the path.
+                </p>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+                <div
+                  class="rv"
+                  style="
+                    padding: 28px;
+                    border-radius: 22px;
+                    background: rgba(239, 235, 223, 0.05);
+                    border: 1px solid rgba(239, 235, 223, 0.12);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    transition-delay: 0s;
+                  "
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 11px;
+                      letter-spacing: 0.16em;
+                      color: #9db592;
+                    "
+                  >
+                    FIG. 01 — MOOD
+                  </span>
+                  <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 32px">
+                    Nature meets code
+                  </span>
+                  <span style="font-size: 15px; line-height: 1.6; color: #c9d2c3">
+                    Doves, gardenias, terraced fields, and ASCII textures: the contrast between antique and
+                    modern.
+                  </span>
+                </div>
+                <div
+                  class="rv"
+                  style="
+                    padding: 28px;
+                    border-radius: 22px;
+                    background: rgba(239, 235, 223, 0.05);
+                    border: 1px solid rgba(239, 235, 223, 0.12);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    transition-delay: 0.1s;
+                  "
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 11px;
+                      letter-spacing: 0.16em;
+                      color: #9db592;
+                    "
+                  >
+                    FIG. 02 — CONCEPTS
+                  </span>
+                  <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 32px">
+                    Many directions, one chosen
+                  </span>
+                  <span style="font-size: 15px; line-height: 1.6; color: #c9d2c3">
+                    A dozen interactive mockups, narrowed to the one with the clearest personality.
+                  </span>
+                </div>
+                <div
+                  class="rv"
+                  style="
+                    padding: 28px;
+                    border-radius: 22px;
+                    background: rgba(239, 235, 223, 0.05);
+                    border: 1px solid rgba(239, 235, 223, 0.12);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    transition-delay: 0.2s;
+                  "
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 11px;
+                      letter-spacing: 0.16em;
+                      color: #9db592;
+                    "
+                  >
+                    FIG. 03 — BUILD
+                  </span>
+                  <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 32px">
+                    Astro, GSAP, Vercel
+                  </span>
+                  <span style="font-size: 15px; line-height: 1.6; color: #c9d2c3">
+                    Built to load fast, move smoothly, and grow into a client portal later.
+                  </span>
+                </div>
+              </div>
+              <div
+                class="rv"
+                style="
+                  display: flex;
+                  gap: 40px;
+                  font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                  font-size: 12px;
+                  letter-spacing: 0.12em;
+                  color: #9db592;
+                "
+              >
+                <span>PERFORMANCE · [SCORE]</span>
+                <span>LAUNCH · [DATE]</span>
+                <span>PAGES · 5</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== FOOTER — big closing line, link columns, copyright row ========== -->
+          <footer style="padding: 0 16px 16px">
+            <div
+              style="
+                border-radius: 28px;
+                background: #1b2e22;
+                color: #efebdf;
+                padding: 90px 88px 36px;
+                display: flex;
+                flex-direction: column;
+                gap: 70px;
+              "
+            >
+              <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 96px;
+                    line-height: 0.9;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  Somewhere good
+                  <br />
+                  to
+                  <em>land.</em>
+                </h2>
+                <div style="display: flex; gap: 10px">
+                  <a
+                    class="btn"
+                    href="#top"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      height: 54px;
+                      padding: 0 24px;
+                      border-radius: 999px;
+                      background: #efebdf;
+                      color: #16261c;
+                      font-size: 15.5px;
+                      font-weight: 500;
+                    "
+                  >
+                    Book a call
+                  </a>
+                  <a
+                    class="btn"
+                    href="mailto:hello@jadeagentic.com"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      height: 54px;
+                      padding: 0 24px;
+                      border-radius: 999px;
+                      border: 1px solid rgba(239, 235, 223, 0.35);
+                      font-size: 15.5px;
+                      font-weight: 500;
+                    "
+                  >
+                    hello@jadeagentic.com
+                  </a>
+                </div>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+                  gap: 40px;
+                  padding-top: 40px;
+                  border-top: 1px solid rgba(239, 235, 223, 0.14);
+                "
+              >
+                <div style="display: flex; flex-direction: column; gap: 12px">
+                  <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 28px">
+                    Jade Agentic
+                  </span>
+                  <span style="font-size: 14.5px; line-height: 1.6; color: #c9d2c3; max-width: 300px">
+                    A small web studio. Crafted by a person, accelerated by AI.
+                  </span>
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #c9d2c3"
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 10.5px;
+                      letter-spacing: 0.18em;
+                      color: #9db592;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    STUDIO
+                  </span>
+                  <a href="#top">Services</a>
+                  <a href="#top">Work</a>
+                  <a href="#top">About</a>
+                  <a href="#top">Contact</a>
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #c9d2c3"
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 10.5px;
+                      letter-spacing: 0.18em;
+                      color: #9db592;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    START
+                  </span>
+                  <a href="#top">Book a call</a>
+                  <a href="#top">Project form</a>
+                  <a href="mailto:hello@jadeagentic.com">Email</a>
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #c9d2c3"
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 10.5px;
+                      letter-spacing: 0.18em;
+                      color: #9db592;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    ELSEWHERE
+                  </span>
+                  <span>[LinkedIn]</span>
+                  <span>[Instagram]</span>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding-top: 20px;
+                  border-top: 1px solid rgba(239, 235, 223, 0.14);
+                  font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.14em;
+                  color: #7e927f;
+                "
+              >
+                <span>© 2026 JADE AGENTIC</span>
+                <span>BUILT WITH ASTRO · HOSTED ON VERCEL</span>
+                <span>JADEAGENTIC.COM</span>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </x-dc>
+    <!-- ========== BEHAVIOUR — all JavaScript for this mockup (port effects from here) ========== -->
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{"accent":{"editor":"color","default":"#3F6E5E","options":["#3F6E5E","#2E5470","#9A5530","#1C241F"]},"motion":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":900}}'
+    >
+      // ════════════════════════════════════════════════════════════════════
+      // Mockup behaviour. One class: state + refs in the constructor, then
+      // lifecycle (mount/unmount), drawing functions, and template values.
+      // ════════════════════════════════════════════════════════════════════
+      class Component extends DCLogic {
+
+        // ── constructor() — Initial state, constants, element refs (setX = el => ...) and event handlers.
+        constructor(props) {
+          super(props);
+          this.state = { filter: 'all' };
+          this.mx = -9999;
+          this.my = -9999;
+          this.st = 0;
+          this.tries = 0;
+          this.last = 0;
+          this.setScroller = (el) => {
+            this.scroller = el;
+          };
+          this.setField = (el) => {
+            this.field = el;
+          };
+          this.setFieldWrap = (el) => {
+            this.fieldWrap = el;
+          };
+          this.setBirds = (el) => {
+            this.birdsCanvas = el;
+          };
+          this.onHeroMove = (e) => {
+            if (!this.birdsCanvas || !this.W) return;
+            const r = this.birdsCanvas.getBoundingClientRect();
+            this.mx = (e.clientX - r.left) * (this.W / r.width);
+            this.my = (e.clientY - r.top) * (this.H / r.height);
+          };
+          this.onHeroLeave = () => {
+            this.mx = -9999;
+            this.my = -9999;
+          };
+          this.onScroll = () => {
+            this.st = this.scroller ? this.scroller.scrollTop : 0;
+            if (!this.reduce && this.st < 700 && this.fieldWrap)
+              this.fieldWrap.style.transform = 'translate3d(0,' + (this.st * 0.25).toFixed(1) + 'px,0)';
+          };
+          this.tick = (now) => {
+            this.raf = requestAnimationFrame(this.tick);
+            const dt = Math.min(50, now - (this.last || now));
+            this.last = now;
+            if (this.st < 700) this.drawBirds(now, dt);
+          };
+          this.pageInit();
+        }
+
+        // ── clamp() — Limits a number to the 0–1 range.
+        clamp(v) {
+          return Math.max(0, Math.min(1, v));
+        }
+
+        // ── paintField() — Paints the blurred-field background ONCE (random horizontal strokes + light
+        //    leaks). Blur and drift are CSS. Ported to assets/visuals/blurred-field.ts.
+        paintField() {
+          const c = this.field;
+          if (!c) return;
+          const W = 1488,
+            H = 948;
+          c.width = W;
+          c.height = H;
+          const ctx = c.getContext('2d');
+          ctx.fillStyle = '#1B2E22';
+          ctx.fillRect(0, 0, W, H);
+          const cols = ['#2E4A36', '#3E6048', '#56785A', '#7C9A74', '#14231A', '#9DB592', '#2A4232'];
+          for (let i = 0; i < 240; i++) {
+            const y = Math.random() * H,
+              h = 4 + Math.pow(Math.random(), 2) * 70;
+            const x = Math.random() * W * 1.2 - W * 0.1,
+              w = 200 + Math.random() * 1200;
+            ctx.globalAlpha = 0.15 + Math.random() * 0.45;
+            ctx.fillStyle = cols[Math.floor(Math.random() * cols.length)];
+            ctx.fillRect(x, y, w, h);
+          }
+          for (let i = 0; i < 14; i++) {
+            ctx.globalAlpha = 0.08 + Math.random() * 0.12;
+            ctx.fillStyle = '#D9E4C8';
+            ctx.fillRect(
+              Math.random() * W,
+              Math.random() * H * 0.7,
+              300 + Math.random() * 700,
+              3 + Math.random() * 10,
+            );
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        // ── makeBirds() — Creates the flock: each dove gets a position, speed, size, wing phase and
+        //    drift.
+        makeBirds() {
+          this.birds = [];
+          for (let i = 0; i < 7; i++) {
+            this.birds.push({
+              x: Math.random() * this.W,
+              y: this.H * (0.14 + Math.random() * 0.5),
+              s: 0.55 + Math.random() * 0.8,
+              sp: 0.05 + Math.random() * 0.03,
+              ang: -0.1 - Math.random() * 0.14,
+              wob: Math.random() * 6.28,
+              ph: Math.random() * 6.28,
+            });
+          }
+          this.birds.sort((a, b) => a.s - b.s);
+        }
+
+        // ── drawBirds() — Per frame: moves each dove, flaps its wings, steers away from the pointer, and
+        //    draws it as dots/characters with a soft trail. Ported to assets/visuals/ascii-doves.ts.
+        drawBirds(now, dt) {
+          const ctx = this.bctx;
+          if (!ctx) return;
+          if (this.reduce) {
+            ctx.clearRect(0, 0, this.W, this.H);
+          } else {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fillRect(0, 0, this.W, this.H);
+            ctx.globalCompositeOperation = 'source-over';
+          }
+          ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
+          ctx.textBaseline = 'middle';
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#F4F1E8';
+          for (let n = 0; n < this.birds.length; n++) {
+            const b = this.birds[n];
+            const a = b.ang + 0.09 * Math.sin(now * 0.0007 + b.wob);
+            if (!this.reduce) {
+              b.x += Math.cos(a) * b.sp * b.s * dt * 1.6;
+              b.y += Math.sin(a) * b.sp * b.s * dt * 1.6;
+              const dx = b.x - this.mx,
+                dy = b.y - this.my,
+                d = Math.sqrt(dx * dx + dy * dy);
+              if (d < 200 && d > 1) {
+                const f = (1 - d / 200) * 0.35 * dt;
+                b.x += (dx / d) * f;
+                b.y += (dy / d) * f;
+              }
+              if (b.x > this.W + 140 || b.y < -140) {
+                b.x = -140;
+                b.y = this.H * (0.2 + Math.random() * 0.55);
+              }
+            }
+            const s = b.s,
+              flap = (this.reduce ? 1.2 : (now * 0.0105) / (0.7 + s * 0.3)) + b.ph;
+            const dirx = Math.cos(a),
+              diry = Math.sin(a);
+            const upx = diry,
+              upy = -dirx;
+            const body = 26 * s,
+              span = 40 * s;
+            ctx.globalAlpha = 0.45 + (0.5 * (s - 0.55)) / 0.8;
+            for (let u = -0.5; u <= 0.5; u += 0.125) {
+              ctx.fillText('·', b.x + dirx * u * body, b.y + diry * u * body);
+            }
+            ctx.fillText('•', b.x + dirx * (body * 0.58), b.y + diry * (body * 0.58) - 1);
+            for (let k = -1; k <= 1; k++) {
+              ctx.fillText(
+                '·',
+                b.x - dirx * body * 0.72 + upx * k * 3 * s,
+                b.y - diry * body * 0.72 + upy * k * 3 * s,
+              );
+            }
+            const wings = [
+              [Math.cos(flap), 1],
+              [Math.cos(flap + 0.35) * 0.8, 0.5],
+            ];
+            for (let w = 0; w < 2; w++) {
+              const lift = wings[w][0],
+                alphaMul = wings[w][1];
+              const rx = b.x + dirx * body * 0.08,
+                ry = b.y + diry * body * 0.08;
+              const tx = rx + upx * span * lift - dirx * span * 0.38,
+                ty = ry + upy * span * lift - diry * span * 0.38;
+              ctx.globalAlpha *= alphaMul;
+              for (let u = 0.08; u <= 1.001; u += 0.1) {
+                const chord = (1 - u * 0.72) * 14 * s;
+                const bow = Math.sin(Math.PI * u) * 5 * s * (lift > 0 ? 1 : -1);
+                const px = rx + (tx - rx) * u + upx * bow,
+                  py = ry + (ty - ry) * u + upy * bow;
+                for (let v = -0.5; v <= 0.5; v += 0.34) {
+                  ctx.fillText('·', px + dirx * v * chord, py + diry * v * chord);
+                }
+              }
+              ctx.globalAlpha /= alphaMul;
+            }
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        // ── init() — Waits until the canvases have a real size (retries a few frames), then paints and
+        //    starts drawing.
+        init() {
+          if (!this.scroller || !this.birdsCanvas || !this.field) {
+            if (this.tries++ < 40) this.initTimer = setTimeout(() => this.init(), 100);
+            return;
+          }
+          const mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+          this.reduce = (mq && mq.matches) || this.props.motion === false;
+          this.paintField();
+          const c = this.birdsCanvas,
+            dpr = Math.min(2, window.devicePixelRatio || 1);
+          this.W = c.clientWidth || 1408;
+          this.H = c.clientHeight || 608;
+          c.width = Math.round(this.W * dpr);
+          c.height = Math.round(this.H * dpr);
+          this.bctx = c.getContext('2d');
+          this.bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          this.makeBirds();
+          this.scroller.addEventListener('scroll', this.onScroll, { passive: true });
+          if (this.reduce) {
+            this.drawBirds(0, 0);
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.drawBirds(0, 0));
+          } else this.raf = requestAnimationFrame(this.tick);
+          const els = this.scroller.querySelectorAll('.rv');
+          if (this.reduce || !('IntersectionObserver' in window)) {
+            els.forEach((el) => el.classList.add('in'));
+            return;
+          }
+          this.io = new IntersectionObserver(
+            (en) => {
+              en.forEach((x) => {
+                if (x.isIntersecting) {
+                  x.target.classList.add('in');
+                  this.io.unobserve(x.target);
+                }
+              });
+            },
+            { root: this.scroller, threshold: 0.12 },
+          );
+          els.forEach((el) => this.io.observe(el));
+        }
+
+        // ── componentDidMount() — Runs once on load: checks reduced motion, sizes canvases, starts the
+        //    animation loop.
+        componentDidMount() {
+          this.initTimer = setTimeout(() => this.init(), 0);
+        }
+
+        // ── componentWillUnmount() — Cleanup: stops the animation loop and removes listeners/observers.
+        componentWillUnmount() {
+          clearTimeout(this.initTimer);
+          if (this.raf) cancelAnimationFrame(this.raf);
+          if (this.io) this.io.disconnect();
+          if (this.scroller) this.scroller.removeEventListener('scroll', this.onScroll);
+        }
+
+        // ── chip() — Style for a selectable chip/button (on/off, dark/light).
+        chip(on, dark) {
+          return dark
+            ? {
+                bg: on ? '#EFEBDF' : 'transparent',
+                color: on ? '#16261C' : '#EFEBDF',
+                border: on ? '#EFEBDF' : 'rgba(239,235,223,.22)',
+                pressed: on ? 'true' : 'false',
+              }
+            : {
+                bg: on ? '#1C241F' : 'transparent',
+                color: on ? '#EFEBDF' : '#1C241F',
+                border: on ? '#1C241F' : 'rgba(28,36,31,.25)',
+                pressed: on ? 'true' : 'false',
+              };
+        }
+
+        // ── pageInit() — Page-specific setup that runs after the shared init.
+        pageInit() {
+          this.PROJECTS = [
+            {
+              kind: 'case',
+              kindLabel: 'CASE STUDY · IN PROGRESS',
+              title: 'jadeagentic.com',
+              type: 'STUDIO SITE',
+              mark: 'Jade\nAgentic',
+              cover: 'cv-jade',
+              coverInk: '#EFEBDF',
+              desc: 'Our own site, designed and built in the open. The first project, and the standard for the rest.',
+              tags: 'DESIGN · BUILD · MOTION',
+            },
+            {
+              kind: 'concept',
+              kindLabel: 'CONCEPT',
+              title: 'Meadowlark Bakery',
+              type: 'HOSPITALITY',
+              mark: 'Meadowlark',
+              cover: 'cv-bakery',
+              coverInk: '#2E2419',
+              desc: 'A neighborhood bakery site with pickup preorders that need no app and no account.',
+              tags: 'DESIGN · PREORDER FLOW',
+            },
+            {
+              kind: 'concept',
+              kindLabel: 'CONCEPT',
+              title: 'Hollis & Pine Roofing',
+              type: 'TRADES',
+              mark: 'Hollis\n& Pine',
+              cover: 'cv-roof',
+              coverInk: '#F5F2EB',
+              desc: 'A phone-first roofing site: tap-to-call everywhere, and a quote form that takes under a minute.',
+              tags: 'MOBILE-FIRST · QUOTE FORM',
+            },
+            {
+              kind: 'concept',
+              kindLabel: 'CONCEPT',
+              title: 'Alder Advisory',
+              type: 'PROFESSIONAL SERVICES',
+              mark: 'Alder',
+              cover: 'cv-alder',
+              coverInk: '#1E2A2F',
+              desc: 'A calm, plain-spoken site for a planning firm, with a savings calculator that starts conversations.',
+              tags: 'DESIGN · INTERACTIVE TOOL',
+            },
+            {
+              kind: 'open',
+              kindLabel: 'FOUNDING CLIENT SPOT',
+              title: 'Your project',
+              type: '[NUMBER] SPOTS OPEN',
+              mark: 'Yours,\nnext.',
+              cover: 'cv-open',
+              coverInk: '#1C241F',
+              desc: 'Our first clients get a reduced rate in exchange for a testimonial and permission to share the work.',
+              tags: 'BOOK A CALL TO ASK',
+            },
+          ];
+        }
+
+        // ── pageVals() — Page-specific template values, merged into renderVals().
+        pageVals() {
+          const f = this.state.filter;
+          const filters = [
+            ['all', 'All'],
+            ['case', 'Case studies'],
+            ['concept', 'Concepts'],
+          ].map((x) =>
+            Object.assign(
+              { label: x[1], pick: () => this.setState({ filter: x[0] }) },
+              this.chip(x[0] === f, false),
+            ),
+          );
+          const projects = this.PROJECTS.filter((p) => f === 'all' || p.kind === f || p.kind === 'open');
+          return { filters: filters, projects: projects };
+        }
+
+        // ── renderVals() — Values the canvas template reads ({{...}} in the markup): labels, classes,
+        //    styles, handlers.
+        renderVals() {
+          const accent = this.props.accent ?? '#3F6E5E';
+          this.accent = accent;
+          return Object.assign(
+            {
+              accent: accent,
+              rootClass: this.props.motion === false ? 'nomo' : '',
+              setScroller: this.setScroller,
+              setField: this.setField,
+              setFieldWrap: this.setFieldWrap,
+              setBirds: this.setBirds,
+              onHeroMove: this.onHeroMove,
+              onHeroLeave: this.onHeroLeave,
+            },
+            this.pageVals(),
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

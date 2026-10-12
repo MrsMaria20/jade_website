@@ -1,0 +1,2938 @@
+<!doctype html>
+<!--
+  ======================================================================
+  F&F II Site · Home (desktop)
+  Reference for every Home section after the hero: What we do, the bloom,
+  the Meadowlark example, packages + FAQ, closing booking frame, footer.
+  ======================================================================
+  How to read this file
+    - It is a design-canvas source file, not a normal web page: {{double-brace}}
+      values and ref= attributes are filled in by the canvas runtime.
+    - <helmet> ...... fonts loaded for the mockup
+    - <style> ....... shared classes and keyframes (reveal, drift, hover states)
+    - markup ........ the sections, top to bottom, each labeled with a comment
+    - <script type="text/x-dc"> at the bottom ... all behaviour: field painting,
+      ASCII doves, bloom, scroll + pointer handling. Port logic from here.
+    - Inline style="" values are the exact spacing, sizes and colors to match.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Jade Agentic — General · Field &amp; Flight II · Home</title>
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <!-- ========== FONTS (Google Fonts) — loaded by the canvas runtime ========== -->
+      <helmet>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+        />
+        <!-- ========== SHARED STYLES — classes, keyframes, hover and reveal states ========== -->
+        <style>
+          body {
+            margin: 0;
+            background: #16261c;
+            color: #efebdf;
+            font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+          }
+          a {
+            color: inherit;
+            text-decoration: none;
+          }
+          .scroller {
+            scroll-behavior: smooth;
+          }
+          .scroller::-webkit-scrollbar {
+            width: 10px;
+          }
+          .scroller::-webkit-scrollbar-thumb {
+            background: rgba(157, 181, 146, 0.4);
+            border-radius: 10px;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+          }
+          .site {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+          }
+          .hl {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.04em;
+          }
+          .hl > span {
+            display: inline-block;
+            animation: rise 1.3s cubic-bezier(0.2, 0.7, 0.15, 1) both;
+          }
+          .fu {
+            animation: fadeUp 1.2s cubic-bezier(0.2, 0.7, 0.15, 1) both;
+          }
+          @keyframes rise {
+            from {
+              transform: translateY(110%);
+            }
+            to {
+              transform: none;
+            }
+          }
+          @keyframes fadeUp {
+            from {
+              opacity: 0;
+              transform: translateY(18px);
+            }
+            to {
+              opacity: 1;
+              transform: none;
+            }
+          }
+          @keyframes drift {
+            from {
+              transform: scale(1.12) translateX(-2.5%);
+            }
+            to {
+              transform: scale(1.12) translateX(2.5%);
+            }
+          }
+          .field {
+            animation: drift 38s ease-in-out infinite alternate;
+          }
+          .rv {
+            opacity: 0;
+            transform: translateY(30px);
+            transition:
+              opacity 1.1s cubic-bezier(0.2, 0.7, 0.15, 1),
+              transform 1.1s cubic-bezier(0.2, 0.7, 0.15, 1);
+          }
+          .rv.in {
+            opacity: 1;
+            transform: none;
+          }
+          .stage {
+            transition:
+              opacity 0.6s ease,
+              transform 0.6s ease;
+          }
+          .btn {
+            transition:
+              transform 0.25s ease,
+              background-color 0.25s ease,
+              color 0.25s ease;
+          }
+          .btn:hover {
+            transform: translateY(-2px);
+          }
+          .note,
+          .chip {
+            transition:
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              opacity 0.3s ease,
+              color 0.3s ease;
+          }
+          .chip {
+            cursor: pointer;
+          }
+          button:focus-visible,
+          a:focus-visible,
+          input:focus-visible {
+            outline: 2px solid #bfd3cc;
+            outline-offset: 2px;
+          }
+          .site button:focus-visible {
+            outline-color: #c0673a;
+          }
+          .nomo .hl > span,
+          .nomo .fu,
+          .nomo .field {
+            animation: none;
+          }
+          .nomo .rv {
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .hl > span,
+            .fu,
+            .field {
+              animation: none;
+            }
+            .rv {
+              opacity: 1;
+              transform: none;
+              transition: none;
+            }
+            .scroller,
+            .site {
+              scroll-behavior: auto;
+            }
+          }
+        </style>
+      </helmet>
+      <div
+        class="{{rootClass}}"
+        style="position: relative; width: 1440px; height: 900px; overflow: hidden; background: #16261c"
+      >
+        <div
+          class="scroller"
+          ref="{{setScroller}}"
+          style="position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden"
+        >
+
+          <!-- ========== HERO ========== -->
+          <section id="top" style="position: relative; height: 900px; padding: 16px; box-sizing: border-box">
+            <div
+              onMouseMove="{{onHeroMove}}"
+              onMouseLeave="{{onHeroLeave}}"
+              style="
+                position: relative;
+                height: 868px;
+                border-radius: 28px;
+                overflow: hidden;
+                background-color: #1b2e22;
+              "
+            >
+              <div ref="{{setFieldWrap}}" style="position: absolute; inset: -40px">
+                <canvas
+                  class="field"
+                  ref="{{setField}}"
+                  aria-hidden="true"
+                  style="
+                    position: absolute;
+                    inset: 0;
+                    width: 1488px;
+                    height: 948px;
+                    display: block;
+                    filter: blur(26px) saturate(1.08);
+                  "
+                ></canvas>
+              </div>
+              <svg
+                aria-hidden="true"
+                width="1408"
+                height="868"
+                style="
+                  position: absolute;
+                  inset: 0;
+                  opacity: 0.16;
+                  mix-blend-mode: overlay;
+                  pointer-events: none;
+                "
+              >
+                <filter id="grain2">
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.85"
+                    numOctaves="2"
+                    stitchTiles="stitch"
+                  ></feTurbulence>
+                </filter>
+                <rect width="100%" height="100%" filter="url(#grain2)"></rect>
+              </svg>
+              <canvas
+                ref="{{setBirds}}"
+                aria-hidden="true"
+                style="position: absolute; inset: 0; width: 1408px; height: 868px; display: block"
+              ></canvas>
+              <canvas
+                ref="{{setGrass}}"
+                role="img"
+                aria-label="A meadow of tall grass drawn in text characters, bending in the wind and parting around the cursor, with white doves flying above"
+                style="position: absolute; inset: 0; width: 1408px; height: 868px; display: block"
+              ></canvas>
+
+              <!-- ========== NAV — notched navigation cut into the top of the frame ========== -->
+              <nav
+                aria-label="Main"
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 780px;
+                  height: 72px;
+                  box-sizing: border-box;
+                  padding: 0 12px 0 28px;
+                  background: #16261c;
+                  border-radius: 0 0 26px 26px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  z-index: 5;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: 0;
+                    left: -26px;
+                    width: 26px;
+                    height: 26px;
+                    background: radial-gradient(circle at 0 100%, transparent 25.5px, #16261c 26px);
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 0;
+                    right: -26px;
+                    width: 26px;
+                    height: 26px;
+                    background: radial-gradient(circle at 100% 100%, transparent 25.5px, #16261c 26px);
+                  "
+                ></div>
+                <a href="#top" style="display: flex; align-items: center; gap: 10px">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#EFEBDF"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 14 C6 9 9 9 12 12 C15 7 19 6 22 8 C18 9 16 12 14 15 C11 17 6 17 2 14 Z"
+                    ></path>
+                  </svg>
+                  <span
+                    style="
+                      font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                      font-size: 26px;
+                      font-weight: 500;
+                    "
+                  >
+                    Jade Agentic
+                  </span>
+                </a>
+                <div style="display: flex; align-items: center; gap: 30px; font-size: 15px; color: #c9d2c3">
+                  <a href="#top">Services</a>
+                  <a href="#top">Work</a>
+                  <a href="#top">About</a>
+                  <a href="#top">Contact</a>
+                </div>
+                <a
+                  class="btn"
+                  href="#book"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    height: 48px;
+                    padding: 0 6px 0 20px;
+                    border-radius: 999px;
+                    background: #efebdf;
+                    color: #16261c;
+                    font-size: 15px;
+                    font-weight: 500;
+                  "
+                >
+                  Book a call
+                  <span
+                    style="
+                      width: 36px;
+                      height: 36px;
+                      border-radius: 50%;
+                      background: #2e4a36;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="#EFEBDF"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M3 11 L11 3 M5 3 H11 V9"></path>
+                    </svg>
+                  </span>
+                </a>
+              </nav>
+
+              <div
+                class="fu"
+                style="
+                  position: absolute;
+                  left: 64px;
+                  top: 124px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 6px;
+                  font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.2em;
+                  color: #c9d2c3;
+                  z-index: 2;
+                  animation-delay: 0.2s;
+                "
+              >
+                <span>NO. 02 · II — FIELD &amp; FLIGHT</span>
+                <span style="color: #9db592">A SMALL WEB STUDIO</span>
+              </div>
+
+              <div
+                ref="{{setHeroText}}"
+                style="position: absolute; left: 60px; top: 214px; z-index: 2; pointer-events: none"
+              >
+                <h1
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 150px;
+                    line-height: 0.86;
+                    letter-spacing: -0.03em;
+                    color: #efebdf;
+                  "
+                >
+                  <span class="hl"><span style="animation-delay: 0.3s">Somewhere</span></span>
+                  <span class="hl">
+                    <span style="animation-delay: 0.46s">
+                      good to
+                      <em>land.</em>
+                    </span>
+                  </span>
+                </h1>
+              </div>
+
+              <div
+                class="fu"
+                style="
+                  position: absolute;
+                  right: 64px;
+                  top: 150px;
+                  width: 360px;
+                  padding: 26px;
+                  border-radius: 22px;
+                  background: rgba(239, 235, 223, 0.08);
+                  backdrop-filter: blur(14px);
+                  border: 1px solid rgba(239, 235, 223, 0.16);
+                  display: flex;
+                  flex-direction: column;
+                  gap: 20px;
+                  z-index: 2;
+                  animation-delay: 0.9s;
+                "
+              >
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                    font-size: 10.5px;
+                    letter-spacing: 0.18em;
+                    color: #9db592;
+                  "
+                >
+                  FIELD NOTE
+                </span>
+                <p style="margin: 0; font-size: 16.5px; line-height: 1.6; color: #e1e5db">
+                  We design and build websites where customers arrive, feel at home, and know exactly what to
+                  do next. Crafted by a person, accelerated by AI.
+                </p>
+                <div style="display: flex; gap: 10px">
+                  <a
+                    class="btn"
+                    href="#book"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      height: 48px;
+                      padding: 0 20px;
+                      border-radius: 999px;
+                      background: #efebdf;
+                      color: #16261c;
+                      font-size: 15px;
+                      font-weight: 500;
+                    "
+                  >
+                    Start a project
+                  </a>
+                  <a
+                    class="btn"
+                    href="#example"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      height: 48px;
+                      padding: 0 20px;
+                      border-radius: 999px;
+                      border: 1px solid rgba(239, 235, 223, 0.4);
+                      font-size: 15px;
+                      font-weight: 500;
+                    "
+                  >
+                    See an example
+                  </a>
+                </div>
+              </div>
+              <div
+                style="
+                  position: absolute;
+                  right: 24px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  writing-mode: vertical-rl;
+                  font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.34em;
+                  color: #c9d2c3;
+                  z-index: 2;
+                "
+              >
+                FIELD BELOW · FLIGHT ABOVE
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== WHAT WE DO ========== -->
+          <section
+            style="
+              background: #e9e4d8;
+              color: #1c241f;
+              padding: 130px 104px 40px;
+              display: flex;
+              flex-direction: column;
+              gap: 50px;
+            "
+          >
+            <div
+              class="rv"
+              style="
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 80px;
+                align-items: end;
+              "
+            >
+              <div style="display: flex; flex-direction: column; gap: 18px">
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; color: {{accent}}"
+                >
+                  00 · WHAT WE DO
+                </span>
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 72px;
+                    line-height: 0.95;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  Websites, designed and
+                  <em>built by hand.</em>
+                </h2>
+              </div>
+              <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3a453e; max-width: 470px">
+                Every site starts from a blank page and a conversation. No templates, no page builders, and no
+                handoffs between people you&#39;ve never met.
+              </p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+              <div
+                class="rv"
+                style="
+                  padding: 28px;
+                  border-radius: 22px;
+                  background: #f2eee4;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                  min-height: 230px;
+                  transition-delay: 0s;
+                "
+              >
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; color: {{accent}}"
+                >
+                  I · DESIGN
+                </span>
+                <span
+                  style="
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-size: 34px;
+                    line-height: 1;
+                  "
+                >
+                  Distinct by design
+                </span>
+                <span style="font-size: 15px; line-height: 1.6; opacity: 0.85">
+                  A look that could only be yours, shaped around your customers.
+                </span>
+              </div>
+              <div
+                class="rv"
+                style="
+                  padding: 28px;
+                  border-radius: 22px;
+                  background: #f2eee4;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                  min-height: 230px;
+                  transition-delay: 0.08s;
+                "
+              >
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; color: {{accent}}"
+                >
+                  II · BUILD
+                </span>
+                <span
+                  style="
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-size: 34px;
+                    line-height: 1;
+                  "
+                >
+                  Fast, clean code
+                </span>
+                <span style="font-size: 15px; line-height: 1.6; opacity: 0.85">
+                  Quick on any phone, accessible, and easy for you to update.
+                </span>
+              </div>
+              <div
+                class="rv"
+                style="
+                  padding: 28px;
+                  border-radius: 22px;
+                  background: #f2eee4;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                  min-height: 230px;
+                  transition-delay: 0.16s;
+                "
+              >
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; color: {{accent}}"
+                >
+                  III · LAUNCH
+                </span>
+                <span
+                  style="
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-size: 34px;
+                    line-height: 1;
+                  "
+                >
+                  Launch and care
+                </span>
+                <span style="font-size: 15px; line-height: 1.6; opacity: 0.85">
+                  Domain, hosting, search basics, and help after you go live.
+                </span>
+              </div>
+              <div
+                class="rv"
+                style="
+                  padding: 28px;
+                  border-radius: 22px;
+                  background: #1c241f;
+                  color: #efebdf;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                  min-height: 230px;
+                  transition-delay: 0.24s;
+                "
+              >
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    color: #9db592;
+                  "
+                >
+                  NEXT · IN DEVELOPMENT
+                </span>
+                <span
+                  style="
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-size: 34px;
+                    line-height: 1;
+                  "
+                >
+                  AI &amp; agents
+                </span>
+                <span style="font-size: 15px; line-height: 1.6; opacity: 0.85">
+                  Assistants that help your site answer and follow up. Coming carefully.
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== BLOOM ========== -->
+          <section
+            id="grow"
+            ref="{{setBloom}}"
+            style="position: relative; height: 2700px; background: #e9e4d8; color: #1c241f"
+          >
+            <div
+              style="
+                position: sticky;
+                top: 0;
+                height: 900px;
+                box-sizing: border-box;
+                padding: 70px 104px;
+                display: flex;
+                align-items: center;
+                gap: 80px;
+              "
+            >
+              <div style="position: relative; width: 600px; height: 760px; flex-shrink: 0">
+                <canvas
+                  ref="{{setBloomCanvas}}"
+                  role="img"
+                  aria-label="A flower drawn in text characters that opens as you scroll"
+                  style="position: absolute; inset: 0; width: 600px; height: 760px; display: block"
+                ></canvas>
+                <div
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 170px;
+                    font-size: 10.5px;
+                    line-height: 1.45;
+                    letter-spacing: 0.04em;
+                    text-transform: uppercase;
+                    color: #3a453e;
+                    text-align: justify;
+                  "
+                >
+                  Every good website starts below the surface, with what your customers actually need.
+                </div>
+                <div
+                  style="
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 170px;
+                    font-size: 10.5px;
+                    line-height: 1.45;
+                    letter-spacing: 0.04em;
+                    text-transform: uppercase;
+                    color: #3a453e;
+                    text-align: justify;
+                  "
+                >
+                  It grows in stages, each one visible to you, none of them rushed.
+                </div>
+              </div>
+              <div style="flex-grow: 1; display: flex; gap: 36px; align-items: stretch">
+                <div
+                  style="
+                    width: 2px;
+                    background: rgba(28, 36, 31, 0.14);
+                    position: relative;
+                    border-radius: 2px;
+                  "
+                >
+                  <div
+                    ref="{{setBar}}"
+                    style="position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: {{accent}}; transform-origin: top center; transform: scaleY(0); border-radius: 2px"
+                  ></div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 34px">
+                  <div
+                    style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; color: {{accent}}"
+                  >
+                    01 · HOW A PROJECT GROWS
+                  </div>
+                  <div class="stage" data-stage="0" style="display: flex; flex-direction: column; gap: 10px">
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 11px;
+                        letter-spacing: 0.18em;
+                        color: #56665c;
+                      "
+                    >
+                      I — ROOTS · WEEK 1
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                        font-size: 46px;
+                        line-height: 1;
+                      "
+                    >
+                      We start below the surface.
+                    </span>
+                    <span style="font-size: 15.5px; line-height: 1.6; color: #3a453e; max-width: 470px">
+                      A conversation about your business and customers, then a written plan you can hold us
+                      to.
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 11.5px;
+                        color: #1c241f;
+                        padding: 10px 12px;
+                        border-radius: 10px;
+                        background: rgba(28, 36, 31, 0.06);
+                        align-self: flex-start;
+                      "
+                    >
+                      YOU RECEIVE → one-page plan · sitemap · timeline
+                    </span>
+                  </div>
+                  <div class="stage" data-stage="1" style="display: flex; flex-direction: column; gap: 10px">
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 11px;
+                        letter-spacing: 0.18em;
+                        color: #56665c;
+                      "
+                    >
+                      II — GROWTH · WEEKS 2–4
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                        font-size: 46px;
+                        line-height: 1;
+                      "
+                    >
+                      Then we design and build.
+                    </span>
+                    <span style="font-size: 15.5px; line-height: 1.6; color: #3a453e; max-width: 470px">
+                      You see the design before any code is written. Once you sign off, we build it fast,
+                      accessible, and easy to update.
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 11.5px;
+                        color: #1c241f;
+                        padding: 10px 12px;
+                        border-radius: 10px;
+                        background: rgba(28, 36, 31, 0.06);
+                        align-self: flex-start;
+                      "
+                    >
+                      YOU RECEIVE → design · two revision rounds · preview link
+                    </span>
+                  </div>
+                  <div class="stage" data-stage="2" style="display: flex; flex-direction: column; gap: 10px">
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 11px;
+                        letter-spacing: 0.18em;
+                        color: #56665c;
+                      "
+                    >
+                      III — BLOOM · LAUNCH
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                        font-size: 46px;
+                        line-height: 1;
+                      "
+                    >
+                      You launch, and keep growing.
+                    </span>
+                    <span style="font-size: 15.5px; line-height: 1.6; color: #3a453e; max-width: 470px">
+                      We connect your domain, hand over every account, and stay on hand after launch while
+                      real customers arrive.
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 11.5px;
+                        color: #1c241f;
+                        padding: 10px 12px;
+                        border-radius: 10px;
+                        background: rgba(28, 36, 31, 0.06);
+                        align-self: flex-start;
+                      "
+                    >
+                      YOU RECEIVE → live site · every login · care guide
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== EXAMPLE ========== -->
+          <section
+            id="example"
+            style="
+              background: #e9e4d8;
+              color: #1c241f;
+              padding: 60px 104px 140px;
+              display: flex;
+              flex-direction: column;
+              gap: 50px;
+            "
+          >
+            <div
+              class="rv"
+              style="
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 80px;
+                align-items: end;
+              "
+            >
+              <div style="display: flex; flex-direction: column; gap: 18px">
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; color: {{accent}}"
+                >
+                  02 · A WORKING EXAMPLE
+                </span>
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 76px;
+                    line-height: 0.95;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  One site,
+                  <em>in full bloom.</em>
+                </h2>
+              </div>
+              <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3a453e; max-width: 470px">
+                Here's what we'd build for a neighborhood bakery. Scroll inside it and place a pickup order.
+                Meadowlark is fictional; the craft is real.
+              </p>
+            </div>
+            <div style="display: flex; gap: 40px; align-items: flex-start">
+              <div
+                class="rv"
+                style="
+                  width: 880px;
+                  flex-shrink: 0;
+                  border-radius: 18px;
+                  overflow: hidden;
+                  background: #d8d1c1;
+                  box-shadow: 0 50px 90px -40px rgba(28, 36, 31, 0.55);
+                "
+              >
+                <div style="height: 44px; display: flex; align-items: center; gap: 14px; padding: 0 16px">
+                  <div style="display: flex; gap: 7px">
+                    <span
+                      style="width: 11px; height: 11px; border-radius: 50%; background: rgba(28, 36, 31, 0.2)"
+                    ></span>
+                    <span
+                      style="width: 11px; height: 11px; border-radius: 50%; background: rgba(28, 36, 31, 0.2)"
+                    ></span>
+                    <span
+                      style="width: 11px; height: 11px; border-radius: 50%; background: rgba(28, 36, 31, 0.2)"
+                    ></span>
+                  </div>
+                  <div
+                    style="
+                      flex-grow: 1;
+                      height: 28px;
+                      border-radius: 8px;
+                      background: rgba(255, 255, 255, 0.45);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 12.5px;
+                      color: #3a453e;
+                    "
+                  >
+                    meadowlarkbakery.com
+                  </div>
+                  <div style="width: 60px"></div>
+                </div>
+                <div
+                  class="site"
+                  ref="{{setSite}}"
+                  style="height: 600px; overflow-y: auto; background: #fbf6ec; color: #2e2419"
+                >
+                  <div data-note="0">
+                    <div
+                      style="
+                        height: 70px;
+                        padding: 0 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        border-bottom: 1px solid rgba(46, 36, 25, 0.1);
+                      "
+                    >
+                      <div style="display: flex; align-items: center; gap: 10px">
+                        <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+                          <path
+                            d="M3 17 C7 11 12 10 16 13 C18 8 23 7 26 9 C22 10 20 13 18 17 C14 21 7 21 3 17 Z"
+                            fill="#C0673A"
+                          ></path>
+                          <circle cx="21" cy="10" r="1" fill="#FBF6EC"></circle>
+                        </svg>
+                        <span
+                          style="
+                            font-family: Fraunces, Georgia, serif;
+                            font-size: 25px;
+                            font-weight: 500;
+                            letter-spacing: -0.01em;
+                          "
+                        >
+                          Meadowlark
+                        </span>
+                        <span
+                          style="font-size: 10px; letter-spacing: 0.22em; color: #7a6a58; margin-top: 4px"
+                        >
+                          BAKERY
+                        </span>
+                      </div>
+                      <div style="display: flex; gap: 26px; font-size: 14px; color: #5e5040">
+                        <span>Menu</span>
+                        <span>Preorder</span>
+                        <span>Visit</span>
+                        <span>Story</span>
+                      </div>
+                      <span
+                        style="
+                          height: 40px;
+                          padding: 0 18px;
+                          display: flex;
+                          align-items: center;
+                          border-radius: 999px;
+                          background: #2e2419;
+                          color: #fbf6ec;
+                          font-size: 13.5px;
+                          font-weight: 500;
+                        "
+                      >
+                        Order for pickup
+                      </span>
+                    </div>
+                    <div
+                      style="
+                        padding: 56px 40px 56px;
+                        display: grid;
+                        grid-template-columns: 1.1fr 1fr;
+                        gap: 36px;
+                        align-items: center;
+                      "
+                    >
+                      <div style="display: flex; flex-direction: column; gap: 18px">
+                        <span
+                          style="
+                            align-self: flex-start;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 7px 12px;
+                            border-radius: 999px;
+                            background: #edf1e6;
+                            font-size: 12.5px;
+                            color: #3d5a3e;
+                          "
+                        >
+                          <span
+                            style="width: 7px; height: 7px; border-radius: 50%; background: #5e8c5f"
+                          ></span>
+                          Open today · 7am – 2pm
+                        </span>
+                        <span
+                          style="
+                            font-family: Fraunces, Georgia, serif;
+                            font-size: 52px;
+                            line-height: 1;
+                            letter-spacing: -0.02em;
+                            font-weight: 400;
+                          "
+                        >
+                          Bread worth getting up
+                          <em>early</em>
+                          for.
+                        </span>
+                        <span style="font-size: 16px; line-height: 1.6; color: #5e5040">
+                          Naturally leavened loaves, buttery pastry, and good coffee. Baked every morning on
+                          Linden Street.
+                        </span>
+                        <div style="display: flex; gap: 10px">
+                          <span
+                            style="
+                              height: 46px;
+                              padding: 0 20px;
+                              display: flex;
+                              align-items: center;
+                              border-radius: 999px;
+                              background: #c0673a;
+                              color: #fbf6ec;
+                              font-size: 14.5px;
+                              font-weight: 500;
+                            "
+                          >
+                            Preorder for pickup
+                          </span>
+                          <span
+                            style="
+                              height: 46px;
+                              padding: 0 20px;
+                              display: flex;
+                              align-items: center;
+                              border-radius: 999px;
+                              border: 1px solid rgba(46, 36, 25, 0.3);
+                              font-size: 14.5px;
+                              font-weight: 500;
+                            "
+                          >
+                            See today's menu
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        style="
+                          height: 300px;
+                          border-radius: 24px;
+                          background: #f1e3ca;
+                          overflow: hidden;
+                          line-height: 0;
+                        "
+                      >
+                        <svg width="100%" height="100%" viewBox="0 0 360 300" aria-hidden="true">
+                          <circle cx="270" cy="80" r="52" fill="#F6D9A8"></circle>
+                          <rect x="0" y="210" width="360" height="90" fill="#E3CDA8"></rect>
+                          <ellipse cx="170" cy="222" rx="140" ry="16" fill="#B78B5C"></ellipse>
+                          <rect x="30" y="206" width="280" height="18" rx="9" fill="#9E7148"></rect>
+                          <path
+                            d="M60 206 C60 150 110 128 160 128 C210 128 250 150 250 206 Z"
+                            fill="#C98B4E"
+                          ></path>
+                          <path
+                            d="M68 204 C70 162 112 140 160 140 C204 140 240 160 242 204"
+                            fill="none"
+                            stroke="#A96E38"
+                            stroke-width="3"
+                          ></path>
+                          <path
+                            d="M112 150 L128 190 M150 140 L164 188 M190 142 L200 186"
+                            stroke="#F2D6A2"
+                            stroke-width="5"
+                            stroke-linecap="round"
+                          ></path>
+                          <path
+                            d="M258 206 C262 186 280 176 300 180 C318 184 326 196 324 206 Z"
+                            fill="#DDA15E"
+                          ></path>
+                          <path
+                            d="M270 200 C274 190 284 186 292 188 M290 204 C294 194 304 190 312 194"
+                            stroke="#B87A3A"
+                            stroke-width="2.5"
+                            fill="none"
+                            stroke-linecap="round"
+                          ></path>
+                          <path
+                            d="M300 150 C296 140 306 134 302 124 M314 150 C310 140 320 134 316 124"
+                            stroke="#FBF6EC"
+                            stroke-width="2.5"
+                            fill="none"
+                            stroke-linecap="round"
+                            opacity="0.8"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    data-note="1"
+                    style="
+                      margin: 0 40px;
+                      padding: 30px;
+                      border-radius: 22px;
+                      background: #ffffff;
+                      box-shadow: 0 20px 50px -30px rgba(46, 36, 25, 0.35);
+                      display: grid;
+                      grid-template-columns: 1.35fr 1fr;
+                      gap: 30px;
+                    "
+                  >
+                    <div style="display: flex; flex-direction: column; gap: 16px">
+                      <div style="display: flex; justify-content: space-between; align-items: baseline">
+                        <span style="font-family: Fraunces, Georgia, serif; font-size: 28px">
+                          Preorder for pickup
+                        </span>
+                        <span style="font-size: 12.5px; color: #7a6a58">Order by 6pm the day before</span>
+                      </div>
+                      <div role="tablist" aria-label="Menu" style="display: flex; gap: 6px">
+                        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+                          <button
+                            class="chip"
+                            type="button"
+                            role="tab"
+                            onClick="{{t.pick}}"
+                            aria-selected="{{t.sel}}"
+                            style="height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid {{t.border}}; background: {{t.bg}}; color: {{t.color}}; font-family: 'Instrument Sans', sans-serif; font-size: 14px"
+                          >
+                            {{t.label}}
+                          </button>
+                        </sc-for>
+                      </div>
+                      <div style="display: flex; flex-direction: column">
+                        <sc-for list="{{items}}" as="it" hint-placeholder-count="3">
+                          <div
+                            style="
+                              display: flex;
+                              align-items: center;
+                              gap: 14px;
+                              padding: 12px 0;
+                              border-bottom: 1px solid rgba(46, 36, 25, 0.08);
+                            "
+                          >
+                            <span
+                              style="
+                                width: 44px;
+                                height: 44px;
+                                border-radius: 12px;
+                                background: #f4e9d6;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-shrink: 0;
+                              "
+                            >
+                              <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+                                <path d="{{it.icon}}" fill="#C98B4E"></path>
+                              </svg>
+                            </span>
+                            <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+                              <span style="font-size: 15px; font-weight: 600">{{it.name}}</span>
+                              <span style="font-size: 12.5px; color: #7a6a58">{{it.desc}}</span>
+                            </span>
+                            <span style="font-size: 14px; width: 54px; text-align: right">{{it.price}}</span>
+                            <span style="display: flex; align-items: center; gap: 6px">
+                              <button
+                                class="chip"
+                                type="button"
+                                onClick="{{it.dec}}"
+                                aria-label="{{it.decLabel}}"
+                                style="
+                                  width: 32px;
+                                  height: 32px;
+                                  border-radius: 50%;
+                                  border: 1px solid rgba(46, 36, 25, 0.25);
+                                  background: transparent;
+                                  color: #2e2419;
+                                  font-size: 17px;
+                                  line-height: 1;
+                                "
+                              >
+                                −
+                              </button>
+                              <span
+                                style="width: 20px; text-align: center; font-size: 15px; font-weight: 600"
+                              >
+                                {{it.qty}}
+                              </span>
+                              <button
+                                class="chip"
+                                type="button"
+                                onClick="{{it.inc}}"
+                                aria-label="{{it.incLabel}}"
+                                style="
+                                  width: 32px;
+                                  height: 32px;
+                                  border-radius: 50%;
+                                  border: 0;
+                                  background: #2e2419;
+                                  color: #fbf6ec;
+                                  font-size: 17px;
+                                  line-height: 1;
+                                "
+                              >
+                                +
+                              </button>
+                            </span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        padding: 22px;
+                        border-radius: 18px;
+                        background: #f7eedf;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 14px;
+                      "
+                    >
+                      <span style="font-size: 12px; letter-spacing: 0.16em; color: #7a6a58; font-weight: 600">
+                        YOUR ORDER
+                      </span>
+                      <span style="font-family: Fraunces, Georgia, serif; font-size: 40px; line-height: 1">
+                        {{total}}
+                      </span>
+                      <span style="font-size: 13.5px; color: #5e5040">{{countLabel}}</span>
+                      <div role="group" aria-label="Pickup day" style="display: flex; gap: 6px">
+                        <sc-for list="{{days}}" as="d" hint-placeholder-count="3">
+                          <button
+                            class="chip"
+                            type="button"
+                            onClick="{{d.pick}}"
+                            aria-pressed="{{d.pressed}}"
+                            style="flex-grow: 1; height: 40px; border-radius: 10px; border: 1px solid {{d.border}}; background: {{d.bg}}; color: {{d.color}}; font-family: 'Instrument Sans', sans-serif; font-size: 13.5px"
+                          >
+                            {{d.label}}
+                          </button>
+                        </sc-for>
+                      </div>
+                      <button
+                        class="chip"
+                        type="button"
+                        onClick="{{reserve}}"
+                        style="height: 48px; border-radius: 12px; border: 0; background: {{reserveBg}}; color: #FBF6EC; font-family: 'Instrument Sans', sans-serif; font-size: 15px; font-weight: 600"
+                      >
+                        {{reserveLabel}}
+                      </button>
+                      <span style="font-size: 12.5px; line-height: 1.5; color: #5e5040">{{reserveNote}}</span>
+                    </div>
+                  </div>
+
+                  <div
+                    data-note="2"
+                    style="
+                      padding: 60px 40px 0;
+                      display: grid;
+                      grid-template-columns: 1.4fr 1fr;
+                      gap: 40px;
+                      align-items: center;
+                    "
+                  >
+                    <div style="display: flex; flex-direction: column; gap: 14px">
+                      <span
+                        style="
+                          font-family: Fraunces, Georgia, serif;
+                          font-style: italic;
+                          font-size: 29px;
+                          line-height: 1.25;
+                        "
+                      >
+                        "Saturday mornings start with their sourdough and a cortado on the bench outside. It's
+                        the best part of the week."
+                      </span>
+                      <span style="font-size: 13.5px; color: #7a6a58">
+                        Elena M. · Regular since the first week
+                      </span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px">
+                      <span style="padding: 14px 16px; border-radius: 12px; background: #f4e9d6">
+                        Flour milled within 100 miles
+                      </span>
+                      <span style="padding: 14px 16px; border-radius: 12px; background: #f4e9d6">
+                        Leftovers donated every evening
+                      </span>
+                      <span style="padding: 14px 16px; border-radius: 12px; background: #f4e9d6">
+                        Neighborhood favorite, three years running
+                      </span>
+                    </div>
+                  </div>
+
+                  <div
+                    data-note="3"
+                    style="padding: 60px 40px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 24px"
+                  >
+                    <div
+                      style="
+                        height: 220px;
+                        border-radius: 20px;
+                        background: #efe6d4;
+                        overflow: hidden;
+                        line-height: 0;
+                      "
+                    >
+                      <svg width="100%" height="100%" viewBox="0 0 400 220" aria-hidden="true">
+                        <path
+                          d="M0 70 H400 M0 160 H400 M110 0 V220 M290 0 V220"
+                          stroke="#FBF6EC"
+                          stroke-width="16"
+                        ></path>
+                        <path d="M0 115 H400" stroke="#FBF6EC" stroke-width="8"></path>
+                        <rect x="160" y="20" width="80" height="36" rx="6" fill="#DCCDB2"></rect>
+                        <rect x="310" y="84" width="70" height="60" rx="6" fill="#D2E0CC"></rect>
+                        <rect x="20" y="176" width="70" height="34" rx="6" fill="#DCCDB2"></rect>
+                        <path
+                          d="M200 76 C200 62 186 56 186 44 C186 34 193 28 200 28 C207 28 214 34 214 44 C214 56 200 62 200 76 Z"
+                          fill="#C0673A"
+                        ></path>
+                        <circle cx="200" cy="44" r="5" fill="#FBF6EC"></circle>
+                        <text
+                          x="200"
+                          y="98"
+                          text-anchor="middle"
+                          font-family="Instrument Sans, sans-serif"
+                          font-size="12"
+                          fill="#5E5040"
+                        >
+                          Linden St
+                        </text>
+                      </svg>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px">
+                      <span style="font-family: Fraunces, Georgia, serif; font-size: 28px">
+                        Come say hello
+                      </span>
+                      <span style="font-size: 14.5px; color: #5e5040">
+                        14 Linden Street · Bench seating out front
+                      </span>
+                      <div
+                        style="display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; font-size: 14px"
+                      >
+                        <span style="color: #7a6a58">Wed – Fri</span>
+                        <span>7am – 2pm</span>
+                        <span style="color: #7a6a58">Sat – Sun</span>
+                        <span>7am – 1pm</span>
+                        <span style="color: #7a6a58">Mon – Tue</span>
+                        <span>Closed</span>
+                      </div>
+                      <span
+                        style="
+                          align-self: flex-start;
+                          height: 42px;
+                          padding: 0 18px;
+                          display: flex;
+                          align-items: center;
+                          border-radius: 999px;
+                          border: 1px solid rgba(46, 36, 25, 0.3);
+                          font-size: 14px;
+                          font-weight: 500;
+                          margin-top: 4px;
+                        "
+                      >
+                        Get directions
+                      </span>
+                    </div>
+                  </div>
+                  <div style="padding: 40px 40px 50px; font-size: 12px; color: #7a6a58">
+                    © Meadowlark Bakery · Meadowlark is a fictional bakery, shown as concept work by Jade
+                    Agentic.
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="rv"
+                style="
+                  flex-grow: 1;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 10px;
+                  position: sticky;
+                  top: 90px;
+                  transition-delay: 0.12s;
+                "
+              >
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                    font-size: 10.5px;
+                    letter-spacing: 0.18em;
+                    color: #56665c;
+                    padding: 0 4px 6px;
+                  "
+                >
+                  WHAT TO NOTICE
+                </span>
+                <sc-for list="{{notes}}" as="n" hint-placeholder-count="4">
+                  <button
+                    class="note"
+                    type="button"
+                    onClick="{{n.go}}"
+                    aria-current="{{n.current}}"
+                    style="text-align: left; display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: 14px; border: 1px solid {{n.border}}; background: {{n.bg}}; opacity: {{n.op}}; cursor: pointer; font-family: 'Instrument Sans', sans-serif; color: #1C241F"
+                  >
+                    <span
+                      style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em; color: {{accent}}"
+                    >
+                      {{n.num}}
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                        font-size: 25px;
+                        line-height: 1.05;
+                      "
+                    >
+                      {{n.title}}
+                    </span>
+                    <span style="font-size: 14px; line-height: 1.5; color: #3a453e">{{n.body}}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== PACKAGES + FAQ ========== -->
+          <section
+            style="
+              background: #e9e4d8;
+              color: #1c241f;
+              padding: 0 104px 140px;
+              display: flex;
+              flex-direction: column;
+              gap: 56px;
+            "
+          >
+            <div
+              class="rv"
+              style="
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 80px;
+                align-items: end;
+              "
+            >
+              <div style="display: flex; flex-direction: column; gap: 18px">
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; color: {{accent}}"
+                >
+                  03 · TWO WAYS TO START
+                </span>
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 72px;
+                    line-height: 0.95;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  Start small, or start
+                  <em>complete.</em>
+                </h2>
+              </div>
+              <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3a453e; max-width: 470px">
+                Both are designed from scratch for your business. Compare them in full on the services page.
+              </p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+              <div
+                class="rv"
+                style="
+                  padding: 36px;
+                  border-radius: 26px;
+                  background: #f2eee4;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div style="display: flex; justify-content: space-between; align-items: baseline">
+                  <span
+                    style="
+                      font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                      font-size: 52px;
+                      line-height: 1;
+                    "
+                  >
+                    Launch
+                  </span>
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 11px;
+                      letter-spacing: 0.16em;
+                      color: #56665c;
+                    "
+                  >
+                    ONE PAGE
+                  </span>
+                </div>
+                <span style="font-size: 16px; line-height: 1.6; color: #3a453e">
+                  A single, beautifully made page for new businesses and single offers.
+                </span>
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.08em;
+                  "
+                >
+                  FROM [YOUR PRICE] · [X] WEEKS
+                </span>
+              </div>
+              <div
+                class="rv"
+                style="
+                  padding: 36px;
+                  border-radius: 26px;
+                  background: #1c2a21;
+                  color: #efebdf;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                  transition-delay: 0.1s;
+                "
+              >
+                <div style="display: flex; justify-content: space-between; align-items: baseline">
+                  <span
+                    style="
+                      font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                      font-size: 52px;
+                      line-height: 1;
+                    "
+                  >
+                    Studio
+                  </span>
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 11px;
+                      letter-spacing: 0.16em;
+                      color: #9db592;
+                    "
+                  >
+                    MULTI-PAGE
+                  </span>
+                </div>
+                <span style="font-size: 16px; line-height: 1.6; color: #c9d2c3">
+                  A complete website with a content system you can update yourself.
+                </span>
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.08em;
+                  "
+                >
+                  FROM [YOUR PRICE] · [Y] WEEKS
+                </span>
+              </div>
+            </div>
+            <div
+              class="rv"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 40px;
+                padding: 26px 32px;
+                border-radius: 20px;
+                border: 1px dashed rgba(28, 36, 31, 0.35);
+              "
+            >
+              <span
+                style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; color: {{accent}}"
+              >
+                FOUNDING CLIENTS
+              </span>
+              <span style="flex-grow: 1; font-size: 16px; line-height: 1.5; color: #3a453e">
+                The first [NUMBER] projects are offered at a reduced rate, in exchange for a testimonial and
+                permission to share the work.
+              </span>
+              <a
+                class="btn"
+                href="#book"
+                style="
+                  flex-shrink: 0;
+                  display: flex;
+                  align-items: center;
+                  height: 46px;
+                  padding: 0 20px;
+                  border-radius: 999px;
+                  background: #1c241f;
+                  color: #efebdf;
+                  font-size: 14.5px;
+                  font-weight: 500;
+                "
+              >
+                Ask about a spot
+              </a>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1.5fr;
+                gap: 80px;
+                padding-top: 70px;
+                align-items: start;
+              "
+            >
+              <div
+                class="rv"
+                style="display: flex; flex-direction: column; gap: 18px; position: sticky; top: 90px"
+              >
+                <span
+                  style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; color: {{accent}}"
+                >
+                  04 · QUESTIONS
+                </span>
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 72px;
+                    line-height: 0.95;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  Asked
+                  <em>often.</em>
+                </h2>
+                <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3a453e">
+                  Something else on your mind? Ask it on the call.
+                </p>
+              </div>
+              <div class="rv" style="display: flex; flex-direction: column">
+                <sc-for list="{{faqs}}" as="f" hint-placeholder-count="5">
+                  <div style="border-bottom: 1px solid rgba(28, 36, 31, 0.18)">
+                    <button
+                      type="button"
+                      onClick="{{f.pick}}"
+                      aria-expanded="{{f.openStr}}"
+                      style="
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 20px;
+                        padding: 24px 0;
+                        border: 0;
+                        background: transparent;
+                        cursor: pointer;
+                        text-align: left;
+                        color: #1c241f;
+                      "
+                    >
+                      <span
+                        style="
+                          font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                          font-size: 30px;
+                          line-height: 1.1;
+                        "
+                      >
+                        {{f.q}}
+                      </span>
+                      <span
+                        style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 20px; color: {{accent}}"
+                      >
+                        {{f.sign}}
+                      </span>
+                    </button>
+                    <sc-if value="{{f.open}}" hint-placeholder-val="{{ false }}">
+                      <p
+                        style="
+                          margin: 0;
+                          padding: 0 60px 26px 0;
+                          font-size: 16.5px;
+                          line-height: 1.65;
+                          color: #3a453e;
+                        "
+                      >
+                        {{f.a}}
+                      </p>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== CLOSING ========== -->
+          <section id="book" style="padding: 16px">
+            <div
+              style="
+                border-radius: 28px;
+                background: #1b2e22;
+                padding: 110px 88px 40px;
+                display: flex;
+                flex-direction: column;
+                gap: 90px;
+              "
+            >
+              <div
+                class="rv"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 20px;
+                  text-align: center;
+                "
+              >
+                <span
+                  style="
+                    font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.2em;
+                    color: #9db592;
+                  "
+                >
+                  05 · WHAT'S NEXT
+                </span>
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 96px;
+                    line-height: 0.95;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  Today, we build websites.
+                  <br />
+                  <em>Next, we'll help them think.</em>
+                </h2>
+                <p style="margin: 0; max-width: 600px; font-size: 17px; line-height: 1.65; color: #c9d2c3">
+                  AI assistants that answer inquiries, draft follow-ups, and keep projects moving, with a
+                  person approving every step. Coming when they meet the standard of everything else we make.
+                </p>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(2, minmax(0, 1fr));
+                  gap: 60px;
+                  align-items: center;
+                "
+              >
+                <div class="rv" style="display: flex; flex-direction: column; gap: 20px">
+                  <h3
+                    style="
+                      margin: 0;
+                      font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                      font-weight: 400;
+                      font-size: 68px;
+                      line-height: 0.95;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Let's find
+                    <em>a time.</em>
+                  </h3>
+                  <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #c9d2c3; max-width: 440px">
+                    A 20-minute call about your business and what the website should do. No pitch deck, no
+                    pressure.
+                  </p>
+                  <div style="display: flex; gap: 22px; font-size: 15px; color: #c9d2c3">
+                    <a
+                      href="mailto:hello@jadeagentic.com"
+                      style="border-bottom: 1px solid rgba(239, 235, 223, 0.35); padding-bottom: 2px"
+                    >
+                      hello@jadeagentic.com
+                    </a>
+                    <span style="color: #7e927f">or use the project form</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px">
+                    <label
+                      for="notifyff"
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 10.5px;
+                        letter-spacing: 0.16em;
+                        color: #9db592;
+                      "
+                    >
+                      HEAR WHEN THE AI SERVICES LAUNCH
+                    </label>
+                    <div style="display: flex; gap: 8px; width: 460px">
+                      <input
+                        id="notifyff"
+                        type="email"
+                        placeholder="you@yourcompany.com"
+                        style="
+                          flex-grow: 1;
+                          height: 50px;
+                          padding: 0 18px;
+                          border-radius: 999px;
+                          border: 1px solid rgba(239, 235, 223, 0.25);
+                          background: rgba(239, 235, 223, 0.05);
+                          color: #efebdf;
+                          font-family: &quot;Instrument Sans&quot;, sans-serif;
+                          font-size: 15px;
+                        "
+                      />
+                      <button
+                        class="btn"
+                        type="button"
+                        style="
+                          height: 50px;
+                          padding: 0 20px;
+                          border-radius: 999px;
+                          border: 0;
+                          background: #9db592;
+                          color: #16261c;
+                          font-family: &quot;Instrument Sans&quot;, sans-serif;
+                          font-size: 14.5px;
+                          font-weight: 600;
+                          cursor: pointer;
+                        "
+                      >
+                        Notify me
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="rv"
+                  style="
+                    padding: 28px;
+                    border-radius: 24px;
+                    background: rgba(239, 235, 223, 0.06);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(239, 235, 223, 0.14);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 22px;
+                    transition-delay: 0.12s;
+                  "
+                >
+                  <div style="display: flex; justify-content: space-between; align-items: baseline">
+                    <span
+                      style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 30px"
+                    >
+                      20-minute intro call
+                    </span>
+                    <span
+                      style="
+                        font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                        font-size: 10.5px;
+                        letter-spacing: 0.16em;
+                        color: #9db592;
+                      "
+                    >
+                      VIDEO · FREE
+                    </span>
+                  </div>
+                  <div
+                    role="group"
+                    aria-label="Choose a day"
+                    style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px"
+                  >
+                    <sc-for list="{{bDays}}" as="d" hint-placeholder-count="5">
+                      <button
+                        class="chip"
+                        type="button"
+                        onClick="{{d.pick}}"
+                        aria-pressed="{{d.pressed}}"
+                        style="height: 60px; border-radius: 14px; border: 1px solid {{d.border}}; background: {{d.bg}}; color: {{d.color}}; font-family: 'Instrument Sans', sans-serif; font-size: 15px; font-weight: 500"
+                      >
+                        {{d.label}}
+                      </button>
+                    </sc-for>
+                  </div>
+                  <div
+                    role="group"
+                    aria-label="Choose a time"
+                    style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px"
+                  >
+                    <sc-for list="{{bTimes}}" as="t" hint-placeholder-count="4">
+                      <button
+                        class="chip"
+                        type="button"
+                        onClick="{{t.pick}}"
+                        aria-pressed="{{t.pressed}}"
+                        style="height: 46px; border-radius: 12px; border: 1px solid {{t.border}}; background: {{t.bg}}; color: {{t.color}}; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px"
+                      >
+                        {{t.label}}
+                      </button>
+                    </sc-for>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      gap: 16px;
+                      padding-top: 18px;
+                      border-top: 1px solid rgba(239, 235, 223, 0.12);
+                    "
+                  >
+                    <span style="font-size: 15px; color: #d8ddd2">{{pickSummary}}</span>
+                    <a
+                      class="btn"
+                      href="#book"
+                      style="
+                        flex-shrink: 0;
+                        display: flex;
+                        align-items: center;
+                        height: 48px;
+                        padding: 0 20px;
+                        border-radius: 999px;
+                        background: #efebdf;
+                        color: #16261c;
+                        font-size: 14.5px;
+                        font-weight: 500;
+                      "
+                    >
+                      Continue in Calendly
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding-top: 22px;
+                  border-top: 1px solid rgba(239, 235, 223, 0.14);
+                  font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.16em;
+                  color: #7e927f;
+                "
+              >
+                <span>© 2026 JADE AGENTIC</span>
+                <span>CONCEPT 02 · II — FIELD &amp; FLIGHT</span>
+                <span>JADEAGENTIC.COM</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== FOOTER — big closing line, link columns, copyright row ========== -->
+          <footer style="padding: 0 16px 16px">
+            <div
+              style="
+                border-radius: 28px;
+                background: #1b2e22;
+                color: #efebdf;
+                padding: 90px 88px 36px;
+                display: flex;
+                flex-direction: column;
+                gap: 70px;
+              "
+            >
+              <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+                <h2
+                  style="
+                    margin: 0;
+                    font-family: &quot;Cormorant Garamond&quot;, Georgia, serif;
+                    font-weight: 400;
+                    font-size: 96px;
+                    line-height: 0.9;
+                    letter-spacing: -0.02em;
+                  "
+                >
+                  Somewhere good
+                  <br />
+                  to
+                  <em>land.</em>
+                </h2>
+                <div style="display: flex; gap: 10px">
+                  <a
+                    class="btn"
+                    href="#top"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      height: 54px;
+                      padding: 0 24px;
+                      border-radius: 999px;
+                      background: #efebdf;
+                      color: #16261c;
+                      font-size: 15.5px;
+                      font-weight: 500;
+                    "
+                  >
+                    Book a call
+                  </a>
+                  <a
+                    class="btn"
+                    href="mailto:hello@jadeagentic.com"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      height: 54px;
+                      padding: 0 24px;
+                      border-radius: 999px;
+                      border: 1px solid rgba(239, 235, 223, 0.35);
+                      font-size: 15.5px;
+                      font-weight: 500;
+                    "
+                  >
+                    hello@jadeagentic.com
+                  </a>
+                </div>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+                  gap: 40px;
+                  padding-top: 40px;
+                  border-top: 1px solid rgba(239, 235, 223, 0.14);
+                "
+              >
+                <div style="display: flex; flex-direction: column; gap: 12px">
+                  <span style="font-family: &quot;Cormorant Garamond&quot;, Georgia, serif; font-size: 28px">
+                    Jade Agentic
+                  </span>
+                  <span style="font-size: 14.5px; line-height: 1.6; color: #c9d2c3; max-width: 300px">
+                    A small web studio. Crafted by a person, accelerated by AI.
+                  </span>
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #c9d2c3"
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 10.5px;
+                      letter-spacing: 0.18em;
+                      color: #9db592;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    STUDIO
+                  </span>
+                  <a href="#top">Services</a>
+                  <a href="#top">Work</a>
+                  <a href="#top">About</a>
+                  <a href="#top">Contact</a>
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #c9d2c3"
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 10.5px;
+                      letter-spacing: 0.18em;
+                      color: #9db592;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    START
+                  </span>
+                  <a href="#top">Book a call</a>
+                  <a href="#top">Project form</a>
+                  <a href="mailto:hello@jadeagentic.com">Email</a>
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: #c9d2c3"
+                >
+                  <span
+                    style="
+                      font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                      font-size: 10.5px;
+                      letter-spacing: 0.18em;
+                      color: #9db592;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    ELSEWHERE
+                  </span>
+                  <span>[LinkedIn]</span>
+                  <span>[Instagram]</span>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  padding-top: 20px;
+                  border-top: 1px solid rgba(239, 235, 223, 0.14);
+                  font-family: &quot;JetBrains Mono&quot;, ui-monospace, monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.14em;
+                  color: #7e927f;
+                "
+              >
+                <span>© 2026 JADE AGENTIC</span>
+                <span>BUILT WITH ASTRO · HOSTED ON VERCEL</span>
+                <span>JADEAGENTIC.COM</span>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </x-dc>
+    <!-- ========== BEHAVIOUR — all JavaScript for this mockup (port effects from here) ========== -->
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{"accent":{"editor":"color","default":"#3F6E5E","options":["#3F6E5E","#2E5470","#9A5530","#1C241F"]},"motion":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":900}}'
+    >
+      // ════════════════════════════════════════════════════════════════════
+      // Mockup behaviour. One class: state + refs in the constructor, then
+      // lifecycle (mount/unmount), drawing functions, and template values.
+      // ════════════════════════════════════════════════════════════════════
+      class Component extends DCLogic {
+
+        // ── constructor() — Initial state, constants, element refs (setX = el => ...) and event handlers.
+        constructor(props) {
+          super(props);
+          this.state = {
+            faq: 0,
+            tab: 'bread',
+            qty: { sour: 1, cro: 2 },
+            pDay: 'Sat',
+            reserved: false,
+            active: 0,
+            bDay: 'Tue',
+            bTime: null,
+          };
+          this.MENU = {
+            bread: [
+              { id: 'sour', name: 'Country sourdough', desc: 'Long-fermented, dark crust', p: 9 },
+              { id: 'rye', name: 'Seeded rye', desc: 'Sunflower, flax, caraway', p: 10 },
+              { id: 'olive', name: 'Olive & rosemary', desc: 'Weekends only', p: 11 },
+            ],
+            pastry: [
+              { id: 'cro', name: 'Butter croissant', desc: 'Laminated over three days', p: 4.5 },
+              { id: 'bun', name: 'Cardamom bun', desc: 'Swedish-style knot', p: 5 },
+              { id: 'gal', name: 'Seasonal galette', desc: 'Fruit from the market', p: 6 },
+            ],
+            coffee: [
+              { id: 'drip', name: 'Drip coffee', desc: '12 oz, house roast', p: 3.5 },
+              { id: 'cort', name: 'Cortado', desc: 'Equal parts espresso and milk', p: 4.25 },
+              { id: 'oat', name: 'Oat latte', desc: '12 oz', p: 5.5 },
+            ],
+          };
+          this.ICONS = {
+            bread: 'M3 18 C3 10 8 6 13 6 C18 6 23 10 23 18 Z M3 19 H23 V21 H3 Z',
+            pastry: 'M3 17 C5 10 10 8 13 8 C16 8 21 10 23 17 C19 15 16 16 13 18 C10 16 7 15 3 17 Z',
+            coffee: 'M5 9 H19 V17 C19 20 17 22 14 22 H10 C7 22 5 20 5 17 Z M19 11 H21 C23 11 23 16 21 16 H19 Z',
+          };
+          this.NOTES = [
+            { title: 'Make them hungry first', body: 'Warm, specific words and an image that says "come in."' },
+            {
+              title: 'Let them order in seconds',
+              body: 'Preorder without an app or an account. Try adding a loaf.',
+            },
+            { title: 'Let neighbors vouch', body: 'A real regular says it better than any slogan.' },
+            { title: 'Make it easy to show up', body: 'Hours, address, and directions, all in one glance.' },
+          ];
+          this.BDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+          this.BTIMES = {
+            Mon: ['9:00', '11:30', '2:00', '4:30'],
+            Tue: ['9:30', '11:00', '1:30', '3:00'],
+            Wed: ['10:00', '12:30', '2:30', '4:00'],
+            Thu: ['9:00', '10:30', '1:00', '3:30'],
+            Fri: ['9:30', '11:30', '1:00', '2:30'],
+          };
+          this.FAQ = [
+            [
+              'How long does a website take?',
+              'Most Launch sites take about [X] weeks and Studio sites about [Y] weeks. The biggest variable is how quickly content and feedback come together, and we plan around your schedule.',
+            ],
+            [
+              'Do I own my website?',
+              'Yes, completely. Your domain, your code, and every account are in your name. If you ever want to move on, you can take everything with you.',
+            ],
+            [
+              'Can I update it myself?',
+              'Studio sites include a simple content system for text, photos, and posts. For anything bigger, monthly care has you covered.',
+            ],
+            [
+              'How do you use AI?',
+              'To work faster and catch more: drafting, checking, and testing. A person reviews and tests every line before it reaches you, and we never publish anything you have not approved.',
+            ],
+            [
+              'Do you build AI assistants yet?',
+              'Not yet. We are building them carefully and will offer them once they meet our standard. Add your email in the section below to hear first.',
+            ],
+          ];
+          this.RAMP = ' .:-=+*#%@';
+          this.mx = -9999;
+          this.my = -9999;
+          this.st = 0;
+          this.prog = 0;
+          this.bloomP = 0;
+          this.tries = 0;
+          this.last = 0;
+          this.setScroller = (el) => {
+            this.scroller = el;
+          };
+          this.setField = (el) => {
+            this.field = el;
+          };
+          this.setFieldWrap = (el) => {
+            this.fieldWrap = el;
+          };
+          this.setBirds = (el) => {
+            this.birdsCanvas = el;
+          };
+          this.setGrass = (el) => {
+            this.grassCanvas = el;
+          };
+          this.setHeroText = (el) => {
+            this.heroText = el;
+          };
+          this.setBloom = (el) => {
+            this.bloom = el;
+          };
+          this.setBloomCanvas = (el) => {
+            this.bloomCanvas = el;
+          };
+          this.setBar = (el) => {
+            this.bar = el;
+          };
+          this.setSite = (el) => {
+            this.site = el;
+          };
+          this.onHeroMove = (e) => {
+            if (!this.birdsCanvas || !this.W) return;
+            const r = this.birdsCanvas.getBoundingClientRect();
+            this.mx = (e.clientX - r.left) * (this.W / r.width);
+            this.my = (e.clientY - r.top) * (this.H / r.height);
+            if (this.reduce) this.drawGrass(0);
+          };
+          this.onHeroLeave = () => {
+            this.mx = -9999;
+            this.my = -9999;
+            if (this.reduce) this.drawGrass(0);
+          };
+          this.onScroll = () => {
+            this.st = this.scroller ? this.scroller.scrollTop : 0;
+            this.paint();
+            if (this.reduce && this.bloomVisible()) {
+              this.bloomP = this.prog;
+              this.drawBloom(0);
+            }
+          };
+          this.onSiteScroll = () => {
+            if (!this.site) return;
+            const st = this.site.scrollTop;
+            let a = 0;
+            this.site.querySelectorAll('[data-note]').forEach((el) => {
+              if (el.offsetTop - 240 <= st) a = Number(el.getAttribute('data-note'));
+            });
+            if (st + this.site.clientHeight >= this.site.scrollHeight - 4) a = 3;
+            if (a !== this.state.active) this.setState({ active: a });
+          };
+          this.goNote = (i) => {
+            if (!this.site) return;
+            const el = this.site.querySelector('[data-note="' + i + '"]');
+            if (el)
+              this.site.scrollTo({
+                top: Math.max(0, el.offsetTop - 30),
+                behavior: this.reduce ? 'auto' : 'smooth',
+              });
+          };
+          this.reserve = () => {
+            if (this.count() > 0) this.setState({ reserved: !this.state.reserved });
+          };
+          this.tick = (now) => {
+            this.raf = requestAnimationFrame(this.tick);
+            const dt = Math.min(50, now - (this.last || now));
+            this.last = now;
+            if (this.st < 1000) {
+              this.drawBirds(now, dt);
+              this.drawGrass(now);
+            }
+            if (this.bloomVisible()) {
+              this.bloomP += (this.prog - this.bloomP) * 0.12;
+              this.drawBloom(now);
+            }
+          };
+        }
+
+        // ── clamp() — Limits a number to the 0–1 range.
+        clamp(v) {
+          return Math.max(0, Math.min(1, v));
+        }
+
+        // ── hash() — Deterministic pseudo-random number for a grid cell (keeps the grass texture stable).
+        hash(x, y) {
+          const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+          return s - Math.floor(s);
+        }
+
+        // ── bloomVisible() — True when the bloom section is near the viewport, so it only draws when it
+        //    can be seen.
+        bloomVisible() {
+          if (!this.bloom) return false;
+          const top = this.bloom.offsetTop,
+            h = this.bloom.offsetHeight;
+          return this.st > top - 900 && this.st < top + h;
+        }
+
+        // ── paint() — Scroll handler: hero parallax, bloom progress, and which process stage is active.
+        paint() {
+          const st = this.st;
+          if (!this.reduce && st < 1000) {
+            if (this.heroText) this.heroText.style.transform = 'translate3d(0,' + (-st * 0.1).toFixed(1) + 'px,0)';
+            if (this.fieldWrap)
+              this.fieldWrap.style.transform = 'translate3d(0,' + (st * 0.25).toFixed(1) + 'px,0)';
+          }
+          if (this.bloom) {
+            const top = this.bloom.offsetTop,
+              h = this.bloom.offsetHeight;
+            this.prog = this.reduce ? this.clamp((st - top) / (h - 900)) : this.clamp((st - top) / (h - 900));
+            const active = this.prog < 0.34 ? 0 : this.prog < 0.68 ? 1 : 2;
+            this.scroller.querySelectorAll('[data-stage]').forEach((el) => {
+              const on = Number(el.getAttribute('data-stage')) === active;
+              el.style.opacity = on ? '1' : '0.26';
+              el.style.transform = on ? 'none' : 'translateX(-6px)';
+            });
+            if (this.bar) this.bar.style.transform = 'scaleY(' + this.prog.toFixed(3) + ')';
+          }
+        }
+
+        // ── makeGrass() — Builds the ASCII grass blades for the Meadowlark example header.
+        makeGrass() {
+          this.blades = [];
+          for (let x = 4; x < this.W; x += 7) {
+            const n = this.hash(x * 0.37, 1.3);
+            this.blades.push({
+              x: x + (this.hash(x, 7) - 0.5) * 4,
+              h: 70 + Math.pow(n, 1.4) * 150 + (x < 780 ? -30 : 0),
+              ph: this.hash(x, 3) * 6.28,
+              fl: this.hash(x, 9) < 0.05,
+              d: 0.45 + this.hash(x, 11) * 0.55,
+            });
+          }
+        }
+
+        // ── drawGrass() — Per frame: sways the ASCII grass.
+        drawGrass(now) {
+          const ctx = this.gctx;
+          if (!ctx) return;
+          const W = this.W,
+            H = this.H,
+            T = this.reduce ? 0 : now,
+            on = this.mx > -999 && this.my > H - 420;
+          const fade = this.reduce ? 1 : this.clamp((now - this.t0) / 1600);
+          ctx.clearRect(0, 0, W, H);
+          ctx.font = '12px "JetBrains Mono", ui-monospace, monospace';
+          ctx.textBaseline = 'middle';
+          ctx.textAlign = 'center';
+          const flowers = [];
+          ctx.fillStyle = '#A9C29C';
+          for (let i = 0; i < this.blades.length; i++) {
+            const b = this.blades[i];
+            let bend =
+              0.3 * Math.sin(T * 0.0011 + b.x * 0.012 + b.ph * 0.2) + 0.14 * Math.sin(T * 0.0023 + b.x * 0.037);
+            if (on) {
+              const d = b.x - this.mx;
+              bend += Math.sign(d) * 1.1 * Math.exp(-(d * d) / (2 * 80 * 80));
+            }
+            const n = Math.max(3, Math.floor(b.h / 12));
+            for (let k = 0; k < n; k++) {
+              const f = k / n,
+                px = b.x + bend * f * f * b.h * 0.55,
+                py = H - 8 - k * 12,
+                sl = bend * 2 * f;
+              const g = k === n - 1 ? (b.fl ? null : "'") : Math.abs(sl) < 0.28 ? '|' : sl > 0 ? '/' : '\\';
+              if (k === n - 1 && b.fl) {
+                flowers.push([px, py]);
+                continue;
+              }
+              ctx.globalAlpha = b.d * (0.22 + 0.55 * f) * fade;
+              ctx.fillText(g, px, py);
+            }
+          }
+          ctx.fillStyle = '#F4F1E8';
+          for (let i = 0; i < flowers.length; i++) {
+            ctx.globalAlpha = 0.9 * fade;
+            ctx.fillText('*', flowers[i][0], flowers[i][1]);
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        // ── paintField() — Paints the blurred-field background ONCE (random horizontal strokes + light
+        //    leaks). Blur and drift are CSS. Ported to assets/visuals/blurred-field.ts.
+        paintField() {
+          const c = this.field;
+          if (!c) return;
+          const W = 1488,
+            H = 948;
+          c.width = W;
+          c.height = H;
+          const ctx = c.getContext('2d');
+          ctx.fillStyle = '#1B2E22';
+          ctx.fillRect(0, 0, W, H);
+          const cols = ['#2E4A36', '#3E6048', '#56785A', '#7C9A74', '#14231A', '#9DB592', '#2A4232'];
+          for (let i = 0; i < 240; i++) {
+            const y = Math.random() * H,
+              h = 4 + Math.pow(Math.random(), 2) * 70;
+            const x = Math.random() * W * 1.2 - W * 0.1,
+              w = 200 + Math.random() * 1200;
+            ctx.globalAlpha = 0.15 + Math.random() * 0.45;
+            ctx.fillStyle = cols[Math.floor(Math.random() * cols.length)];
+            ctx.fillRect(x, y, w, h);
+          }
+          for (let i = 0; i < 14; i++) {
+            ctx.globalAlpha = 0.08 + Math.random() * 0.12;
+            ctx.fillStyle = '#D9E4C8';
+            ctx.fillRect(
+              Math.random() * W,
+              Math.random() * H * 0.7,
+              300 + Math.random() * 700,
+              3 + Math.random() * 10,
+            );
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        // ── makeBirds() — Creates the flock: each dove gets a position, speed, size, wing phase and
+        //    drift.
+        makeBirds() {
+          this.birds = [];
+          for (let i = 0; i < 7; i++) {
+            this.birds.push({
+              x: Math.random() * this.W,
+              y: this.H * (0.14 + Math.random() * 0.5),
+              s: 0.55 + Math.random() * 0.8,
+              sp: 0.05 + Math.random() * 0.03,
+              ang: -0.1 - Math.random() * 0.14,
+              wob: Math.random() * 6.28,
+              ph: Math.random() * 6.28,
+            });
+          }
+          this.birds.sort((a, b) => a.s - b.s);
+        }
+
+        // ── drawBirds() — Per frame: moves each dove, flaps its wings, steers away from the pointer, and
+        //    draws it as dots/characters with a soft trail. Ported to assets/visuals/ascii-doves.ts.
+        drawBirds(now, dt) {
+          const ctx = this.bctx;
+          if (!ctx) return;
+          if (this.reduce) {
+            ctx.clearRect(0, 0, this.W, this.H);
+          } else {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fillRect(0, 0, this.W, this.H);
+            ctx.globalCompositeOperation = 'source-over';
+          }
+          ctx.font = '11px "JetBrains Mono", ui-monospace, monospace';
+          ctx.textBaseline = 'middle';
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#F4F1E8';
+          for (let n = 0; n < this.birds.length; n++) {
+            const b = this.birds[n];
+            const a = b.ang + 0.09 * Math.sin(now * 0.0007 + b.wob);
+            if (!this.reduce) {
+              b.x += Math.cos(a) * b.sp * b.s * dt * 1.6;
+              b.y += Math.sin(a) * b.sp * b.s * dt * 1.6;
+              const dx = b.x - this.mx,
+                dy = b.y - this.my,
+                d = Math.sqrt(dx * dx + dy * dy);
+              if (d < 200 && d > 1) {
+                const f = (1 - d / 200) * 0.35 * dt;
+                b.x += (dx / d) * f;
+                b.y += (dy / d) * f;
+              }
+              if (b.x > this.W + 140 || b.y < -140) {
+                b.x = -140;
+                b.y = this.H * (0.2 + Math.random() * 0.55);
+              }
+            }
+            const s = b.s,
+              flap = (this.reduce ? 1.2 : (now * 0.0105) / (0.7 + s * 0.3)) + b.ph;
+            const dirx = Math.cos(a),
+              diry = Math.sin(a);
+            const upx = diry,
+              upy = -dirx;
+            const body = 26 * s,
+              span = 40 * s;
+            ctx.globalAlpha = 0.45 + (0.5 * (s - 0.55)) / 0.8;
+            for (let u = -0.5; u <= 0.5; u += 0.125) {
+              ctx.fillText('·', b.x + dirx * u * body, b.y + diry * u * body);
+            }
+            ctx.fillText('•', b.x + dirx * (body * 0.58), b.y + diry * (body * 0.58) - 1);
+            for (let k = -1; k <= 1; k++) {
+              ctx.fillText(
+                '·',
+                b.x - dirx * body * 0.72 + upx * k * 3 * s,
+                b.y - diry * body * 0.72 + upy * k * 3 * s,
+              );
+            }
+            const wings = [
+              [Math.cos(flap), 1],
+              [Math.cos(flap + 0.35) * 0.8, 0.5],
+            ];
+            for (let w = 0; w < 2; w++) {
+              const lift = wings[w][0],
+                alphaMul = wings[w][1];
+              const rx = b.x + dirx * body * 0.08,
+                ry = b.y + diry * body * 0.08;
+              const tx = rx + upx * span * lift - dirx * span * 0.38,
+                ty = ry + upy * span * lift - diry * span * 0.38;
+              ctx.globalAlpha *= alphaMul;
+              for (let u = 0.08; u <= 1.001; u += 0.1) {
+                const chord = (1 - u * 0.72) * 14 * s;
+                const bow = Math.sin(Math.PI * u) * 5 * s * (lift > 0 ? 1 : -1);
+                const px = rx + (tx - rx) * u + upx * bow,
+                  py = ry + (ty - ry) * u + upy * bow;
+                for (let v = -0.5; v <= 0.5; v += 0.34) {
+                  ctx.fillText('·', px + dirx * v * chord, py + diry * v * chord);
+                }
+              }
+              ctx.globalAlpha /= alphaMul;
+            }
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        // ── drawBloom() — Per frame: draws the ASCII flower at the current scroll progress (0 = seed, 1 =
+        //    full bloom). Port into Bloom.astro, driven by GSAP ScrollTrigger progress.
+        drawBloom(now) {
+          const ctx = this.lctx;
+          if (!ctx) return;
+          const W = this.lW,
+            H = this.lH,
+            cw = 8.4,
+            ch = 13;
+          const b = this.reduce ? 1 : this.bloomP;
+          const t = this.reduce ? 0 : now;
+          ctx.clearRect(0, 0, W, H);
+          ctx.font = '12px "JetBrains Mono", ui-monospace, monospace';
+          ctx.textBaseline = 'top';
+          ctx.textAlign = 'left';
+          const cx = W / 2,
+            cy = 250;
+          const stemLen = 500 * this.clamp(b / 0.3 + 0.1);
+          const open = this.clamp((b - 0.12) / 0.8);
+          const R = 34 + 215 * open,
+            R2 = R * 0.62;
+          const e = 0.3 + 2.2 * Math.pow(1 - open, 1.5);
+          const rot = -Math.PI / 2 + 0.6 * (1 - open) + 0.035 * Math.sin(t * 0.0009);
+          const rot2 = rot + Math.PI / 6;
+          const center = 12 + 12 * open;
+          const leafS = this.clamp((b - 0.3) / 0.35);
+          const stam = this.clamp((open - 0.55) / 0.45);
+          const cols = Math.floor(W / cw),
+            rows = Math.floor(H / ch);
+          const acc = [];
+          ctx.fillStyle = '#1C241F';
+          for (let j = 0; j < rows; j++) {
+            for (let i = 0; i < cols; i++) {
+              const x = i * cw,
+                y = j * ch,
+                px = x + cw / 2,
+                py = y + ch / 2;
+              const dx = px - cx,
+                dy = py - cy,
+                r = Math.sqrt(dx * dx + dy * dy);
+              let g = null;
+              if (stam > 0 && r > center && r < center + 74 * stam) {
+                for (let k = 0; k < 6; k++) {
+                  const an = rot2 + (k * Math.PI) / 3;
+                  const proj = dx * Math.cos(an) + dy * Math.sin(an);
+                  const dist = Math.abs(dx * Math.sin(an) - dy * Math.cos(an));
+                  if (proj > 0 && dist < 4.2) {
+                    acc.push([x, y, r > center + 74 * stam - 10 ? '@' : ':']);
+                    g = 'x';
+                    break;
+                  }
+                }
+                if (g) continue;
+              }
+              if (r < R + 4) {
+                const th = Math.atan2(dy, dx);
+                if (r < center) g = r < center * 0.55 ? '@' : '%';
+                else {
+                  const c1 = Math.cos(3 * (th - rot)),
+                    c2 = Math.cos(3 * (th - rot2));
+                  const rp1 = c1 > 0 ? R * Math.pow(c1, e) : 0;
+                  const rp2 = c2 > 0 ? R2 * Math.pow(c2, e * 0.8) : 0;
+                  if (r < rp2) {
+                    const q = r / rp2;
+                    g = this.RAMP[Math.min(9, 3 + Math.round((1 - q) * 6))];
+                  } else if (r < rp1) {
+                    const q = r / rp1;
+                    const vein = Math.abs(Math.sin(3 * (th - rot) * 7)) < 0.18 ? 1 : 0;
+                    g = this.RAMP[Math.min(9, 2 + Math.round((1 - q) * 5) + vein)];
+                    if (q > 0.9) g = '*';
+                  }
+                }
+              }
+              if (!g && py > cy + center && py < cy + stemLen) {
+                const sx = cx + 14 * Math.sin((py - cy) / 150);
+                if (Math.abs(px - sx) < 5.5) g = '|';
+              }
+              if (!g && leafS > 0) {
+                const leaves = [
+                  [230, -1],
+                  [330, 1],
+                ];
+                for (let L = 0; L < 2; L++) {
+                  const ly0 = cy + leaves[L][0];
+                  if (ly0 > cy + stemLen) continue;
+                  const bx = cx + 14 * Math.sin((ly0 - cy) / 150);
+                  const an = leaves[L][1] < 0 ? -2.45 : -0.69;
+                  const ux = Math.cos(an),
+                    uy = Math.sin(an);
+                  const lx = px - bx,
+                    ly = py - ly0;
+                  const u = lx * ux + ly * uy,
+                    v = -lx * uy + ly * ux;
+                  const Lh = 150 * leafS;
+                  if (u > 0 && u < Lh) {
+                    const w = 28 * leafS * Math.sin((Math.PI * u) / Lh);
+                    if (Math.abs(v) < w) {
+                      const q = Math.abs(v) / w;
+                      g = q < 0.18 ? '-' : q < 0.6 ? '+' : ':';
+                      break;
+                    }
+                  }
+                }
+              }
+              if (g && g !== ' ') ctx.fillText(g, x, y);
+            }
+          }
+          ctx.fillStyle = this.accent || '#3F6E5E';
+          for (let n = 0; n < acc.length; n++) ctx.fillText(acc[n][2], acc[n][0], acc[n][1]);
+        }
+
+        // ── setupCanvas() — Matches a canvas's bitmap size to its on-screen size × devicePixelRatio.
+        setupCanvas(c, fw, fh) {
+          const dpr = Math.min(2, window.devicePixelRatio || 1),
+            W = c.clientWidth || fw,
+            H = c.clientHeight || fh;
+          c.width = Math.round(W * dpr);
+          c.height = Math.round(H * dpr);
+          const ctx = c.getContext('2d');
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          return [ctx, W, H];
+        }
+
+        // ── init() — Waits until the canvases have a real size (retries a few frames), then paints and
+        //    starts drawing.
+        init() {
+          if (
+            !this.scroller ||
+            !this.birdsCanvas ||
+            !this.grassCanvas ||
+            !this.bloomCanvas ||
+            !this.field ||
+            !this.site
+          ) {
+            if (this.tries++ < 40) this.initTimer = setTimeout(() => this.init(), 100);
+            return;
+          }
+          const mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+          this.reduce = (mq && mq.matches) || this.props.motion === false;
+          this.paintField();
+          const bc = this.setupCanvas(this.birdsCanvas, 1408, 868);
+          this.bctx = bc[0];
+          this.W = bc[1];
+          this.H = bc[2];
+          const gc = this.setupCanvas(this.grassCanvas, 1408, 868);
+          this.gctx = gc[0];
+          const lc = this.setupCanvas(this.bloomCanvas, 600, 760);
+          this.lctx = lc[0];
+          this.lW = lc[1];
+          this.lH = lc[2];
+          this.makeBirds();
+          this.makeGrass();
+          this.t0 = performance.now();
+          this.scroller.addEventListener('scroll', this.onScroll, { passive: true });
+          this.site.addEventListener('scroll', this.onSiteScroll, { passive: true });
+          this.paint();
+          if (this.reduce) {
+            const once = () => {
+              this.drawBirds(0, 0);
+              this.drawGrass(0);
+              this.bloomP = this.prog;
+              this.drawBloom(0);
+            };
+            once();
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(once);
+          } else this.raf = requestAnimationFrame(this.tick);
+          const els = this.scroller.querySelectorAll('.rv');
+          if (this.reduce || !('IntersectionObserver' in window)) {
+            els.forEach((el) => el.classList.add('in'));
+            return;
+          }
+          this.io = new IntersectionObserver(
+            (en) => {
+              en.forEach((x) => {
+                if (x.isIntersecting) {
+                  x.target.classList.add('in');
+                  this.io.unobserve(x.target);
+                }
+              });
+            },
+            { root: this.scroller, threshold: 0.15 },
+          );
+          els.forEach((el) => this.io.observe(el));
+        }
+
+        // ── componentDidMount() — Runs once on load: checks reduced motion, sizes canvases, starts the
+        //    animation loop.
+        componentDidMount() {
+          this.initTimer = setTimeout(() => this.init(), 0);
+        }
+
+        // ── componentWillUnmount() — Cleanup: stops the animation loop and removes listeners/observers.
+        componentWillUnmount() {
+          clearTimeout(this.initTimer);
+          if (this.raf) cancelAnimationFrame(this.raf);
+          if (this.io) this.io.disconnect();
+          if (this.scroller) this.scroller.removeEventListener('scroll', this.onScroll);
+          if (this.site) this.site.removeEventListener('scroll', this.onSiteScroll);
+        }
+
+        // ── allItems() — Meadowlark demo: every menu item in one list.
+        allItems() {
+          return this.MENU.bread.concat(this.MENU.pastry, this.MENU.coffee);
+        }
+
+        // ── count() — Meadowlark demo: total items in the preorder.
+        count() {
+          const q = this.state.qty;
+          return Object.keys(q).reduce((s, k) => s + q[k], 0);
+        }
+
+        // ── money() — Meadowlark demo: formats a price.
+        money(v) {
+          return '$' + v.toFixed(2);
+        }
+
+        // ── setQty() — Meadowlark demo: changes an item's quantity (0–12).
+        setQty(id, d) {
+          const q = Object.assign({}, this.state.qty);
+          q[id] = Math.max(0, Math.min(12, (q[id] || 0) + d));
+          this.setState({ qty: q, reserved: false });
+        }
+
+        // ── renderVals() — Values the canvas template reads ({{...}} in the markup): labels, classes,
+        //    styles, handlers.
+        renderVals() {
+          const accent = this.props.accent ?? '#3F6E5E';
+          this.accent = accent;
+          const st = this.state;
+          const tabs = [
+            ['bread', 'Breads'],
+            ['pastry', 'Pastries'],
+            ['coffee', 'Coffee'],
+          ].map((t) => {
+            const on = t[0] === st.tab;
+            return {
+              label: t[1],
+              sel: on ? 'true' : 'false',
+              bg: on ? '#2E2419' : 'transparent',
+              color: on ? '#FBF6EC' : '#2E2419',
+              border: on ? '#2E2419' : 'rgba(46,36,25,.25)',
+              pick: () => this.setState({ tab: t[0] }),
+            };
+          });
+          const items = this.MENU[st.tab].map((it) => ({
+            name: it.name,
+            desc: it.desc,
+            icon: this.ICONS[st.tab],
+            price: this.money(it.p),
+            qty: st.qty[it.id] || 0,
+            dec: () => this.setQty(it.id, -1),
+            inc: () => this.setQty(it.id, 1),
+            decLabel: 'Remove one ' + it.name,
+            incLabel: 'Add one ' + it.name,
+          }));
+          let total = 0;
+          this.allItems().forEach((it) => {
+            total += (st.qty[it.id] || 0) * it.p;
+          });
+          const n = this.count();
+          const days = [
+            ['Fri', 'Fri'],
+            ['Sat', 'Sat'],
+            ['Sun', 'Sun'],
+          ].map((d) => {
+            const on = d[0] === st.pDay;
+            return {
+              label: d[1],
+              pressed: on ? 'true' : 'false',
+              bg: on ? '#2E2419' : 'transparent',
+              color: on ? '#FBF6EC' : '#2E2419',
+              border: on ? '#2E2419' : 'rgba(46,36,25,.25)',
+              pick: () => this.setState({ pDay: d[0], reserved: false }),
+            };
+          });
+          const dayFull = { Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday' }[st.pDay];
+          const notes = this.NOTES.map((x, i) => {
+            const on = i === st.active;
+            return {
+              num: ['I', 'II', 'III', 'IV'][i],
+              title: x.title,
+              body: x.body,
+              current: on ? 'true' : 'false',
+              bg: on ? 'rgba(28,36,31,.05)' : 'transparent',
+              border: on ? 'rgba(28,36,31,.18)' : 'transparent',
+              op: on ? '1' : '0.5',
+              go: () => this.goNote(i),
+            };
+          });
+          const bDays = this.BDAYS.map((d) => {
+            const on = d === st.bDay;
+            return {
+              label: d,
+              pressed: on ? 'true' : 'false',
+              bg: on ? '#EFEBDF' : 'transparent',
+              color: on ? '#16261C' : '#EFEBDF',
+              border: on ? '#EFEBDF' : 'rgba(239,235,223,.22)',
+              pick: () => this.setState({ bDay: d, bTime: null }),
+            };
+          });
+          const bTimes = (this.BTIMES[st.bDay] || []).map((tm) => {
+            const on = tm === st.bTime;
+            return {
+              label: tm,
+              pressed: on ? 'true' : 'false',
+              bg: on ? '#9DB592' : 'transparent',
+              color: on ? '#16261C' : '#EFEBDF',
+              border: on ? '#9DB592' : 'rgba(239,235,223,.22)',
+              pick: () => this.setState({ bTime: tm }),
+            };
+          });
+          const bName = { Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday' }[
+            st.bDay
+          ];
+          return {
+            accent: accent,
+            rootClass: this.props.motion === false ? 'nomo' : '',
+            faqs: this.FAQ.map((f, i) => ({
+              q: f[0],
+              a: f[1],
+              open: st.faq === i,
+              openStr: st.faq === i ? 'true' : 'false',
+              sign: st.faq === i ? '−' : '+',
+              pick: () => this.setState({ faq: st.faq === i ? null : i }),
+            })),
+            tabs: tabs,
+            items: items,
+            icon: this.ICONS[st.tab],
+            days: days,
+            notes: notes,
+            total: this.money(total),
+            countLabel: n === 1 ? '1 item · pickup at 8:00am' : n + ' items · pickup at 8:00am',
+            reserve: this.reserve,
+            reserveBg: n === 0 ? '#B9AE9E' : st.reserved ? '#5E8C5F' : '#C0673A',
+            reserveLabel: st.reserved ? 'Reserved ✓' : 'Reserve for pickup',
+            reserveNote: st.reserved
+              ? 'See you ' + dayFull + ' at 8:00. Pay when you pick up.'
+              : n === 0
+                ? 'Add something from the menu to reserve.'
+                : 'Pickup ' + dayFull + ' morning. No account needed.',
+            bDays: bDays,
+            bTimes: bTimes,
+            pickSummary: st.bTime ? bName + ' at ' + st.bTime + ' · 20 min' : 'Pick a time on ' + bName,
+            setScroller: this.setScroller,
+            setField: this.setField,
+            setFieldWrap: this.setFieldWrap,
+            setBirds: this.setBirds,
+            setGrass: this.setGrass,
+            setHeroText: this.setHeroText,
+            setBloom: this.setBloom,
+            setBloomCanvas: this.setBloomCanvas,
+            setBar: this.setBar,
+            setSite: this.setSite,
+            onHeroMove: this.onHeroMove,
+            onHeroLeave: this.onHeroLeave,
+          };
+        }
+      }
+    </script>
+  </body>
+</html>
