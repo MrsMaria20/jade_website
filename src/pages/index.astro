@@ -21,19 +21,11 @@ import Button from '../components/Button.astro';
   <main id="main">
     <HeroFrame variant="tall">
       <!--
-        Phones and tablets: the pieces stack in one column (label, headline,
+        Phones and tablets: the pieces stack in one column (headline, then
         card). Desktop (lg and up): each piece is placed against the frame
         edges, as in the mockup.
       -->
       <div class="relative flex min-h-[inherit] flex-col justify-between gap-10 px-6 pt-28 pb-10 lg:block lg:p-0">
-        <!-- ===== LABEL: top left ===== -->
-        <p
-          data-hero-fade="0.2"
-          class="eyebrow text-sage lg:absolute lg:top-[128px] lg:left-[60px]"
-        >
-          A small web studio
-        </p>
-
         <!-- ===== HEADLINE: bottom left, two lines that rise into place ===== -->
         <h1
           data-hero-parallax

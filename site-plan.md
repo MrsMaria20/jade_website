@@ -29,7 +29,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 
 ### 1. Hero: the field (dark)
 - Frame: field + grain + ASCII doves; notched navigation cut into the top.
-- Small label (top left, mono): `A SMALL WEB STUDIO`
+- No label above the headline (the "A SMALL WEB STUDIO" label was removed).
 - Headline (serif, very large, bottom left, two lines): **Websites built to represent you**
 - Hero glass card (right): "Custom websites for small to medium businesses, built so your brand resonates with the people you want to reach. We define what your site needs together, then handle every step from there. In [X] weeks, your site is live."
   - Buttons: **Start a project** (→ `/contact`) · See our services (→ `#services`)
