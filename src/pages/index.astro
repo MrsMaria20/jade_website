@@ -2,16 +2,20 @@
 /*
   index.astro (Home page, "/")
 
-  What it is: the home page. For now it holds the hero (build step 3). Step 4
-  adds the services preview and the contact panel below it.
-  Which mockup it matches: heromockupex.png and
-  reference/source/01-field-and-flight-v2.html. Copy comes from site-plan.md.
+  What it is: the home page, in three parts: the hero, the services preview,
+  and the dark contact panel. The footer is added by BaseLayout.astro.
+  Which mockup it matches: heromockupex.png,
+  reference/source/01-field-and-flight-v2.html (hero) and
+  reference/source/02-ff2-site-home.html (the sections below it).
+  Copy comes from site-plan.md.
 */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroFrame from '../components/HeroFrame.astro';
 import GlassPanel from '../components/GlassPanel.astro';
 import Button from '../components/Button.astro';
+import ServicesPreview from '../components/ServicesPreview.astro';
+import ClosingPanel from '../components/ClosingPanel.astro';
 ---
 
 <BaseLayout
@@ -69,5 +73,11 @@ import Button from '../components/Button.astro';
         </div>
       </div>
     </HeroFrame>
+
+    <!-- ===== SERVICES PREVIEW: the two starting points and the three steps ===== -->
+    <ServicesPreview />
+
+    <!-- ===== CONTACT: book a call, email, and the coming-soon line ===== -->
+    <ClosingPanel />
   </main>
 </BaseLayout>

@@ -83,3 +83,23 @@ const { title, description } = Astro.props;
     <Footer />
   </body>
 </html>
+
+<style is:global>
+  /*
+    Starting state for the scroll reveal (see src/scripts/reveal.ts). It only
+    applies when scripting is on (the `js` class on <html>) and the visitor has
+    not asked for reduced motion, so content is never left invisible.
+    Hidden with opacity only, because GSAP owns the transform.
+  */
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal] {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  import { initReveal } from '../scripts/reveal';
+
+  initReveal();
+</script>

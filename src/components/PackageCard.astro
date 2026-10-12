@@ -1,0 +1,105 @@
+---
+/*
+  PackageCard.astro
+
+  What it is: one "starting point" card, such as Launch or Studio: a name, a
+  short tag, a one-line description, what's included, and a timeline.
+  Where it's used: ServicesPreview.astro on the home page, and the Services page.
+  Which mockup it matches: the two package cards in
+  reference/source/02-ff2-site-home.html (26px corners, 52px serif name, mono tag).
+
+  No prices appear on the site by design (see brand/voice-and-copy.md).
+*/
+
+interface Props {
+  // The card's name, for example "Launch".
+  name: string;
+  // Small mono tag at the top right, for example "ONE TO TWO PAGES".
+  tag: string;
+  // One or two sentences saying what the starting point is for.
+  description: string;
+  // What's included, one short phrase per item.
+  includes: string[];
+  // How long it usually takes, for example "About a week".
+  timeline: string;
+  // light = a card on paper; dark = an ink card on paper.
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const {
+  name,
+  tag,
+  description,
+  includes,
+  timeline,
+  tone = 'light',
+  class: extraClasses = '',
+} = Astro.props;
+
+const isDark = tone === 'dark';
+---
+
+<article
+  class:list={[
+    'flex flex-col gap-5 rounded-[26px] p-7 md:p-9',
+    isDark ? 'bg-ink text-ivory' : 'bg-card text-ink',
+    extraClasses,
+  ]}
+>
+  <!-- ===== NAME AND TAG ===== -->
+  <div class="flex items-baseline justify-between gap-4">
+    <h3 class="font-serif text-[44px] leading-none font-normal md:text-[52px]">
+      {name}
+    </h3>
+    <span
+      class:list={[
+        'text-right font-mono text-[11px] tracking-[0.16em] uppercase',
+        isDark ? 'text-sage' : 'text-lichen',
+      ]}
+    >
+      {tag}
+    </span>
+  </div>
+
+  <!-- ===== DESCRIPTION ===== -->
+  <p
+    class:list={[
+      'text-base leading-relaxed',
+      isDark ? 'text-mist' : 'text-moss',
+    ]}
+  >
+    {description}
+  </p>
+
+  <!-- ===== WHAT'S INCLUDED ===== -->
+  <ul
+    class:list={[
+      'flex flex-col gap-2.5 text-[15.5px] leading-snug',
+      isDark ? 'text-mist' : 'text-moss',
+    ]}
+  >
+    {includes.map((item) => (
+      <li class="flex items-start gap-3">
+        <span
+          aria-hidden="true"
+          class:list={[
+            'mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full',
+            isDark ? 'bg-sage' : 'bg-jade',
+          ]}
+        />
+        {item}
+      </li>
+    ))}
+  </ul>
+
+  <!-- ===== TIMELINE ===== -->
+  <p
+    class:list={[
+      'mt-auto border-t pt-5 font-mono text-xs tracking-[0.08em] uppercase',
+      isDark ? 'border-ivory/15 text-ivory' : 'border-ink/15 text-ink',
+    ]}
+  >
+    {timeline}
+  </p>
+</article>
