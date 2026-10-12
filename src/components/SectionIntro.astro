@@ -1,0 +1,52 @@
+---
+/*
+  SectionIntro.astro
+
+  What it is: the opening of a content section: a small mono label, a serif
+  title, and an optional intro paragraph.
+  Where it's used: the services panel, the Services and About pages, and any
+  other section that starts with a label and a headline.
+  Which mockup it matches: the section openers in reference/source/02-ff2-site-home.html
+  (label, 46px to 76px serif title, 16 to 17px body).
+*/
+
+interface Props {
+  // Small uppercase label above the title, for example "02 · TWO WAYS TO START".
+  label?: string;
+  // The section headline.
+  title: string;
+  // One short paragraph under the title.
+  intro?: string;
+  // The background the section sits on: dark (the field) or light (paper).
+  surface?: 'dark' | 'light';
+  class?: string;
+}
+
+const {
+  label,
+  title,
+  intro,
+  surface = 'dark',
+  class: extraClasses = '',
+} = Astro.props;
+
+// Dark sections use ivory, mist, and sage. Paper sections use ink, moss, and jade.
+const labelColor = surface === 'dark' ? 'text-sage' : 'text-jade';
+const titleColor = surface === 'dark' ? 'text-ivory' : 'text-ink';
+const introColor = surface === 'dark' ? 'text-mist' : 'text-moss';
+---
+
+<div class:list={['flex max-w-3xl flex-col gap-5', extraClasses]}>
+  {label && <p class:list={['eyebrow', labelColor]}>{label}</p>}
+  <h2
+    class:list={[
+      'font-serif text-[46px] leading-[0.95] font-normal tracking-[-0.02em] md:text-[76px]',
+      titleColor,
+    ]}
+  >
+    {title}
+  </h2>
+  {intro && (
+    <p class:list={['text-[17px] leading-relaxed', introColor]}>{intro}</p>
+  )}
+</div>

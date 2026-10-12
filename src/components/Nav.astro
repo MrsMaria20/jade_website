@@ -1,0 +1,319 @@
+---
+/*
+  Nav.astro
+
+  What it is: the site navigation, in three parts:
+    1. The notched bar cut into the top of a hero frame (wide on desktop,
+       compact with a menu button on phones and tablets).
+    2. The full-screen menu sheet that the menu button opens.
+    3. The sticky "Book a call" bar that appears on phones after the first screen.
+  Where it's used: inside the top frame of every page. Its parent frame must be
+  `position: relative` so the notch can sit against the frame's top edge.
+  Which mockup it matches: reference/source/01-field-and-flight-v2.html (notch),
+  reference/source/01b-field-and-flight-v2-mobile.html (menu sheet and sticky bar).
+
+  The notch is 780 x 72px on desktop, with 26px bottom corners and two small
+  inverted corners where it meets the frame.
+*/
+
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+import {
+  mainLinks,
+  bookCallHref,
+  contactEmail,
+  emailPlaceholder,
+} from '../data/site';
+
+// Work out which page we are on so the matching nav link can be marked as current.
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrentPage = (href: string) =>
+  href.split('#')[0].replace(/\/$/, '') === currentPath;
+---
+
+<!-- ===== NAV BAR: the notch cut into the top of the frame ===== -->
+<nav
+  aria-label="Main"
+  class="absolute top-0 left-1/2 z-20 flex h-[60px] w-[300px] -translate-x-1/2 items-center justify-between rounded-b-[26px] bg-night pr-2 pl-5 sm:w-[360px] lg:h-[72px] lg:w-[780px] lg:pr-3 lg:pl-7"
+>
+  <!-- Inverted corners: they make the frame's edge curve smoothly into the notch. -->
+  <span
+    aria-hidden="true"
+    class="absolute top-0 -left-[26px] h-[26px] w-[26px]"
+    style="background: radial-gradient(circle at 0 100%, transparent 25.5px, var(--color-night) 26px);"
+  ></span>
+  <span
+    aria-hidden="true"
+    class="absolute top-0 -right-[26px] h-[26px] w-[26px]"
+    style="background: radial-gradient(circle at 100% 100%, transparent 25.5px, var(--color-night) 26px);"
+  ></span>
+
+  <Logo />
+
+  <!-- Page links: desktop only. Phones use the menu sheet below. -->
+  <ul class="hidden items-center gap-[30px] text-[15px] lg:flex">
+    {mainLinks.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          aria-current={isCurrentPage(link.href) ? 'page' : undefined}
+          class="text-mist transition-colors duration-500 ease-calm hover:text-ivory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-celadon aria-[current=page]:text-ivory motion-reduce:transition-none"
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Book a call: desktop only. Phones get the sticky bar instead. -->
+  <div class="hidden lg:block">
+    <Button href={bookCallHref} arrow>
+      Book a call
+    </Button>
+  </div>
+
+  <!-- Menu button: phones and tablets only. -->
+  <button
+    id="menu-button"
+    type="button"
+    aria-expanded="false"
+    aria-controls="menu-sheet"
+    aria-label="Open menu"
+    class="flex h-11 w-11 items-center justify-center rounded-full bg-ivory text-night focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-celadon lg:hidden"
+  >
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      aria-hidden="true"
+    >
+      <path d="M3 6 H15 M3 12 H15"></path>
+    </svg>
+  </button>
+</nav>
+
+<!-- ===== MENU SHEET: full-screen menu for phones and tablets ===== -->
+<div
+  id="menu-sheet"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu"
+  hidden
+  class="menu-sheet fixed inset-0 z-50 flex-col bg-night/[0.97] px-6 pt-[22px] pb-[30px] backdrop-blur-sm lg:hidden"
+>
+  <div class="flex items-center justify-between">
+    <span class="font-serif text-2xl text-ivory">Jade Agentic</span>
+    <button
+      id="menu-close"
+      type="button"
+      aria-label="Close menu"
+      class="flex h-11 w-11 items-center justify-center rounded-full bg-ivory text-night focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-celadon"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M4 4 L14 14 M14 4 L4 14"></path>
+      </svg>
+    </button>
+  </div>
+
+  <ul class="mt-[60px] flex flex-col gap-1">
+    {mainLinks.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          aria-current={isCurrentPage(link.href) ? 'page' : undefined}
+          class="block font-serif text-[46px] leading-[1.2] text-ivory focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-celadon aria-[current=page]:text-sage"
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="mt-auto flex flex-col gap-3">
+    <Button href={bookCallHref} size="lg" class="w-full">
+      Book a call
+    </Button>
+    {contactEmail ? (
+      <a
+        href={`mailto:${contactEmail}`}
+        class="text-center font-mono text-[11px] tracking-[0.16em] text-sage uppercase"
+      >
+        {contactEmail}
+      </a>
+    ) : (
+      <span class="text-center font-mono text-[11px] tracking-[0.16em] text-sage uppercase">
+        {emailPlaceholder}
+      </span>
+    )}
+  </div>
+</div>
+
+<!-- ===== STICKY BAR: "Book a call" that follows the visitor on phones ===== -->
+<div
+  id="book-dock"
+  class="book-dock fixed right-3 bottom-3.5 left-3 z-40 lg:hidden"
+>
+  <a
+    href={bookCallHref}
+    class="flex h-[58px] items-center justify-between rounded-full bg-ivory pr-2 pl-[22px] text-base font-medium text-night shadow-[0_16px_36px_-12px_rgba(0,0,0,0.55)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-celadon"
+  >
+    Book a call
+    <span
+      aria-hidden="true"
+      class="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-forest"
+    >
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        stroke="#EFEBDF"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      >
+        <path d="M3 11 L11 3 M5 3 H11 V9"></path>
+      </svg>
+    </span>
+  </a>
+</div>
+
+<style>
+  /* The sheet is hidden with the `hidden` attribute; this makes sure that wins. */
+  .menu-sheet[hidden] {
+    display: none;
+  }
+
+  /*
+    The sticky bar starts hidden and slides up once the visitor scrolls past the
+    first screen. `visibility` keeps it out of the tab order while it is hidden.
+  */
+  .book-dock {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(120%);
+    transition:
+      transform 1s var(--ease-calm),
+      opacity 1s var(--ease-calm),
+      visibility 0s linear 1s;
+  }
+
+  .book-dock.is-visible {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  /* Reduced motion: no slide, the bar simply appears and disappears. */
+  @media (prefers-reduced-motion: reduce) {
+    .book-dock,
+    .book-dock.is-visible {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  /*
+    Behaviour for the menu sheet and the sticky bar. Plain TypeScript, no library.
+    Everything is looked up by id and skipped if missing, so the page still works
+    if one piece is removed.
+  */
+
+  const menuButton = document.querySelector<HTMLButtonElement>('#menu-button');
+  const menuSheet = document.querySelector<HTMLElement>('#menu-sheet');
+  const menuClose = document.querySelector<HTMLButtonElement>('#menu-close');
+  const bookDock = document.querySelector<HTMLElement>('#book-dock');
+
+  // Open or close the menu sheet, keeping the button's state and focus in step.
+  function setMenuOpen(isOpen: boolean): void {
+    if (!menuButton || !menuSheet) return;
+
+    menuSheet.hidden = !isOpen;
+    menuButton.setAttribute('aria-expanded', String(isOpen));
+    menuButton.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+
+    // Stop the page behind the sheet from scrolling while it is open.
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    // Move focus into the sheet when it opens, and back to the button when it closes.
+    if (isOpen) {
+      menuClose?.focus();
+    } else {
+      menuButton.focus();
+    }
+  }
+
+  menuButton?.addEventListener('click', () => setMenuOpen(true));
+  menuClose?.addEventListener('click', () => setMenuOpen(false));
+
+  // Choosing a link closes the sheet (the page then navigates or jumps).
+  menuSheet?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (menuSheet) menuSheet.hidden = true;
+      menuButton?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!menuSheet || menuSheet.hidden) return;
+
+    // Escape closes the sheet.
+    if (event.key === 'Escape') {
+      setMenuOpen(false);
+      return;
+    }
+
+    // Tab stays inside the sheet while it is open.
+    if (event.key === 'Tab') {
+      const focusable = Array.from(
+        menuSheet.querySelectorAll<HTMLElement>('a[href], button'),
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  // If the window grows to desktop width while the sheet is open, close it.
+  window
+    .matchMedia('(min-width: 1024px)')
+    .addEventListener('change', (event) => {
+      if (event.matches && menuSheet && !menuSheet.hidden) {
+        menuSheet.hidden = true;
+        menuButton?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+
+  // Show the sticky bar once the visitor has scrolled past most of the first screen.
+  function updateBookDock(): void {
+    if (!bookDock) return;
+    const pastFirstScreen = window.scrollY > window.innerHeight * 0.8;
+    bookDock.classList.toggle('is-visible', pastFirstScreen);
+  }
+
+  window.addEventListener('scroll', updateBookDock, { passive: true });
+  updateBookDock();
+</script>

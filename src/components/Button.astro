@@ -1,0 +1,90 @@
+---
+/*
+  Button.astro
+
+  What it is: the site's pill button. A link when `href` is given, otherwise a
+  real <button>. Primary and secondary styles, for dark and light backgrounds,
+  with an optional arrow circle on the right.
+  Where it's used: the nav, footer, hero, and every call to action.
+  Which mockup it matches: the "Book a call" pill in
+  reference/source/01-field-and-flight-v2.html (48px tall, 36px forest arrow circle)
+  and the 54px footer buttons in reference/source/02-ff2-site-home.html.
+*/
+
+interface Props {
+  // Where the button goes. Leave out to render a <button> instead of a link.
+  href?: string;
+  // primary = filled pill, secondary = outlined pill.
+  variant?: 'primary' | 'secondary';
+  // The background the button sits on: dark (the field) or light (paper).
+  surface?: 'dark' | 'light';
+  // md = 48px tall, lg = 54px tall.
+  size?: 'md' | 'lg';
+  // Show the forest circle with an up-right arrow.
+  arrow?: boolean;
+  // Only used when rendering a <button>.
+  type?: 'button' | 'submit';
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  surface = 'dark',
+  size = 'md',
+  arrow = false,
+  type = 'button',
+  class: extraClasses = '',
+} = Astro.props;
+
+// Each combination is written out in full so Tailwind can find the classes.
+const colorClasses = {
+  'primary-dark': 'bg-ivory text-night focus-visible:outline-celadon',
+  'primary-light': 'bg-ink text-ivory focus-visible:outline-jade',
+  'secondary-dark':
+    'border border-ivory/40 text-ivory hover:border-ivory/70 focus-visible:outline-celadon',
+  'secondary-light':
+    'border border-ink/30 text-ink hover:border-ink/60 focus-visible:outline-jade',
+}[`${variant}-${surface}`];
+
+const sizeClasses = size === 'lg' ? 'h-[54px]' : 'h-12';
+
+// With the arrow circle, padding on the right is tighter so the circle sits snug.
+const paddingClasses = arrow ? 'gap-3 pr-1.5 pl-5' : 'px-6';
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  class:list={[
+    'inline-flex items-center justify-center rounded-full text-[15px] font-medium whitespace-nowrap',
+    'transition-transform duration-500 ease-calm hover:-translate-y-px motion-reduce:transition-none motion-reduce:hover:translate-y-0',
+    'focus-visible:outline-2 focus-visible:outline-offset-2',
+    colorClasses,
+    sizeClasses,
+    paddingClasses,
+    extraClasses,
+  ]}
+>
+  <slot />
+  {arrow && (
+    <span
+      aria-hidden="true"
+      class="flex h-9 w-9 items-center justify-center rounded-full bg-forest"
+    >
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        stroke="#EFEBDF"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      >
+        <path d="M3 11 L11 3 M5 3 H11 V9" />
+      </svg>
+    </span>
+  )}
+</Tag>

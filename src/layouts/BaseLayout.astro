@@ -7,10 +7,12 @@
   Which mockup it matches: none directly; it holds the <head>, fonts, favicons,
   and the night-colored page background from brand/brand-guide.md.
 
-  Later steps add the navigation and footer here (build-plan.md, step 2).
+  The footer is rendered here for every page. The navigation is placed by each
+  page inside its top frame (see Nav.astro), because the notch is cut into that frame.
 */
 
 import '../styles/global.css';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   // The text shown in the browser tab and in search results.
@@ -58,6 +60,18 @@ const { title, description } = Astro.props;
   </head>
 
   <body class="bg-night text-ivory min-h-screen">
+    <!-- ===== SKIP LINK: lets keyboard users jump past the navigation ===== -->
+    <a
+      href="#main"
+      class="focus:bg-ivory focus:text-night sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:px-5 focus:py-3"
+    >
+      Skip to content
+    </a>
+
+    <!-- ===== PAGE CONTENT: each page supplies its own frame and nav ===== -->
     <slot />
+
+    <!-- ===== FOOTER: the same on every page ===== -->
+    <Footer />
   </body>
 </html>

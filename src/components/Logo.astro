@@ -1,0 +1,43 @@
+---
+/*
+  Logo.astro
+
+  What it is: the logo lockup, the jade bonsai disc plus the "Jade Agentic"
+  wordmark, as a single link back to the home page.
+  Where it's used: Nav.astro and Footer.astro (ivory on dark backgrounds).
+  Which mockup it matches: the nav lockup in reference/source/01-field-and-flight-v2.html
+  (34px mark and 26px wordmark on desktop, scaled down slightly on phones).
+
+  The wordmark is live text, not an image, as brand/brand-guide.md requires.
+*/
+
+import { siteName } from '../data/site';
+
+interface Props {
+  // Extra classes for the link, for example to adjust spacing in one place.
+  class?: string;
+}
+
+const { class: extraClasses = '' } = Astro.props;
+---
+
+<a
+  href="/"
+  aria-label={`${siteName}, home`}
+  class:list={[
+    'inline-flex items-center gap-2.5 text-ivory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-celadon',
+    extraClasses,
+  ]}
+>
+  <!-- The mark is decorative: the link's accessible name is set above. -->
+  <img
+    src="/logo/jade-disc-ivory.svg"
+    alt=""
+    width="34"
+    height="34"
+    class="h-[30px] w-[30px] lg:h-[34px] lg:w-[34px]"
+  />
+  <span class="font-serif text-[22px] font-medium lg:text-[26px]">
+    {siteName}
+  </span>
+</a>

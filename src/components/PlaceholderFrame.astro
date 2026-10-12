@@ -1,0 +1,42 @@
+---
+/*
+  PlaceholderFrame.astro
+
+  What it is: a TEMPORARY stand-in for a page's top frame, so the navigation can
+  be checked in the browser before the real pages exist.
+  Where it's used: the placeholder pages (home, services, about, contact).
+  Remove it: each page stops using it when its real content is built
+  (hero in build step 3, then Services, About, and Contact in steps 5 to 7).
+  Which mockup it matches: only the frame shape (16px inset, 28px corners) from
+  reference/source/01-field-and-flight-v2.html.
+*/
+
+import Nav from './Nav.astro';
+
+interface Props {
+  // Small label above the title, for example "Placeholder page".
+  label: string;
+  title: string;
+  // One sentence saying what will replace this page.
+  note: string;
+}
+
+const { label, title, note } = Astro.props;
+---
+
+<div class="p-4">
+  <!-- The frame must be position: relative so the nav notch sits against its top edge. -->
+  <section class="relative min-h-[640px] overflow-hidden rounded-[28px] bg-field">
+    <Nav />
+    <main
+      id="main"
+      class="flex min-h-[640px] flex-col items-center justify-center gap-4 px-6 text-center"
+    >
+      <p class="eyebrow text-sage">{label}</p>
+      <h1 class="font-serif text-[46px] font-medium text-ivory md:text-8xl">
+        {title}
+      </h1>
+      <p class="max-w-md text-mist">{note}</p>
+    </main>
+  </section>
+</div>

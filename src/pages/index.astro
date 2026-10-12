@@ -2,27 +2,22 @@
 /*
   index.astro (Home page, "/")
 
-  What it is: a placeholder home page for build step 1. It only proves that the
-  project, fonts, brand colors, and favicon are wired up correctly.
-  Which mockup it matches: none yet. Step 3 replaces this with the hero
+  What it is: a PLACEHOLDER home page. It shows the navigation and footer so the
+  layout shell can be checked. Step 3 replaces this with the hero
   (heromockupex.png), and step 4 adds the services and contact panels.
 */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PlaceholderFrame from '../components/PlaceholderFrame.astro';
 ---
 
 <BaseLayout
   title="Jade Agentic"
   description="Jade Agentic is a small web studio building custom websites for small to medium businesses."
 >
-  <!-- ===== PLACEHOLDER: wordmark in the serif face, on the night background ===== -->
-  <main class="flex min-h-screen flex-col items-center justify-center gap-4 px-6">
-    <p class="eyebrow text-sage">A small web studio</p>
-    <h1 class="font-serif text-6xl font-medium text-ivory md:text-8xl">
-      Jade Agentic
-    </h1>
-    <p class="text-mist">
-      Site setup is working. The real pages are coming next.
-    </p>
-  </main>
+  <PlaceholderFrame
+    label="A small web studio"
+    title="Jade Agentic"
+    note="Placeholder home page. The hero is built in step 3."
+  />
 </BaseLayout>
