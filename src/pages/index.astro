@@ -29,7 +29,7 @@ import Button from '../components/Button.astro';
         <!-- ===== HEADLINE: bottom left, two lines that rise into place ===== -->
         <h1
           data-hero-parallax
-          class="font-serif text-[clamp(50px,8.2vw,118px)] leading-[0.86] font-normal tracking-[-0.03em] text-ivory lg:absolute lg:bottom-[58px] lg:left-[60px]"
+          class="font-serif text-[clamp(44px,12.5vw,64px)] lg:text-[clamp(76px,8.2vw,118px)] leading-[0.86] font-normal tracking-[-0.03em] text-ivory lg:absolute lg:bottom-[58px] lg:left-[60px]"
         >
           <span class="-mb-[0.3em] block overflow-hidden pb-[0.3em]">
             <span class="hero-line block">Websites built</span>
@@ -44,7 +44,7 @@ import Button from '../components/Button.astro';
           data-hero-fade="0.9"
           class="lg:absolute lg:top-[150px] lg:right-[96px] lg:w-[420px]"
         >
-          <GlassPanel variant="hero" class="flex flex-col gap-6">
+          <GlassPanel variant="hero" class="flex flex-col gap-6 p-5! md:p-8!">
             <!--
               The blurb is three sentences. On phones only the first is shown,
               so the card stays short; tablets and up (md) show all three.
@@ -57,7 +57,7 @@ import Button from '../components/Button.astro';
                 from there. In [X] weeks, your site is live.
               </span>
             </p>
-            <div class="flex gap-2.5">
+            <div class="flex flex-wrap gap-2.5">
               <Button href="/contact">Start a project</Button>
               <Button href="#services" variant="secondary">
                 <!-- Shorter label on phones so both buttons fit on one row. -->
