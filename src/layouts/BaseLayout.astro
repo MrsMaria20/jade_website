@@ -1,0 +1,63 @@
+---
+/*
+  BaseLayout.astro
+
+  What it is: the page shell every page on the site is wrapped in.
+  Where it's used: src/pages/*.astro (each page passes a title and description).
+  Which mockup it matches: none directly; it holds the <head>, fonts, favicons,
+  and the night-colored page background from brand/brand-guide.md.
+
+  Later steps add the navigation and footer here (build-plan.md, step 2).
+*/
+
+import '../styles/global.css';
+
+interface Props {
+  // The text shown in the browser tab and in search results.
+  title: string;
+  // One plain sentence describing the page, used in search results and link previews.
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- ===== FAVICONS: the jade bonsai disc, from public/logo/ ===== -->
+    <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/logo/favicon-32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/logo/favicon-192.png"
+    />
+    <link rel="apple-touch-icon" href="/logo/apple-touch-icon.png" />
+
+    <!-- ===== FONTS: Cormorant Garamond, Instrument Sans, JetBrains Mono ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    />
+  </head>
+
+  <body class="bg-night text-ivory min-h-screen">
+    <slot />
+  </body>
+</html>

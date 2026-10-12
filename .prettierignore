@@ -1,0 +1,14 @@
+# Reference material and brand files are kept exactly as supplied.
+reference/
+brand/
+public/
+assets/
+
+# Generated and installed files
+dist/
+.astro/
+node_modules/
+package-lock.json
+
+# Documentation is written by hand
+*.md
