@@ -23,7 +23,8 @@ Results first. Say what the business gets, not how the work is done.
 
 - Hero: **"Websites built to represent you."**
 - Hero blurb: **"Custom websites for small to medium businesses, built so your brand resonates with the people you want to reach. We define what your site needs together, then handle every step from there. In [X] weeks, your site is live."**
-- AI bridge: **"AI assistants are coming soon, so you can focus on what matters most."** (Draft; confirm wording.)
+- AI bridge: **"Coming soon: AI assistants that handle the routine work, so you can focus on what matters most. Email us to hear first."**
+- Call card: **"20 minutes."** Don't mention cost, even though the intro call is free.
 
 ## Mechanics
 

@@ -46,9 +46,12 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 - Button: **See our services** (→ `/services`)
 
 ### 3. Contact and what's next: the field (dark, closing frame)
-- Left: heading about booking a 20-minute intro call (`TODO:` copy, results-first). Email link: [YOUR EMAIL]
-- Right (panel glass): booking card → **Continue in Calendly** (→ `/contact#book`).
-- One line, clearly marked "coming soon": AI assistants and agentic workflows, with an "email us to hear first" link. `TODO:` wording. No second form for now.
+- Left:
+  - Heading: **Tell us about your business.**
+  - Text: "A 20-minute call about your business and what your website needs to do for it. You'll leave knowing the next step."
+  - Email line: "Prefer to write? [YOUR EMAIL]"
+- Right (panel glass): booking card, "20 minutes", button **Choose a time** (→ `/contact#book`). Do not mention cost; the call is free, but price stays off the card.
+- Coming-soon line (below, quieter): "Coming soon: AI assistants that handle the routine work, so you can focus on what matters most. Email us to hear first." The email link is a plain `mailto:` link; no second form.
 
 ### Footer (all pages)
 Night background: closing line + **Book a call** / email buttons; columns: logo + short descriptor · Pages (Services, About, Contact) · Elsewhere: [LinkedIn] [Instagram]; bottom row: © 2026 JADE AGENTIC · JADEAGENTIC.COM. `TODO:` footer copy in the new voice.
