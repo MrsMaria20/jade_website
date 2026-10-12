@@ -31,6 +31,14 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
+    <!--
+      Marks the page as script-enabled before first paint. The hero's entrance
+      animation only hides content when this class is present, so visitors
+      without scripting always see the full text.
+    -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
 

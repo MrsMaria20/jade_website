@@ -1,0 +1,55 @@
+---
+/*
+  AsciiDoves.astro
+
+  What it is: a small flock of doves drawn from dots on a canvas. They fly
+  slowly across the frame and veer away from the pointer.
+  Where it's used: HeroFrame.astro, on top of the field and grain.
+  Which mockup it matches: the doves in reference/source/01-field-and-flight-v2.html.
+
+  How it works: the drawing logic lives in assets/visuals/ascii-doves.ts, which
+  also handles the still version for reduced motion and pausing off screen.
+  This component only places the canvas and starts the flock once the
+  JetBrains Mono font has loaded. The parent must be position: relative.
+*/
+---
+
+<canvas
+  class="doves js-doves"
+  role="img"
+  aria-label="A small flock of white doves, drawn in points of light, flying across a blurred green field"
+></canvas>
+
+<style>
+  .doves {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    /* Let clicks and hovers pass through to the page content above and the frame below. */
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  import { createAsciiDoves } from '../../assets/visuals/ascii-doves';
+
+  const canvases = document.querySelectorAll<HTMLCanvasElement>('.js-doves');
+
+  // Fewer doves on small screens keeps the page light on phones.
+  const doveCount = window.innerWidth < 640 ? 4 : 7;
+
+  // The characters are drawn in JetBrains Mono, so wait for it before the first frame.
+  // If the font request fails, start anyway and use the fallback monospace font.
+  function startDoves(): void {
+    canvases.forEach((canvas) => {
+      createAsciiDoves(canvas, { count: doveCount });
+    });
+  }
+
+  document.fonts
+    .load('11px "JetBrains Mono"')
+    .then(startDoves)
+    .catch(startDoves);
+</script>

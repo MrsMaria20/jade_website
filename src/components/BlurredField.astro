@@ -1,0 +1,108 @@
+---
+/*
+  BlurredField.astro
+
+  What it is: the multi-tone green "field" that sits behind dark frames, a
+  painted set of soft horizontal strokes that is blurred and drifts very slowly.
+  Where it's used: HeroFrame.astro (every page's top frame), and later the dark
+  closing panel on the home page.
+  Which mockup it matches: the field in reference/source/01-field-and-flight-v2.html
+  and the "multidimensional green" in the Brand Kit preview.
+
+  How it works: the canvas is painted ONCE by assets/visuals/blurred-field.ts.
+  The blur and the sideways drift are CSS, so the effect costs almost nothing
+  while the page is open. The parent must be position: relative with overflow hidden.
+*/
+
+interface Props {
+  // Same seed = the same field on every load. Change it to get a different look.
+  seed?: number;
+}
+
+const { seed = 42 } = Astro.props;
+---
+
+<!-- The wrapper bleeds 40px past the frame so the blurred edges never show. -->
+<div class="field-wrap" data-field-wrap>
+  <canvas class="field js-field" data-seed={seed} aria-hidden="true"></canvas>
+</div>
+
+<style>
+  .field-wrap {
+    position: absolute;
+    inset: -40px;
+  }
+
+  .field {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: blur(26px) saturate(1.08);
+    animation: field-drift 38s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  /* Set by the script while the frame is off screen, so the drift stops. */
+  .field.is-paused {
+    animation-play-state: paused;
+  }
+
+  @keyframes field-drift {
+    from {
+      transform: scale(1.12) translateX(-2.5%);
+    }
+    to {
+      transform: scale(1.12) translateX(2.5%);
+    }
+  }
+
+  /* Reduced motion: a still field, no drift. */
+  @media (prefers-reduced-motion: reduce) {
+    .field {
+      animation: none;
+      transform: scale(1.12);
+    }
+  }
+</style>
+
+<script>
+  import { paintBlurredField } from '../../assets/visuals/blurred-field';
+
+  // Paint every field canvas on the page once the layout has a size.
+  const fields = document.querySelectorAll<HTMLCanvasElement>('.js-field');
+
+  function paintAll(): void {
+    fields.forEach((canvas) => {
+      const seed = Number(canvas.dataset.seed ?? 42);
+      paintBlurredField(canvas, seed);
+    });
+  }
+
+  paintAll();
+
+  // Repaint when the WIDTH changes (not the height, which changes on phones as
+  // the address bar slides away). Debounced so dragging a window edge stays smooth.
+  let lastWidth = window.innerWidth;
+  let resizeTimer = 0;
+
+  window.addEventListener('resize', () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        paintAll();
+      }
+    }, 250);
+  });
+
+  // Stop the drift animation while a field is off screen.
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle('is-paused', !entry.isIntersecting);
+    });
+  });
+
+  fields.forEach((canvas) => visibilityObserver.observe(canvas));
+</script>

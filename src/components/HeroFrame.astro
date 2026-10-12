@@ -1,0 +1,99 @@
+---
+/*
+  HeroFrame.astro
+
+  What it is: the dark, rounded frame at the top of every page. It stacks the
+  blurred field, film grain, doves, and the notched navigation, and holds
+  whatever hero content the page puts in its slot.
+  Where it's used: the home hero (tall) and the short heroes on Services, About,
+  and Contact. One component means every page gets the identical backdrop.
+  Which mockup it matches: reference/source/01-field-and-flight-v2.html
+  (16px inset, 28px corners) and heromockupex.png.
+
+  Layer order, back to front: field, grain, doves, content, navigation.
+*/
+
+import BlurredField from './BlurredField.astro';
+import AsciiDoves from './AsciiDoves.astro';
+import Nav from './Nav.astro';
+
+interface Props {
+  // tall = the home hero (fills the first screen); short = inner-page heroes.
+  variant?: 'tall' | 'short';
+  // Show the flock of doves. On by default, as in the mockups.
+  doves?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'short',
+  doves = true,
+  class: extraClasses = '',
+} = Astro.props;
+
+const heightClasses =
+  variant === 'tall'
+    ? 'min-h-[max(620px,calc(100svh-32px))]'
+    : 'min-h-[520px] md:min-h-[640px]';
+---
+
+<!-- 16px inset from the window edge, as the brand guide requires. -->
+<div class="p-4">
+  <section
+    data-hero-frame
+    class:list={[
+      'relative overflow-hidden rounded-[28px] bg-field',
+      heightClasses,
+      extraClasses,
+    ]}
+  >
+    <!-- ===== LAYER 1: the blurred green field ===== -->
+    <BlurredField />
+
+    <!-- ===== LAYER 2: film grain over the field ===== -->
+    <img
+      src="/grain.svg"
+      alt=""
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.16] mix-blend-overlay"
+    />
+
+    <!-- ===== LAYER 3: the doves ===== -->
+    {doves && <AsciiDoves />}
+
+    <!-- ===== LAYER 4: the page's hero content ===== -->
+    <div class="relative z-10 min-h-[inherit]">
+      <slot />
+    </div>
+
+    <!-- ===== LAYER 5: the notched navigation, cut into the top ===== -->
+    <Nav />
+  </section>
+</div>
+
+<style is:global>
+  /*
+    Starting states for the entrance animation. They only apply when scripting
+    is on (the `js` class on <html>) and the visitor has not asked for reduced
+    motion, so nobody is ever left with invisible text.
+  */
+  @media (prefers-reduced-motion: no-preference) {
+    /*
+      Headline lines are hidden with opacity, NOT a transform: GSAP owns the
+      transform, and would read a CSS transform as a fixed pixel offset.
+    */
+    .js .hero-line {
+      opacity: 0;
+    }
+
+    .js [data-hero-fade] {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  import { initHeroMotion } from '../scripts/hero-motion';
+
+  initHeroMotion();
+</script>

@@ -2,22 +2,92 @@
 /*
   index.astro (Home page, "/")
 
-  What it is: a PLACEHOLDER home page. It shows the navigation and footer so the
-  layout shell can be checked. Step 3 replaces this with the hero
-  (heromockupex.png), and step 4 adds the services and contact panels.
+  What it is: the home page. For now it holds the hero (build step 3). Step 4
+  adds the services preview and the contact panel below it.
+  Which mockup it matches: heromockupex.png and
+  reference/source/01-field-and-flight-v2.html. Copy comes from site-plan.md.
 */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PlaceholderFrame from '../components/PlaceholderFrame.astro';
+import HeroFrame from '../components/HeroFrame.astro';
+import GlassPanel from '../components/GlassPanel.astro';
+import Button from '../components/Button.astro';
 ---
 
 <BaseLayout
   title="Jade Agentic"
-  description="Jade Agentic is a small web studio building custom websites for small to medium businesses."
+  description="Custom websites for small to medium businesses, built so your brand resonates with the people you want to reach."
 >
-  <PlaceholderFrame
-    label="A small web studio"
-    title="Jade Agentic"
-    note="Placeholder home page. The hero is built in step 3."
-  />
+  <main id="main">
+    <HeroFrame variant="tall">
+      <!--
+        Phones and tablets: the pieces stack in one column (label, headline,
+        card, cue). Desktop (lg and up): each piece is placed against the frame
+        edges, as in the mockup.
+      -->
+      <div class="relative flex min-h-[inherit] flex-col justify-between gap-10 px-6 pt-28 pb-10 lg:block lg:p-0">
+        <!-- ===== LABEL: top left ===== -->
+        <p
+          data-hero-fade="0.2"
+          class="eyebrow text-sage lg:absolute lg:top-[128px] lg:left-[60px]"
+        >
+          A small web studio
+        </p>
+
+        <!-- ===== HEADLINE: bottom left, two lines that rise into place ===== -->
+        <h1
+          data-hero-parallax
+          class="font-serif text-[clamp(50px,8.2vw,118px)] leading-[0.86] font-normal tracking-[-0.03em] text-ivory lg:absolute lg:bottom-[58px] lg:left-[60px]"
+        >
+          <span class="-mb-[0.3em] block overflow-hidden pb-[0.3em]">
+            <span class="hero-line block">Websites built</span>
+          </span>
+          <span class="-mb-[0.3em] block overflow-hidden pb-[0.3em]">
+            <span class="hero-line block">to represent you</span>
+          </span>
+        </h1>
+
+        <!-- ===== GLASS CARD: the blurb and the two buttons ===== -->
+        <div
+          data-hero-fade="0.9"
+          class="lg:absolute lg:top-[150px] lg:right-[96px] lg:w-[420px]"
+        >
+          <GlassPanel variant="hero" class="flex flex-col gap-6">
+            <p class="text-[16px] leading-[1.65] text-mist">
+              Custom websites for small to medium businesses, built so your
+              brand resonates with the people you want to reach. We define what
+              your site needs together, then handle every step from there. In
+              [X] weeks, your site is live.
+            </p>
+            <div class="flex flex-wrap gap-2.5">
+              <Button href="/contact">Start a project</Button>
+              <Button href="#services" variant="secondary">
+                See our services
+              </Button>
+            </div>
+          </GlassPanel>
+        </div>
+
+        <!-- ===== SCROLL CUE: bottom right ===== -->
+        <p
+          data-hero-fade="1.3"
+          class="flex items-center gap-2.5 font-mono text-[11px] tracking-[0.2em] text-mist uppercase lg:absolute lg:right-[96px] lg:bottom-[64px]"
+        >
+          Scroll
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 1 V11 M2 7 L6 11 L10 7"></path>
+          </svg>
+        </p>
+      </div>
+    </HeroFrame>
+  </main>
 </BaseLayout>
