@@ -19,7 +19,7 @@ One step at a time. Before each step: propose a plan and wait for approval. Afte
 
 ## Step 3 — The hero
 - `BlurredField.astro` and `AsciiDoves.astro` from `assets/visuals/`; grain overlay.
-- Hero frame (16px inset, 28px corners), label, headline, hero glass card with blurb and buttons, scroll cue, slight parallax.
+- Hero frame (16px inset, 28px corners), label, headline, hero glass card with blurb and buttons, slight parallax.
 - Reduced motion: still field, still doves, no rise.
 - ✅ Check against `heromockupex.png` and `reference/source/01-field-and-flight-v2.html`. Lighthouse performance still 95+.
 
