@@ -45,16 +45,24 @@ import Button from '../components/Button.astro';
           class="lg:absolute lg:top-[150px] lg:right-[96px] lg:w-[420px]"
         >
           <GlassPanel variant="hero" class="flex flex-col gap-6">
+            <!--
+              The blurb is three sentences. On phones only the first is shown,
+              so the card stays short; tablets and up (md) show all three.
+            -->
             <p class="text-[16px] leading-[1.65] text-mist">
               Custom websites for small to medium businesses, built so your
-              brand resonates with the people you want to reach. We define what
-              your site needs together, then handle every step from there. In
-              [X] weeks, your site is live.
+              brand resonates with the people you want to reach.{' '}
+              <span class="hidden md:inline">
+                We define what your site needs together, then handle every step
+                from there. In [X] weeks, your site is live.
+              </span>
             </p>
-            <div class="flex flex-wrap gap-2.5">
+            <div class="flex gap-2.5">
               <Button href="/contact">Start a project</Button>
               <Button href="#services" variant="secondary">
-                See our services
+                <!-- Shorter label on phones so both buttons fit on one row. -->
+                <span class="sm:hidden">Services</span>
+                <span class="hidden sm:inline">See our services</span>
               </Button>
             </div>
           </GlassPanel>

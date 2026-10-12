@@ -32,6 +32,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 - No label above the headline (the "A SMALL WEB STUDIO" label was removed).
 - Headline (serif, very large, bottom left, two lines): **Websites built to represent you**
 - Hero glass card (right): "Custom websites for small to medium businesses, built so your brand resonates with the people you want to reach. We define what your site needs together, then handle every step from there. In [X] weeks, your site is live."
+  - On phones (under 768px) only the first sentence is shown, so the card stays short; the second button reads "Services" there.
   - Buttons: **Start a project** (→ `/contact`) · See our services (→ `#services`)
 - No vertical side text and no scroll cue (both removed from the mockup).
 
