@@ -3,8 +3,9 @@
   ClosingPanel.astro
 
   What it is: the dark closing frame at the bottom of the home page. It invites
-  the visitor to book a short call, offers an email option, and says honestly
-  that AI assistants are coming soon.
+  the visitor to book a short call, offers an email option, makes the founding
+  clients offer, and says honestly that AI assistants are coming soon.
+  It is sized to fill one screen, like the panels above it.
   Where it's used: src/pages/index.astro, after the services section.
   Which mockup it matches: the closing frame in
   reference/source/02-ff2-site-home.html (dark rounded frame, glass booking card).
@@ -24,7 +25,7 @@ import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
 
 <!-- ===== CLOSING PANEL: dark frame with the field behind it ===== -->
 <section id="contact" class="p-4">
-  <div class="relative overflow-hidden rounded-[28px] bg-field">
+  <div class="relative min-h-[calc(100svh-32px)] overflow-hidden rounded-[28px] bg-field">
     <!-- The same multi-tone field as the hero, with a different seed so it reads as its own place. No doves here. -->
     <BlurredField seed={7} />
     <img
@@ -34,12 +35,12 @@ import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
       class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.16] mix-blend-overlay"
     />
 
-    <div class="relative z-10 flex flex-col gap-14 px-6 py-16 md:px-[88px] md:py-[110px]">
+    <div class="relative z-10 flex min-h-[inherit] flex-col justify-center gap-[clamp(28px,5vh,56px)] px-6 py-[clamp(40px,7vh,110px)] md:px-[88px]">
       <!-- ===== TWO COLUMNS: invitation on the left, booking card on the right ===== -->
       <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-[60px]">
         <div data-reveal class="flex flex-col gap-6">
           <SectionIntro
-            label="02 · CONTACT"
+            label="03 · CONTACT"
             title="Tell us about your business."
             intro="A 20-minute call about your business and what your website needs to do for it. You'll leave knowing the next step."
             surface="dark"
@@ -77,6 +78,21 @@ import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
             </Button>
           </GlassPanel>
         </div>
+      </div>
+
+      <!-- ===== FOUNDING CLIENTS: a reason to book now ===== -->
+      <div
+        data-reveal
+        class="flex flex-col gap-5 rounded-[20px] border border-dashed border-ivory/30 px-6 py-6 md:flex-row md:items-center md:justify-between md:gap-10 md:px-8"
+      >
+        <span class="eyebrow shrink-0 text-sage">Founding clients</span>
+        <p class="grow text-base leading-normal text-mist">
+          The first [NUMBER] projects are offered at a reduced rate, in exchange
+          for a testimonial and permission to share the work.
+        </p>
+        <Button href="/contact" variant="secondary" class="shrink-0 self-start">
+          Ask about a spot
+        </Button>
       </div>
 
       <!-- ===== COMING SOON: one honest line about AI assistants ===== -->

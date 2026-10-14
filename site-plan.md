@@ -27,6 +27,8 @@ Mobile: compact notch with a menu button opening a full-screen sheet, plus a sti
 
 Visual reference: hero from `heromockupex.png` and `reference/source/01-field-and-flight-v2.html`; the rest from `reference/source/02-ff2-site-home.html`. The bloom section in that file is not used.
 
+**Layout rule:** the home page is four panels, and each fills exactly one screen (the browser window), so the next panel appears as the visitor scrolls. Paper panels are flat paper color (a crumpled-paper texture was tried and rejected).
+
 ### 1. Hero: the field (dark)
 - Frame: field + grain + ASCII doves; notched navigation cut into the top.
 - No label above the headline (the "A SMALL WEB STUDIO" label was removed).
@@ -36,24 +38,27 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
   - Buttons: **Start a project** (→ `/contact`) · See our services (→ `#services`)
 - No vertical side text and no scroll cue (both removed from the mockup).
 
-### 2. Services preview: paper (`#services`)
+### 2. Services: paper, one screen (`#services`)
 - Label: `01 · SERVICES`
-- Header: **Two ways to get your website live.**
-- Two starting-point cards (light and dark, side by side). **No prices and no revision or change rules on the site**; budget and exact scope are settled on the call. A line under the cards: "Most projects start here. We confirm the exact scope on a call."
+- Header: **Two ways to get your website live.** On the right: "Most projects start here. We confirm the exact scope on a call." and the **See our services** button (→ `/services`).
+- Two starting-point cards (light and dark, side by side). **No prices and no revision or change rules on the site**; budget and exact scope are settled on the call.
   - **Launch** · one or two pages, a minimal marketing site. DRAFT: "A focused site that puts your business in front of the right people and makes it easy to get in touch." Includes: contact form, booking link, search basics, domain connection. Timeline: about a week.
   - **Studio** · the complete, built-out website. DRAFT: "A complete website that represents your whole business, with a page for everything your customers look for." Includes: everything in Launch, plus more pages; scope confirmed on a call. Timeline: 2 to 3 weeks.
   - Timelines are ranges; the clock starts once scope is agreed and content is received.
-- Slim three-step strip (names avoid the word "Launch"): **Talk it through** (we define what your site needs, together) → **We build it** (we handle every step; you don't need to learn a site builder) → **You're live** (your site goes live on your own domain).
-- Founding clients strip (dashed border): The first [NUMBER] projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`)
-- Button: **See our services** (→ `/services`)
 
-### 3. Contact and what's next: the field (dark, closing frame)
+### 3. How it works: paper, one screen (`#how-it-works`)
+- Label: `02 · HOW IT WORKS`
+- Header: **From first conversation to live site, in three steps.**
+- Three steps (names avoid the word "Launch"): **Talk it through** (we define what your site needs, together) → **We build it** (we handle every step; you don't need to learn a site builder) → **You're live** (your site goes live on your own domain).
+
+### 4. Contact: the field, one screen (`#contact`)
 - Left:
-  - Label: `02 · CONTACT`
+  - Label: `03 · CONTACT`
   - Heading: **Tell us about your business.**
   - Text: "A 20-minute call about your business and what your website needs to do for it. You'll leave knowing the next step."
   - Email line: "Prefer to write? [YOUR EMAIL]"
 - Right (panel glass): booking card, "20 minutes", button **Choose a time** (→ `/contact#book`). Do not mention cost; the call is free, but price stays off the card.
+- Founding clients strip (dashed border, full width, below the two columns): The first [NUMBER] projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`)
 - Coming-soon line (below, quieter): "Coming soon: AI assistants that handle the routine work, so you can focus on what matters most. Email us to hear first." The email link is a plain `mailto:` link; no second form.
 
 ### Footer (all pages)

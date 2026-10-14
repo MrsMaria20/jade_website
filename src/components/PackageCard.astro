@@ -42,7 +42,7 @@ const isDark = tone === 'dark';
 
 <article
   class:list={[
-    'flex flex-col gap-5 rounded-[26px] p-7 md:p-9',
+    'flex flex-col gap-[clamp(14px,2.2vh,20px)] rounded-[26px] p-7 md:p-[clamp(24px,4.5vh,36px)]',
     isDark ? 'bg-ink text-ivory' : 'bg-card text-ink',
     extraClasses,
   ]}

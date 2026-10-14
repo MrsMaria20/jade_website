@@ -40,7 +40,7 @@ const introColor = surface === 'dark' ? 'text-mist' : 'text-moss';
   {label && <p class:list={['eyebrow', labelColor]}>{label}</p>}
   <h2
     class:list={[
-      'font-serif text-[46px] leading-[0.95] font-normal tracking-[-0.02em] md:text-[76px]',
+      'font-serif text-[46px] leading-[0.95] font-normal tracking-[-0.02em] md:text-[clamp(52px,9.5vh,76px)]',
       titleColor,
     ]}
   >

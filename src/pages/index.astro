@@ -2,8 +2,8 @@
 /*
   index.astro (Home page, "/")
 
-  What it is: the home page, in three parts: the hero, the services preview,
-  and the dark contact panel. The footer is added by BaseLayout.astro.
+  What it is: the home page, in four panels that each fill one screen: the
+  hero, services, how it works, and the dark contact panel. The footer is added by BaseLayout.astro.
   Which mockup it matches: heromockupex.png,
   reference/source/01-field-and-flight-v2.html (hero) and
   reference/source/02-ff2-site-home.html (the sections below it).
@@ -14,7 +14,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroFrame from '../components/HeroFrame.astro';
 import GlassPanel from '../components/GlassPanel.astro';
 import Button from '../components/Button.astro';
-import ServicesPreview from '../components/ServicesPreview.astro';
+import ServicesPanel from '../components/ServicesPanel.astro';
+import HowItWorksPanel from '../components/HowItWorksPanel.astro';
 import ClosingPanel from '../components/ClosingPanel.astro';
 ---
 
@@ -74,8 +75,11 @@ import ClosingPanel from '../components/ClosingPanel.astro';
       </div>
     </HeroFrame>
 
-    <!-- ===== SERVICES PREVIEW: the two starting points and the three steps ===== -->
-    <ServicesPreview />
+    <!-- ===== SERVICES: the two starting points ===== -->
+    <ServicesPanel />
+
+    <!-- ===== HOW IT WORKS: the three steps ===== -->
+    <HowItWorksPanel />
 
     <!-- ===== CONTACT: book a call, email, and the coming-soon line ===== -->
     <ClosingPanel />
