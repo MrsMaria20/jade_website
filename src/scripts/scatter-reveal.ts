@@ -2,14 +2,22 @@
   scatter-reveal.ts
 
   What it is: the "text writes itself in" effect. Each letter of a headline
-  fades in on its own, in random order, as the headline scrolls into view.
+  fades in on its own, in random order, and the whole thing is tied to the
+  visitor's scroll position.
   Where it's used: BaseLayout.astro starts it on every page. It acts on any
   element with the attribute `data-scatter` that contains `data-char` letters
   (SectionIntro.astro produces this markup when given `scatter`).
-  Reference: assets/visuals/transition example.mov (letters fade in at random).
+  Reference: assets/visuals/transition_reference.mov.
 
-  Speed: the reference does this in about 0.3 seconds. Ours takes about 1.3
-  seconds, so it settles in calmly, in keeping with the site's slow motion.
+  How it behaves
+    - Scrolling down: letters appear a few at a time, so a half-scrolled
+      headline is half written.
+    - Scrolling up: they fade back out the same way, in the same order.
+    - Stopping part-way leaves it part-way. The visitor is in control of the pace.
+
+  Distance: the effect runs while the headline travels from near the bottom of
+  the screen (90%) up to about a third of the way down (35%). By the time its
+  panel fills the screen, the headline is complete.
 
   Reduced motion: nothing is hidden or animated; the headline is simply shown.
   The hidden starting state lives in BaseLayout.astro and only applies when
@@ -18,7 +26,6 @@
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CustomEase } from 'gsap/CustomEase';
 
 export function initScatterReveal(): void {
   const prefersReducedMotion = window.matchMedia(
@@ -36,27 +43,31 @@ export function initScatterReveal(): void {
   }
 
   try {
-    gsap.registerPlugin(ScrollTrigger, CustomEase);
-    CustomEase.create('calm', '0.2, 0.7, 0.15, 1');
+    gsap.registerPlugin(ScrollTrigger);
 
     groups.forEach((group) => {
       const letters = group.querySelectorAll<HTMLElement>('[data-char]');
 
-      ScrollTrigger.create({
-        trigger: group,
-        // Start once the headline is comfortably inside the screen.
-        start: 'top 80%',
-        once: true,
-        onEnter: () => {
-          gsap.to(letters, {
-            opacity: 1,
-            duration: 0.55,
-            ease: 'calm',
-            // `amount` spreads every letter's start across 0.75s, in random order.
-            stagger: { amount: 0.75, from: 'random' },
-          });
+      // One tween over every letter. `amount` spreads the letters' start times
+      // across 70% of the timeline, in random order; each letter then takes
+      // 30% to fade in. The timeline is stretched over the scroll distance.
+      gsap.fromTo(
+        letters,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.3,
+          ease: 'none',
+          stagger: { amount: 0.7, from: 'random' },
+          scrollTrigger: {
+            trigger: group,
+            start: 'top 90%',
+            end: 'top 35%',
+            // A little smoothing so the letters settle instead of ticking.
+            scrub: 0.5,
+          },
         },
-      });
+      );
     });
   } catch (error) {
     // Never leave a headline invisible: drop the hidden starting state.
