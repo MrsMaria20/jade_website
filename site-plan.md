@@ -76,12 +76,16 @@ Night background: closing line + **Book a call** / email buttons; columns: logo 
 
 ## Services `/services`
 
-Visual reference: `reference/source/02-ff2-site-services.html`.
-`TODO:` sections and copy. Must cover: Launch and Studio in depth (what's included, who each is for), the simple process from first conversation to a live site, timelines (see below), the founding clients offer, a questions section, and a booking strip.
+Visual reference: `reference/source/02-ff2-site-services.html` (layout only). Four panels, each filling one screen:
 
-**Timelines (owner's experience, to confirm wording):** a small to medium site takes about 4 to 7 days; a very detailed site takes 2 to 3 weeks. Suggested mapping: Launch (one or two pages) about a week, Studio (complete) 2 to 3 weeks. State that the timeline starts once the scope is agreed and the content has been received, since late content is the main thing that moves a date. Keep ranges, not single dates, until there are a few finished projects to point to.
+1. **Hero** (green field, doves, nav): label `JADEAGENTIC.COM / SERVICES`; headline **Two ways to start. Both built around you.**; line: "Every site is designed around your business. Pick a starting point, and we confirm the exact scope on a call."
+2. **Starting points** (paper): `01 · STARTING POINTS`, **Which one fits your business?** Launch and Studio cards, each with a "Best for" line, what's included, and a timeline. Launch best for: "New businesses, single offers, or anyone who needs a clear presence online quickly." Studio best for: "Established businesses that need a full website with a page for everything customers look for." A note: "Timelines start once the scope is agreed and your content has arrived."
+3. **Every project** (paper): `02 · EVERY PROJECT`, **What you get either way.** Designed from scratch (not built from a template) · Works on every device · You own everything (your domain, your site, and your accounts are in your name).
+4. **Contact**: the same closing panel as the home page (booking card, founding clients, coming-soon line), numbered `03 · CONTACT`.
 
-**Questions section:** keep it on this page, but only publish questions that have actually been asked. Start with the few the studio can answer from its own process (for example, how long a site takes, who owns it, whether you can update it yourself) and add to it after real conversations. Until then, leave the section out rather than inventing questions.
+Not built, on purpose: the mockup's add-ons picker and its side-by-side revision-rounds table (scope and revisions are settled on a call). A questions section is left out until real questions have been asked. A detailed AI section can be added when there are real details; for now the coming-soon line in the contact panel covers it.
+
+**Timelines (owner's experience):** a small to medium site takes about 4 to 7 days; a very detailed site takes 2 to 3 weeks. Shown as "About a week" (Launch) and "2 to 3 weeks" (Studio).
 
 ## About `/about`
 
