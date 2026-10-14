@@ -95,11 +95,20 @@ const { title, description } = Astro.props;
     .js [data-reveal] {
       opacity: 0;
     }
+
+    /* The letters of a scatter headline (see src/scripts/scatter-reveal.ts). */
+    .js [data-char] {
+      opacity: 0;
+    }
   }
 </style>
 
 <script>
   import { initReveal } from '../scripts/reveal';
+  import { initScatterReveal } from '../scripts/scatter-reveal';
+  import { initFrameGrow } from '../scripts/frame-grow';
 
   initReveal();
+  initScatterReveal();
+  initFrameGrow();
 </script>

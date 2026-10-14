@@ -1,0 +1,107 @@
+---
+/*
+  PointerGlow.astro
+
+  What it is: a faint, soft light on the green field that follows the pointer.
+  A quiet cousin of the doves, which also react to the pointer.
+  Where it's used: inside dark frames (the hero and the contact panel), above
+  the field and grain and below the content. The parent frame must be
+  `position: relative`.
+
+  It only appears for people with a mouse or trackpad and who have not asked
+  for reduced motion. On phones and tablets it is simply not there.
+*/
+---
+
+<div class="pointer-glow js-pointer-glow" aria-hidden="true"></div>
+
+<style>
+  .pointer-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.9s var(--ease-calm);
+    background: radial-gradient(
+      460px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(191, 211, 204, 0.17),
+      transparent 70%
+    );
+  }
+
+  .pointer-glow.is-active {
+    opacity: 1;
+  }
+
+  /* No glow on touch screens, or when the visitor prefers reduced motion. */
+  @media (hover: none), (prefers-reduced-motion: reduce) {
+    .pointer-glow {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const glows = document.querySelectorAll<HTMLElement>('.js-pointer-glow');
+
+  const canHover = window.matchMedia('(hover: hover)').matches;
+  const reduceMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches;
+
+  if (canHover && !reduceMotion) {
+    glows.forEach((glow) => {
+      const frame = glow.parentElement;
+      if (!frame) return;
+
+      // Where the pointer is (target) and where the light currently is (current).
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let running = false;
+
+      // Ease the light toward the pointer, so it trails slightly instead of snapping.
+      function step(): void {
+        currentX += (targetX - currentX) * 0.12;
+        currentY += (targetY - currentY) * 0.12;
+
+        glow.style.setProperty('--glow-x', `${currentX}px`);
+        glow.style.setProperty('--glow-y', `${currentY}px`);
+
+        const settled =
+          Math.abs(targetX - currentX) < 0.5 &&
+          Math.abs(targetY - currentY) < 0.5;
+
+        if (settled && !glow.classList.contains('is-active')) {
+          running = false;
+          return;
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      frame.addEventListener('pointermove', (event) => {
+        const bounds = frame.getBoundingClientRect();
+        targetX = event.clientX - bounds.left;
+        targetY = event.clientY - bounds.top;
+
+        // First movement: start the light at the pointer so it doesn't sweep in.
+        if (!glow.classList.contains('is-active')) {
+          currentX = targetX;
+          currentY = targetY;
+          glow.classList.add('is-active');
+        }
+
+        if (!running) {
+          running = true;
+          requestAnimationFrame(step);
+        }
+      });
+
+      frame.addEventListener('pointerleave', () => {
+        glow.classList.remove('is-active');
+      });
+    });
+  }
+</script>

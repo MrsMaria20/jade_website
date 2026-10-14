@@ -42,7 +42,9 @@ const isDark = tone === 'dark';
 
 <article
   class:list={[
-    'flex flex-col gap-[clamp(14px,2.2vh,20px)] rounded-[26px] p-7 md:p-[clamp(24px,4.5vh,36px)]',
+    'group flex flex-col gap-[clamp(14px,2.2vh,20px)] rounded-[26px] p-7 md:p-[clamp(24px,4.5vh,36px)]',
+    // Hover: the card rises a little and gains a soft shadow. Still under reduced motion.
+    'transition-[transform,box-shadow] duration-500 ease-calm hover:-translate-y-1 hover:shadow-[0_28px_48px_-28px_rgba(28,36,31,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0',
     isDark ? 'bg-ink text-ivory' : 'bg-card text-ink',
     extraClasses,
   ]}
@@ -93,13 +95,24 @@ const isDark = tone === 'dark';
     ))}
   </ul>
 
-  <!-- ===== TIMELINE ===== -->
-  <p
-    class:list={[
-      'mt-auto border-t pt-5 font-mono text-xs tracking-[0.08em] uppercase',
-      isDark ? 'border-ivory/15 text-ivory' : 'border-ink/15 text-ink',
-    ]}
-  >
-    {timeline}
-  </p>
+  <!-- ===== TIMELINE: a thin line that draws across in color on hover ===== -->
+  <div class="mt-auto">
+    <div class:list={['relative h-px', isDark ? 'bg-ivory/15' : 'bg-ink/15']}>
+      <span
+        aria-hidden="true"
+        class:list={[
+          'absolute inset-0 origin-left scale-x-0 transition-transform duration-700 ease-calm group-hover:scale-x-100 motion-reduce:transition-none',
+          isDark ? 'bg-sage' : 'bg-jade',
+        ]}
+      ></span>
+    </div>
+    <p
+      class:list={[
+        'pt-5 font-mono text-xs tracking-[0.08em] uppercase',
+        isDark ? 'text-ivory' : 'text-ink',
+      ]}
+    >
+      {timeline}
+    </p>
+  </div>
 </article>
