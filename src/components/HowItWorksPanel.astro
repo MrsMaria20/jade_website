@@ -2,8 +2,10 @@
 /*
   HowItWorksPanel.astro
 
-  What it is: the second panel: the three steps from first conversation to a
-  live site, set large so the panel fills one screen on its own.
+  What it is: the middle panel: the three steps from first conversation to a
+  live site, set large so the panel fills one screen on its own. It is the one
+  colored panel between two beige ones, so it uses the green field, full width,
+  to break up the page (hero green, beige, THIS, beige, contact green).
   Where it's used: src/pages/index.astro, between the services panel and the
   contact panel (id "how-it-works").
   Which mockup it matches: the section openers and stage titles in
@@ -14,6 +16,7 @@
   never have to learn a site builder. Copy is from site-plan.md.
 */
 
+import BlurredField from './BlurredField.astro';
 import SectionIntro from './SectionIntro.astro';
 
 // The three steps from first conversation to a live site.
@@ -33,17 +36,33 @@ const steps = [
 ];
 ---
 
-<!-- ===== HOW IT WORKS: one screen tall, paper ===== -->
+<!-- ===== HOW IT WORKS: one screen tall, the green field ===== -->
 <section
   id="how-it-works"
-  class="flex min-h-svh flex-col justify-center border-t border-ink/10 bg-paper px-6 py-[clamp(40px,7vh,110px)] text-ink lg:px-[104px]"
+  class="relative flex min-h-svh flex-col justify-center overflow-hidden bg-field px-6 py-[clamp(40px,7vh,110px)] text-ivory lg:px-[104px]"
 >
-  <div class="mx-auto flex w-full max-w-[1232px] flex-col gap-[clamp(40px,8vh,96px)]">
+  <!-- The field, with its own seed so it differs from the hero and contact panels. -->
+  <BlurredField seed={21} />
+
+  <!-- A dark veil over the field keeps the small step text easy to read. -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 bg-night/35"
+  ></div>
+
+  <img
+    src="/grain.svg"
+    alt=""
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.16] mix-blend-overlay"
+  />
+
+  <div class="relative z-10 mx-auto flex w-full max-w-[1232px] flex-col gap-[clamp(40px,8vh,96px)]">
     <!-- ===== HEADER: the title fades in letter by letter as it scrolls into view ===== -->
     <SectionIntro
       label="02 · HOW IT WORKS"
       title="From first conversation to live site, in three steps."
-      surface="light"
+      surface="dark"
       scatter
       class="max-w-[900px]"
     />
@@ -51,12 +70,15 @@ const steps = [
     <!-- ===== THE THREE STEPS ===== -->
     <ol class="grid gap-10 md:grid-cols-3 md:gap-10">
       {steps.map((step, index) => (
-        <li data-reveal class="flex flex-col gap-4 border-t border-ink/20 pt-6">
-          <span class="eyebrow text-jade">Step {index + 1}</span>
+        <li
+          data-reveal
+          class="flex flex-col gap-4 border-t border-ivory/25 pt-6"
+        >
+          <span class="eyebrow text-sage">Step {index + 1}</span>
           <h3 class="font-serif text-[36px] leading-none font-normal md:text-[44px]">
             {step.name}
           </h3>
-          <p class="max-w-[320px] text-[17px] leading-relaxed text-moss">
+          <p class="max-w-[320px] text-[17px] leading-relaxed text-mist">
             {step.text}
           </p>
         </li>

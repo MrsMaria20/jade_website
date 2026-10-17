@@ -9,7 +9,7 @@ Machine-readable values live in `brand/tokens.css` (Tailwind) and `brand/tokens.
 
 The site has two worlds:
 - **The field** — a dark, blurred, slowly drifting green background with film grain and ASCII doves. Used for the hero and the closing.
-- **The paper** — warm, light sections for reading: services, how it works, what every project gets, about.
+- **The paper** — warm, light sections for reading: services, what every project gets, about. The page alternates beige and green so it never becomes one long stretch of either (home: green hero, beige services, green how it works, beige every project, green contact).
 
 Dark frames sit inside the page with a 16px inset and 28px corners, so the page feels like paper with windows onto the field.
 
@@ -77,7 +77,9 @@ Frosted panels let the field show through while keeping text crisp.
 - **Hero glass** (`.glass-hero`): short text + buttons directly on the moving field.
 - **Panel glass** (`.glass-panel`): interactive cards on dark, like the booking picker.
 
-Rules: only on top of the field, at most two per screen, never on paper sections. Text inside stays at least 16px.
+Rules: only on top of the field, at most two per screen, never directly on paper sections. Text inside stays at least 16px.
+
+Exception (owner's choice): the "what every project gets" panel shows three glass bubbles as one group. To keep the glass rule (it needs the field behind it), they sit inside a rounded green-field window set into the beige panel, like the page's other frames.
 
 ## Components
 

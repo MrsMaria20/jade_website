@@ -45,7 +45,8 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
   - **Studio** · the complete, built-out website. DRAFT: "A complete website that represents your whole business, with a page for everything your customers look for." Includes: everything in Launch, plus more pages; scope confirmed on a call. Timeline: 3 to 4 weeks.
   - Timelines are ranges; the clock starts once scope is agreed and content is received.
 
-### 3. How it works: paper, one screen (`#how-it-works`)
+### 3. How it works: the green field, one screen (`#how-it-works`)
+The one colored panel between two beige ones, so the page has a rhythm: green hero, beige services, **green how it works**, beige every project, green contact. Full-width green field with a dark veil (35%) so the small step text stays readable (measured contrast 4.8:1 or better).
 - Label: `02 · HOW IT WORKS`
 - Header: **From first conversation to live site, in three steps.**
 - Three steps (names avoid the word "Launch"): **Talk it through** (we define what your site needs, together) → **We build it** (we handle every step; you don't need to learn a site builder) → **You're live** (your site goes live on your own domain).
@@ -53,6 +54,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 ### 4. Every project: paper, one screen (`#every-project`)
 - Label: `03 · EVERY PROJECT`
 - Header: **What you get either way.**
+- Layout: the header sits on the beige; the three points are frosted-glass bubbles (the hero card's glass) inside a rounded green-field window, so the glass has something to blur. No scroll-linked letter reveal on this header (that effect is kept for the "how it works" header only).
 - Three points: **Designed from scratch** (your site is designed around your business, not built from a template) · **Works on every device** (built to work well on phones, tablets, and computers) · **You own everything** (your domain, your site, and your accounts are in your name). All three confirmed by the owner.
 
 ### 5. Contact: the field, one screen (`#contact`)

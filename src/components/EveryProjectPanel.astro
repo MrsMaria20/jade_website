@@ -3,15 +3,24 @@
   EveryProjectPanel.astro
 
   What it is: a panel listing what every project gets, whichever starting point
-  is chosen. Three short points, set large so the panel fills one screen.
+  is chosen. Three short points, each in its own frosted-glass bubble.
   Where it's used: src/pages/index.astro, after the "how it works" panel.
-  Which mockup it matches: the section openers and stage titles in
-  reference/source/02-ff2-site-home.html (serif titles, mono labels, paper).
+  Which mockup it matches: the glass hero card in heromockupex.png, and the
+  "paper with windows onto the field" idea in brand/brand-guide.md.
+
+  Why a green window inside a beige panel: frosted glass only looks like glass
+  when there is something to blur behind it. The header stays on beige; the three
+  bubbles sit inside a rounded window of the green field, the way the hero does.
+
+  Brand exception: brand/brand-guide.md says "at most two glass panels per
+  screen". This panel shows three on purpose, as one group. See CLAUDE.md.
 
   Only things the owner has confirmed are true of every project are listed here.
   Copy is from site-plan.md.
 */
 
+import BlurredField from './BlurredField.astro';
+import GlassPanel from './GlassPanel.astro';
 import SectionIntro from './SectionIntro.astro';
 
 // What every project includes (confirmed by the owner).
@@ -31,13 +40,13 @@ const points = [
 ];
 ---
 
-<!-- ===== EVERY PROJECT: one screen tall, paper ===== -->
+<!-- ===== EVERY PROJECT: one screen tall, beige with a green window ===== -->
 <section
   id="every-project"
-  class="flex min-h-svh flex-col justify-center border-t border-ink/10 bg-paper px-6 py-[clamp(40px,7vh,110px)] text-ink lg:px-[104px]"
+  class="flex min-h-svh flex-col justify-center bg-paper px-6 py-[clamp(40px,7vh,110px)] text-ink lg:px-[104px]"
 >
-  <div class="mx-auto flex w-full max-w-[1232px] flex-col gap-[clamp(40px,8vh,96px)]">
-    <!-- ===== HEADER ===== -->
+  <div class="mx-auto flex w-full max-w-[1232px] flex-col gap-[clamp(28px,6vh,64px)]">
+    <!-- ===== HEADER: on the beige ===== -->
     <div data-reveal>
       <SectionIntro
         label="03 · EVERY PROJECT"
@@ -47,18 +56,42 @@ const points = [
       />
     </div>
 
-    <!-- ===== THE THREE POINTS ===== -->
-    <ul class="grid gap-10 md:grid-cols-3 md:gap-10">
-      {points.map((point) => (
-        <li data-reveal class="flex flex-col gap-4 border-t border-ink/20 pt-6">
-          <h3 class="font-serif text-[36px] leading-none font-normal md:text-[40px]">
-            {point.name}
-          </h3>
-          <p class="max-w-[340px] text-[17px] leading-relaxed text-moss">
-            {point.text}
-          </p>
-        </li>
-      ))}
-    </ul>
+    <!-- ===== THE GREEN WINDOW: gives the glass something to blur ===== -->
+    <div
+      data-reveal
+      class="relative overflow-hidden rounded-[28px] bg-field p-5 md:p-[clamp(20px,5vh,48px)]"
+    >
+      <BlurredField seed={33} />
+
+      <!-- A dark veil keeps the text inside the bubbles easy to read. -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 bg-night/35"
+      ></div>
+
+      <img
+        src="/grain.svg"
+        alt=""
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.16] mix-blend-overlay"
+      />
+
+      <!-- ===== THE THREE GLASS BUBBLES ===== -->
+      <ul class="relative z-10 grid gap-4 md:grid-cols-3 md:gap-5">
+        {points.map((point) => (
+          <li class="flex">
+            <GlassPanel
+              variant="hero"
+              class="flex w-full flex-col gap-4 md:p-[clamp(22px,4vh,32px)]"
+            >
+              <h3 class="font-serif text-[32px] leading-none font-normal text-ivory">
+                {point.name}
+              </h3>
+              <p class="text-[17px] leading-relaxed text-mist">{point.text}</p>
+            </GlassPanel>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
