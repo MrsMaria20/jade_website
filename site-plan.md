@@ -144,9 +144,9 @@ The Markdown body holds the brief and figure captions.
 ---
 
 ## Real details still needed
-- `TODO:` [YOUR EMAIL] (e.g. hello@jadeagentic.com)
+- Done: contact email is **team@jadeagentic.com** (set in `src/data/site.ts`). Email only; no phone number is shown on the site, by choice.
 - `TODO:` [CALENDLY URL]
 - `TODO:` [TALLY FORM URL] (only if the project form is kept)
-- `TODO:` final timeline wording for the hero (it says "[X] weeks"; with real ranges of about a week to 3 weeks, reword, e.g. "in as little as a week" or "within one to three weeks"), founding spots ([NUMBER])
+- `TODO:` final timeline wording for the hero (it says "[X] weeks"; with real ranges of about a week to 3 weeks, reword, e.g. "in as little as a week" or "within one to three weeks"), founding spots ([NUMBER], owner will provide)
 - Decided: no prices on the site; price, budget, revisions, and change rules are covered on the call and in the written agreement.
-- `TODO:` social links
+- `TODO:` social links (no accounts yet; a company LinkedIn page is planned, then its URL goes in `src/data/site.ts`)

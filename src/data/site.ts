@@ -20,7 +20,7 @@ export const bookCallHref = '/contact#book';
 // The contact email. While this is null, the site shows the visible placeholder
 // below and does NOT render a mailto link. Set it to the real address to turn
 // every email spot on the site into a working link.
-export const contactEmail: string | null = null;
+export const contactEmail: string | null = 'team@jadeagentic.com';
 export const emailPlaceholder = '[YOUR EMAIL]';
 
 // The Work page is built but hidden. Set this to true when the first real
