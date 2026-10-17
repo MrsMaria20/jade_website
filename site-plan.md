@@ -26,7 +26,7 @@ Mobile: compact notch with a menu button opening a full-screen sheet, plus a sti
 
 Visual reference: hero from `heromockupex.png` and `reference/source/01-field-and-flight-v2.html`; the rest from `reference/source/02-ff2-site-home.html`. The bloom section in that file is not used.
 
-**Layout rule:** the home page is five panels, and each fills exactly one screen (the browser window), so the next panel appears as the visitor scrolls. Colour rhythm: green hero, beige services, green how it works, beige every project, green contact. Beige panels are NOT flat: they use the **light field** (soft sage and celadon washes over beige) so they feel related to the green ones (a crumpled-paper texture was tried and rejected). **Window-opening transition** (the panel is a rounded frame that grows from a smaller window as you scroll to it and closes as you scroll back): on services (a trial, remove `data-frame-grow` to turn it off) and on contact. It is not on how it works or every project.
+**Layout rule:** the home page is five panels, and each fills exactly one screen (the browser window), so the next panel appears as the visitor scrolls. Colour rhythm: green hero, beige services, green how it works, beige every project, green contact. Beige panels are NOT flat: they use the **light field** (soft sage and celadon washes over beige) so they feel related to the green ones (a crumpled-paper texture was tried and rejected). **Window-opening transition** (the panel is a rounded frame that grows from a smaller window as you scroll to it and closes as you scroll back): on the contact panel only. Services, how it works, and every project are plain full-width panels with square edges.
 
 ### 1. Hero: the field (dark)
 - Frame: field + grain + ASCII doves; notched navigation cut into the top.
@@ -37,7 +37,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
   - Buttons: **Start a project** (→ `/contact`) · See our services (→ `#services`)
 - No vertical side text and no scroll cue (both removed from the mockup).
 
-### 2. Services: beige with the light field, one screen (`#services`)
+### 2. Services: beige with the light field, plain full-width, one screen (`#services`)
 - Label: `01 · SERVICES`
 - Header: **Two ways to get your website live.** On the right: "Most projects start here. We confirm the exact scope on a call." and a **Book a call** button (→ `/contact#book`).
 - Two starting-point cards (light and dark, side by side). **No prices and no revision or change rules on the site**; budget and exact scope are settled on the call.
