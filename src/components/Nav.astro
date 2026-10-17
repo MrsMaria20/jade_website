@@ -26,9 +26,10 @@ import {
 } from '../data/site';
 
 // Work out which page we are on so the matching nav link can be marked as current.
+// Links that jump to a section of a page (they contain a #) are never "current".
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrentPage = (href: string) =>
-  href.split('#')[0].replace(/\/$/, '') === currentPath;
+  !href.includes('#') && href.replace(/\/$/, '') === currentPath;
 ---
 
 <!-- ===== NAV BAR: the notch cut into the top of the frame ===== -->

@@ -17,6 +17,7 @@
 import SectionIntro from './SectionIntro.astro';
 import PackageCard from './PackageCard.astro';
 import Button from './Button.astro';
+import { bookCallHref } from '../data/site';
 
 // What each starting point includes. Launch items are confirmed; Studio's list
 // is kept general because each Studio project is scoped on a call.
@@ -51,8 +52,8 @@ const studioIncludes = [
         <p class="max-w-[520px] text-[17px] leading-relaxed text-moss">
           Most projects start here. We confirm the exact scope on a call.
         </p>
-        <Button href="/services" surface="light" arrow>
-          See our services
+        <Button href={bookCallHref} surface="light" arrow>
+          Book a call
         </Button>
       </div>
     </div>

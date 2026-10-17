@@ -9,7 +9,7 @@ Machine-readable values live in `brand/tokens.css` (Tailwind) and `brand/tokens.
 
 The site has two worlds:
 - **The field** — a dark, blurred, slowly drifting green background with film grain and ASCII doves. Used for the hero and the closing.
-- **The paper** — warm, light sections for reading: services, packages, about, contact.
+- **The paper** — warm, light sections for reading: services, how it works, what every project gets, about.
 
 Dark frames sit inside the page with a 16px inset and 28px corners, so the page feels like paper with windows onto the field.
 
@@ -81,7 +81,7 @@ Rules: only on top of the field, at most two per screen, never on paper sections
 
 ## Components
 
-- **Notched navigation:** a 780×72px night bar cut into the top-center of the hero frame, bottom corners 26px, with inverted 26px curves where it meets the frame (radial-gradient corners). Contains: logo lockup (a link to the home page), 3 links (Services, About, Contact), "Book a call" ivory pill with a forest icon circle and an up-right arrow.
+- **Notched navigation:** a 780×72px night bar cut into the top-center of the hero frame, bottom corners 26px, with inverted 26px curves where it meets the frame (radial-gradient corners). Contains: logo lockup (a link to the home page), 3 links (Services, which scrolls to its home page section, About, Contact), "Book a call" ivory pill with a forest icon circle and an up-right arrow.
 - **Buttons:** fully rounded pills, 48–56px tall.
 - **Eyebrow labels:** `NN · SECTION NAME` in mono, jade on paper, sage on dark.
 - **Progress line:** 2–3px track in ink/14%, filled in jade.

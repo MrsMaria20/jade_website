@@ -9,15 +9,14 @@ Audience: small to medium businesses of every kind.
 
 | Page | URL | Purpose |
 |---|---|---|
-| Home | `/` | Hero, a preview of the services, and the contact / what's-next closing panel |
-| Services | `/services` | The two packages in depth: what's included and how a project runs |
+| Home | `/` | Hero, services, how it works, what every project gets, and the contact / what's-next closing panel |
 | About | `/about` | Who is behind the studio |
 | Contact | `/contact` | Book the 20-minute call (Calendly), send a brief, or email |
 | Work | `/work` | **Built, not published.** See the end of this file |
 
 ## Navigation
 
-Logo lockup (a link to `/`, accessible name "Jade Agentic, home") → `Services` (`/services`) · `About` (`/about`) · `Contact` (`/contact`) · **Book a call** pill (`/contact#book`).
+Logo lockup (a link to `/`, accessible name "Jade Agentic, home") → `Services` (`/#services`, a section of the home page) · `About` (`/about`) · `Contact` (`/contact`) · **Book a call** pill (`/contact#book`).
 A `Work` link is added automatically once a project is published.
 Mobile: compact notch with a menu button opening a full-screen sheet, plus a sticky "Book a call" bar after the hero (see `reference/source/01b-field-and-flight-v2-mobile.html`).
 
@@ -40,9 +39,9 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 
 ### 2. Services: paper, one screen (`#services`)
 - Label: `01 · SERVICES`
-- Header: **Two ways to get your website live.** On the right: "Most projects start here. We confirm the exact scope on a call." and the **See our services** button (→ `/services`).
+- Header: **Two ways to get your website live.** On the right: "Most projects start here. We confirm the exact scope on a call." and a **Book a call** button (→ `/contact#book`).
 - Two starting-point cards (light and dark, side by side). **No prices and no revision or change rules on the site**; budget and exact scope are settled on the call.
-  - **Launch** · one or two pages, a minimal marketing site. DRAFT: "A focused site that puts your business in front of the right people and makes it easy to get in touch." Includes: contact form, booking link, search basics, domain connection. Timeline: about a week.
+  - **Launch** · one or two pages, a minimal marketing site. DRAFT: "A focused site that puts your business in front of the right people and makes it easy to get in touch." Includes: contact form, booking link, search basics, domain connection. Timeline: 1 to 2 weeks.
   - **Studio** · the complete, built-out website. DRAFT: "A complete website that represents your whole business, with a page for everything your customers look for." Includes: everything in Launch, plus more pages; scope confirmed on a call. Timeline: 3 to 4 weeks.
   - Timelines are ranges; the clock starts once scope is agreed and content is received.
 
@@ -51,12 +50,17 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 - Header: **From first conversation to live site, in three steps.**
 - Three steps (names avoid the word "Launch"): **Talk it through** (we define what your site needs, together) → **We build it** (we handle every step; you don't need to learn a site builder) → **You're live** (your site goes live on your own domain).
 
-### 4. Contact: the field, one screen (`#contact`)
+### 4. Every project: paper, one screen (`#every-project`)
+- Label: `03 · EVERY PROJECT`
+- Header: **What you get either way.**
+- Three points: **Designed from scratch** (your site is designed around your business, not built from a template) · **Works on every device** (built to work well on phones, tablets, and computers) · **You own everything** (your domain, your site, and your accounts are in your name). All three confirmed by the owner.
+
+### 5. Contact: the field, one screen (`#contact`)
 - Left:
-  - Label: `03 · CONTACT`
+  - Label: `04 · CONTACT`
   - Heading: **Tell us about your business.**
   - Text: "A 20-minute call about your business and what your website needs to do for it. You'll leave knowing the next step."
-  - Email line: "Prefer to write? [YOUR EMAIL]"
+  - Email line: "Prefer to write? team@jadeagentic.com"
 - Right (panel glass): booking card, "20 minutes", button **Choose a time** (→ `/contact#book`). Do not mention cost; the call is free, but price stays off the card.
 - Founding clients strip (dashed border, full width, below the two columns): The first four projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`). Set `foundingSpotsOpen` to `false` in `src/data/site.ts` when all four spots are taken, and the strip disappears.
 - Coming-soon line (below, quieter): "Coming soon: AI assistants that handle the routine work, so you can focus on what matters most. Email us to hear first." The email link is a plain `mailto:` link; no second form.
@@ -74,18 +78,11 @@ Night background: closing line + **Book a call** / email buttons; columns: logo 
 
 ---
 
-## Services `/services`
+## Services page: CUT FOR NOW (decision, not a gap)
 
-Visual reference: `reference/source/02-ff2-site-services.html` (layout only). Four panels, each filling one screen:
+The owner decided to **cut the separate Services page**. It repeated the home page (the same two cards and the same contact panel), and with no finished projects yet there isn't enough real evidence to write a meaningful Launch-versus-Studio comparison without inventing it. "Services" is now a section of the home page (`#services`), and the nav "Services" link scrolls to it.
 
-1. **Hero** (green field, doves, nav): label `JADEAGENTIC.COM / SERVICES`; headline **Two ways to start. Both built around you.**; line: "Every site is designed around your business. Pick a starting point, and we confirm the exact scope on a call."
-2. **Starting points** (paper): `01 · STARTING POINTS`, **Which one fits your business?** Launch and Studio cards, each with a "Best for" line, what's included, and a timeline. Launch best for: "New businesses, single offers, or anyone who needs a clear presence online quickly." Studio best for: "Established businesses that need a full website with a page for everything customers look for." A note: "Timelines start once the scope is agreed and your content has arrived."
-3. **Every project** (paper): `02 · EVERY PROJECT`, **What you get either way.** Designed from scratch (not built from a template) · Works on every device · You own everything (your domain, your site, and your accounts are in your name).
-4. **Contact**: the same closing panel as the home page (booking card, founding clients, coming-soon line), numbered `03 · CONTACT`.
-
-Not built, on purpose: the mockup's add-ons picker and its side-by-side revision-rounds table (scope and revisions are settled on a call). A questions section is left out until real questions have been asked. A detailed AI section can be added when there are real details; for now the coming-soon line in the contact panel covers it.
-
-**Timelines:** the owner's best case is about 4 to 7 days for a small to medium site and 2 to 3 weeks for a very detailed one. Because the studio is new, the site quotes wider ranges with a buffer: "1 to 2 weeks" (Launch) and "3 to 4 weeks" (Studio). Tighten them after the founding projects, once the real pace is known.
+**Bring it back when** there are real differences to describe (after the four founding projects) or when the AI assistants and agentic workflows launch, which gives the page a reason to exist. Its first version is in git history (commit `bb6a63e`), including the "Best for" cards and the "Every project" panel.
 
 ## About `/about`
 

@@ -38,9 +38,10 @@ export interface SiteLink {
   href: string;
 }
 
-// The main pages, in the order they appear in the nav and footer.
+// The main links, in the order they appear in the nav and footer. "Services"
+// is a section of the home page, not a page of its own (see site-plan.md).
 export const mainLinks: SiteLink[] = [
-  { label: 'Services', href: '/services' },
+  { label: 'Services', href: '/#services' },
   ...(workPublished ? [{ label: 'Work', href: '/work' }] : []),
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },

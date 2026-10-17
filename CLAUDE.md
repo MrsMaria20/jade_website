@@ -19,8 +19,8 @@ Live domain: jadeagentic.com
 
 ## Pages
 
-Four live pages: Home `/`, Services `/services`, About `/about`, Contact `/contact`. A fifth, Work `/work`, is built but hidden until the first real project is published.
-Navigation: logo (links home) · Services · About · Contact · **Book a call** pill (to `/contact#book`, where Calendly is embedded).
+Three live pages: Home `/`, About `/about`, Contact `/contact`. A fourth, Work `/work`, is built but hidden until the first real project is published. There is no Services page (cut on purpose; see `site-plan.md`); "Services" is a section of the home page.
+Navigation: logo (links home) · Services (`/#services`) · About · Contact · **Book a call** pill (to `/contact#book`, where Calendly is embedded).
 `site-plan.md` has every section in order with its copy (PROPOSED; open items are marked `TODO`). `build-plan.md` has the build steps.
 
 ## Where things are
@@ -40,7 +40,7 @@ Navigation: logo (links home) · Services · About · Contact · **Book a call**
 Match these mockups in `reference/source/` (each file starts with a comment saying what to take from it):
 - `01-field-and-flight-v2.html` (+ `01b-…-mobile.html`): hero, doves, logo in nav, overall look
 - `02-ff2-site-home.html`, `02-ff2-site-contact.html`: sections, components, glass panels, footer (ignore the bloom section; it was removed)
-- `02-ff2-site-services.html`, `02-ff2-site-about.html`: layout references for the Services and About pages
+- `02-ff2-site-about.html`: layout reference for the About page (`02-ff2-site-services.html` is no longer used; the Services page was cut)
 - `02-ff2-site-work.html`: layout reference for the hidden Work page
 - `heromockupex.png`: the approved hero layout (copy and card treatment per `site-plan.md`)
 - `03-brand-kit-preview.html`: visual brand summary

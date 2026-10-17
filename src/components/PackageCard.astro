@@ -18,8 +18,6 @@ interface Props {
   tag: string;
   // One or two sentences saying what the starting point is.
   description: string;
-  // Optional: who it suits, shown as a "Best for" line (used on the Services page).
-  bestFor?: string;
   // What's included, one short phrase per item.
   includes: string[];
   // How long it usually takes, for example "1 to 2 weeks".
@@ -33,7 +31,6 @@ const {
   name,
   tag,
   description,
-  bestFor,
   includes,
   timeline,
   tone = 'light',
@@ -76,26 +73,6 @@ const isDark = tone === 'dark';
   >
     {description}
   </p>
-
-  <!-- ===== BEST FOR: who it suits (only when provided) ===== -->
-  {bestFor && (
-    <p
-      class:list={[
-        'flex flex-col gap-1 text-[15.5px] leading-snug',
-        isDark ? 'text-mist' : 'text-moss',
-      ]}
-    >
-      <span
-        class:list={[
-          'font-mono text-[11px] tracking-[0.16em] uppercase',
-          isDark ? 'text-sage' : 'text-jade',
-        ]}
-      >
-        Best for
-      </span>
-      {bestFor}
-    </p>
-  )}
 
   <!-- ===== WHAT'S INCLUDED ===== -->
   <ul

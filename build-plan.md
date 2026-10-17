@@ -27,9 +27,9 @@ One step at a time. Before each step: propose a plan and wait for approval. Afte
 - Services preview (Launch and Studio cards, three-step strip, founding clients strip) → Contact and what's next (booking card, email, coming-soon line).
 - Section reveal animation (fade up 30px) with GSAP or IntersectionObserver.
 
-## Step 5 — Services page
-- Short hero, Launch and Studio in depth, the process, founding clients, booking strip.
-- Reference: `reference/source/02-ff2-site-services.html`.
+## Step 5 — Services page: built, then CUT
+- Built and reviewed (commit `bb6a63e`), then removed on purpose: it repeated the home page and there isn't enough project evidence yet. "Services" is now a section of the home page.
+- Revisit after the four founding projects, or when the AI services launch.
 
 ## Step 6 — About page
 - Reference: `reference/source/02-ff2-site-about.html`.
