@@ -61,7 +61,7 @@
   }
 }
 
-/* Signature surfaces. Glass only sits on top of the moving field — max two per screen, never on paper. */
+/* Signature surfaces. Glass needs a field behind it to show through (no limit on how many per page). */
 @layer components {
   .glass-hero {
     background: rgb(239 235 223 / 0.08);

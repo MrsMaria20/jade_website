@@ -77,11 +77,15 @@ Frosted panels let the field show through while keeping text crisp.
 - **Hero glass** (`.glass-hero`): short text + buttons directly on the moving field.
 - **Panel glass** (`.glass-panel`): interactive cards on dark, like the booking picker.
 
-Rules: only on top of the field, at most two per screen, never directly on paper sections. Text inside stays at least 16px.
+**There is no limit on how many glass panels a page or a screen can have.** Use as many as the design needs.
 
-Light glass (`.glass-light`) is the version for beige panels: white-tinted, bright edge, soft shadow. It only works over the **light field** (soft sage and celadon washes over beige), which every beige panel uses so the page never has flat beige.
+The only real requirements:
+- **A field behind it.** Glass only reads as glass when there is something to show through. Use dark glass on the green field and light glass on the light field. Flat paper with nothing behind it gives glass nothing to blur, so give a beige panel the light field first.
+- **Readable text.** Text inside stays at least 16px and meets 4.5:1 contrast (measure it over the darkest and lightest parts of the field).
 
-Exception (owner's choice): the "what every project gets" panel shows three glass bubbles as one group, past the two-per-screen limit.
+Light glass (`.glass-light`) is the version for beige panels: white-tinted, bright edge, soft shadow. It works over the **light field** (soft sage and celadon washes over beige), which every beige panel uses so the page never has flat beige.
+
+**Raised panels** (cards with a soft shadow, such as Launch and Studio) have no per-page limit either. Use as many as the layout needs.
 
 Contrast note: over the light field, small labels use `moss`, not `jade` (jade failed 4.5:1 over the darker washes, measured).
 
