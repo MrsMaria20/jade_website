@@ -10,8 +10,11 @@
   story and no portrait (the logo mark stands in for it).
 
   Beige panel on the light field (see CLAUDE.md), full width, one screen tall.
-  The label, title, and paragraphs sit together inside one large light-glass
-  panel, with generous space between the title and the text.
+  The label, title, and paragraph sit together inside one tall light-glass panel,
+  with the title at the top, the text lower down, and generous space between.
+  The panel rises and gains a soft shadow on hover, like the home page cards.
+  The logo sits on a frosted disc so it stands out; the mark itself is left
+  untouched (the brand guide forbids shadows or effects on the logo).
   Only facts the owner has confirmed are used.
 */
 
@@ -28,22 +31,24 @@ import SectionIntro from './SectionIntro.astro';
   <BlurredField seed={44} tone="light" />
 
   <div class="relative z-10 mx-auto grid w-full max-w-[1232px] items-center gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.65fr)] md:gap-16">
-    <!-- ===== THE LOGO MARK, large (ink on beige, one color only) ===== -->
+    <!-- ===== THE LOGO MARK on a frosted disc (ink on light, one color only) ===== -->
     <div data-reveal class="flex justify-center md:justify-start">
-      <img
-        src="/logo/jade-disc-ink.svg"
-        alt="The Jade Agentic mark: a jade bonsai tree inside a disc"
-        width="320"
-        height="320"
-        class="h-[clamp(160px,34vh,320px)] w-[clamp(160px,34vh,320px)]"
-      />
+      <div class="glass-light flex aspect-square w-[min(100%,clamp(230px,50vh,460px))] items-center justify-center rounded-full">
+        <img
+          src="/logo/jade-disc-ink.svg"
+          alt="The Jade Agentic mark: a jade bonsai tree inside a disc"
+          width="320"
+          height="320"
+          class="h-[72%] w-[72%]"
+        />
+      </div>
     </div>
 
     <!-- ===== WHO WE ARE: one large glass panel holding the title and the text ===== -->
     <div data-reveal>
       <GlassPanel
         variant="light"
-        class="flex flex-col gap-[clamp(28px,7vh,72px)] p-7! md:p-[clamp(32px,6vh,64px)]!"
+        class="flex flex-col justify-between gap-[clamp(36px,9vh,96px)] p-7! transition-[transform,box-shadow] duration-500 ease-calm hover:-translate-y-1 hover:shadow-[0_28px_48px_-28px_rgba(28,36,31,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:min-h-[clamp(440px,68vh,660px)] md:p-[clamp(36px,7vh,72px)]!"
       >
         <SectionIntro
           label="01 · WHO WE ARE"
