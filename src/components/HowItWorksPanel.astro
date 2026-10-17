@@ -17,7 +17,9 @@
 */
 
 import BlurredField from './BlurredField.astro';
+import Button from './Button.astro';
 import SectionIntro from './SectionIntro.astro';
+import { foundingSpotsOpen, foundingSpotsWord } from '../data/site';
 
 // The three steps from first conversation to a live site.
 const steps = [
@@ -84,5 +86,22 @@ const steps = [
         </li>
       ))}
     </ol>
+
+    <!-- ===== FOUNDING CLIENTS: a reason to book now (hidden once spots are full) ===== -->
+    {foundingSpotsOpen && (
+      <div
+        data-reveal
+        class="flex flex-col gap-5 rounded-[20px] border border-dashed border-ivory/30 px-6 py-6 md:flex-row md:items-center md:justify-between md:gap-10 md:px-8"
+      >
+        <span class="eyebrow shrink-0 text-sage">Founding clients</span>
+        <p class="grow text-base leading-normal text-mist">
+          The first {foundingSpotsWord} projects are offered at a reduced rate,
+          in exchange for a testimonial and permission to share the work.
+        </p>
+        <Button href="/contact" variant="secondary" class="shrink-0 self-start">
+          Ask about a spot
+        </Button>
+      </div>
+    )}
   </div>
 </section>

@@ -79,7 +79,11 @@ Frosted panels let the field show through while keeping text crisp.
 
 Rules: only on top of the field, at most two per screen, never directly on paper sections. Text inside stays at least 16px.
 
-Exception (owner's choice): the "what every project gets" panel shows three glass bubbles as one group. To keep the glass rule (it needs the field behind it), they sit inside a rounded green-field window set into the beige panel, like the page's other frames.
+Light glass (`.glass-light`) is the version for beige panels: white-tinted, bright edge, soft shadow. It only works over the **light field** (soft sage and celadon washes over beige), which every beige panel uses so the page never has flat beige.
+
+Exception (owner's choice): the "what every project gets" panel shows three glass bubbles as one group, past the two-per-screen limit.
+
+Contrast note: over the light field, small labels use `moss`, not `jade` (jade failed 4.5:1 over the darker washes, measured).
 
 ## Components
 

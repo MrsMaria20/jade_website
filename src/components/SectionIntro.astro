@@ -38,8 +38,10 @@ const {
   class: extraClasses = '',
 } = Astro.props;
 
-// Dark sections use ivory, mist, and sage. Paper sections use ink, moss, and jade.
-const labelColor = surface === 'dark' ? 'text-sage' : 'text-jade';
+// Dark sections use ivory, mist, and sage. Beige sections use ink and moss. The
+// small label is moss, not jade: jade fails the 4.5:1 contrast rule over the
+// darker sage washes of the light field (measured).
+const labelColor = surface === 'dark' ? 'text-sage' : 'text-moss';
 const titleColor = surface === 'dark' ? 'text-ivory' : 'text-ink';
 const introColor = surface === 'dark' ? 'text-mist' : 'text-moss';
 

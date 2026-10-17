@@ -45,11 +45,37 @@ export const FIELD_PALETTE = [
 export const FIELD_LEAK = '#D9E4C8';
 
 
+/** The colors a field is painted with. */
+export interface FieldColors {
+  base: string;
+  palette: string[];
+  leak: string;
+}
+
+/**
+ * A light version of the field, for the beige panels: soft washes of celadon
+ * and sage over paper, so frosted glass has something gentle to blur.
+ * Lighter tones are listed more than once so they dominate.
+ */
+export const LIGHT_FIELD: FieldColors = {
+  base: '#E9E4D8',
+  palette: [
+    '#BFD3CC', '#BFD3CC', '#9DB592', '#F2EEE4', '#F2EEE4',
+    '#C9D2C3', '#D9E4C8', '#7E927F', '#3F6E5E',
+  ],
+  leak: '#FFFFFF',
+};
+
+
 /* ----------------------------------------------------------------------------
  * paintBlurredField
  * ------------------------------------------------------------------------- */
 
-export function paintBlurredField(canvas: HTMLCanvasElement, seed?: number) {
+export function paintBlurredField(
+  canvas: HTMLCanvasElement,
+  seed?: number,
+  colors: FieldColors = { base: FIELD_BASE, palette: FIELD_PALETTE, leak: FIELD_LEAK },
+) {
 
   // ── Random numbers ────────────────────────────────────────────────────────
   // With a seed: a simple repeatable generator. Without: Math.random.
@@ -78,7 +104,7 @@ export function paintBlurredField(canvas: HTMLCanvasElement, seed?: number) {
 
 
   // ── 1. Base color ─────────────────────────────────────────────────────────
-  ctx.fillStyle = FIELD_BASE;
+  ctx.fillStyle = colors.base;
   ctx.fillRect(0, 0, W, H);
 
 
@@ -94,7 +120,7 @@ export function paintBlurredField(canvas: HTMLCanvasElement, seed?: number) {
     const w = (200 + rand() * 1200) * k;
 
     ctx.globalAlpha = 0.15 + rand() * 0.45;
-    ctx.fillStyle = FIELD_PALETTE[Math.floor(rand() * FIELD_PALETTE.length)];
+    ctx.fillStyle = colors.palette[Math.floor(rand() * colors.palette.length)];
     ctx.fillRect(x, y, w, h);
   }
 
@@ -103,7 +129,7 @@ export function paintBlurredField(canvas: HTMLCanvasElement, seed?: number) {
   // 14 faint pale strokes, kept in the top 70% of the frame.
   for (let i = 0; i < 14; i++) {
     ctx.globalAlpha = 0.08 + rand() * 0.12;
-    ctx.fillStyle = FIELD_LEAK;
+    ctx.fillStyle = colors.leak;
     ctx.fillRect(
       rand() * W,
       rand() * H * 0.7,

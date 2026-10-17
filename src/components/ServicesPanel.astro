@@ -3,9 +3,13 @@
   ServicesPanel.astro
 
   What it is: the first panel after the hero: the services header, the two
-  "starting point" cards (Launch and Studio), and a link to the Services page.
+  "starting point" cards (Launch and Studio), and a Book a call button.
   It is sized to fill one screen, so the next panel appears as soon as the
-  visitor scrolls.
+  visitor scrolls. Its background is the light field (soft sage and celadon
+  washes over beige), the same family as the "every project" panel.
+  It is a rounded frame that "opens like a window" as the visitor scrolls to it,
+  and closes again as they scroll back up (src/scripts/frame-grow.ts), like the
+  contact panel. This is a trial; remove `data-frame-grow` to turn it off.
   Where it's used: src/pages/index.astro, right after the hero. The hero's
   "See our services" button scrolls here (id "services").
   Which mockup it matches: the packages section in
@@ -14,6 +18,7 @@
   No prices appear here by design: budget and exact scope are settled on a call.
 */
 
+import BlurredField from './BlurredField.astro';
 import SectionIntro from './SectionIntro.astro';
 import PackageCard from './PackageCard.astro';
 import Button from './Button.astro';
@@ -35,58 +40,63 @@ const studioIncludes = [
 ];
 ---
 
-<!-- ===== SERVICES PANEL: one screen tall, paper ===== -->
-<section
-  id="services"
-  class="flex min-h-svh flex-col justify-center bg-paper px-6 py-[clamp(40px,7vh,110px)] text-ink lg:px-[104px]"
->
-  <div class="mx-auto flex w-full max-w-[1232px] flex-col gap-[clamp(28px,5vh,56px)]">
-    <!-- ===== HEADER: label and title on the left, one line and a link on the right ===== -->
-    <div data-reveal class="grid gap-6 md:grid-cols-2 md:items-end md:gap-20">
-      <SectionIntro
-        label="01 · SERVICES"
-        title="Two ways to get your website live."
-        surface="light"
-      />
-      <div class="flex flex-col items-start gap-5">
-        <p class="max-w-[520px] text-[17px] leading-relaxed text-moss">
-          Most projects start here. We confirm the exact scope on a call.
-        </p>
-        <Button href={bookCallHref} surface="light" arrow>
-          Book a call
-        </Button>
-      </div>
-    </div>
+<!-- ===== SERVICES PANEL: one screen tall, a beige frame that opens like a window ===== -->
+<section id="services" class="p-4">
+  <div
+    data-frame-grow
+    class="relative flex min-h-[calc(100svh-32px)] flex-col justify-center overflow-hidden rounded-[28px] bg-paper px-6 py-[clamp(24px,4.5vh,110px)] text-ink lg:px-[88px]"
+  >
+    <!-- The light field, with its own seed so it is a sibling of the other beige panel, not a copy. -->
+    <BlurredField seed={11} tone="light" />
 
-    <!-- ===== THE TWO STARTING POINTS ===== -->
-    <div class="grid gap-5 md:grid-cols-2">
-      <div data-reveal class="flex">
-        <PackageCard
-          class="w-full"
-          name="Launch"
-          tag="One to two pages"
-          description="A focused site that puts your business in front of the right people and makes it easy to get in touch."
-          includes={launchIncludes}
-          timeline="1 to 2 weeks"
-          tone="light"
+    <div class="relative z-10 mx-auto flex w-full max-w-[1232px] flex-col gap-[clamp(28px,5vh,56px)]">
+      <!-- ===== HEADER: label and title on the left, one line and a link on the right ===== -->
+      <div data-reveal class="grid gap-6 md:grid-cols-2 md:items-end md:gap-20">
+        <SectionIntro
+          label="01 · SERVICES"
+          title="Two ways to get your website live."
+          surface="light"
         />
+        <div class="flex flex-col items-start gap-5">
+          <p class="max-w-[520px] text-[17px] leading-relaxed text-moss">
+            Most projects start here. We confirm the exact scope on a call.
+          </p>
+          <Button href={bookCallHref} surface="light" arrow>
+            Book a call
+          </Button>
+        </div>
       </div>
-      <div data-reveal class="flex">
-        <PackageCard
-          class="w-full"
-          name="Studio"
-          tag="Complete website"
-          description="A complete website that represents your whole business, with a page for everything your customers look for."
-          includes={studioIncludes}
-          timeline="3 to 4 weeks"
-          tone="dark"
-        />
-      </div>
-    </div>
 
-    <!-- The timeline only starts once there is something to build from. -->
-    <p data-reveal class="-mt-4 text-sm leading-relaxed text-lichen">
-      Timelines start once the scope is agreed and your content has arrived.
-    </p>
+      <!-- ===== THE TWO STARTING POINTS ===== -->
+      <div class="grid gap-5 md:grid-cols-2">
+        <div data-reveal class="flex">
+          <PackageCard
+            class="w-full"
+            name="Launch"
+            tag="One to two pages"
+            description="A focused site that puts your business in front of the right people and makes it easy to get in touch."
+            includes={launchIncludes}
+            timeline="1 to 2 weeks"
+            tone="light"
+          />
+        </div>
+        <div data-reveal class="flex">
+          <PackageCard
+            class="w-full"
+            name="Studio"
+            tag="Complete website"
+            description="A complete website that represents your whole business, with a page for everything your customers look for."
+            includes={studioIncludes}
+            timeline="3 to 4 weeks"
+            tone="dark"
+          />
+        </div>
+      </div>
+
+      <!-- The timeline only starts once there is something to build from. -->
+      <p data-reveal class="-mt-4 text-sm leading-relaxed text-ink">
+        Timelines start once the scope is agreed and your content has arrived.
+      </p>
+    </div>
   </div>
 </section>

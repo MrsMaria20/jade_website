@@ -74,7 +74,7 @@ When the mockups and this file disagree, this file wins. When unsure, ask instea
 
 **Logo** — the Full Canopy jade bonsai in a disc (`public/logo/`). Ivory on dark, ink on light. One color only. Never stretch, recolor, outline, or add effects. Minimum 24px (16px favicon).
 
-**Glass panels** — only on top of the moving field, max two per screen, never directly on paper sections. One deliberate exception: the "every project" panel shows three bubbles together, as one group, inside a green-field window set into the beige panel (glass needs the field behind it to read as glass).
+**Glass panels** — only on top of the moving field, max two per screen, never directly on paper sections. Glass needs a field behind it to read as glass, so beige panels use a *light field* (soft sage and celadon washes) and light glass (`.glass-light`). One deliberate exception to the two-per-screen rule: the "every project" panel shows three bubbles together, as one group.
 - Hero glass: `bg rgba(239,235,223,.08)`, `backdrop-blur 14px`, `border 1px rgba(239,235,223,.16)`, radius 22px
 - Panel glass: `bg rgba(239,235,223,.06)`, `backdrop-blur 10px`, `border 1px rgba(239,235,223,.14)`, radius 24px
 

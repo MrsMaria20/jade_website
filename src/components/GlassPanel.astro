@@ -8,22 +8,36 @@
   Which mockup it matches: reference/source/01-field-and-flight-v2.html (hero card)
   and reference/source/02-ff2-site-home.html (booking card).
 
-  Rules from CLAUDE.md: only on top of the field, at most two per screen, never
-  on paper sections, and text inside stays at least 16px.
-  The glass look itself lives in src/styles/global.css (.glass-hero, .glass-panel).
+  Rules from CLAUDE.md: glass only sits on a field (the dark green field, or the
+  light field on beige panels), never on flat paper, and text inside stays at
+  least 16px. The glass look itself lives in src/styles/global.css
+  (.glass-hero, .glass-panel, .glass-light).
 */
 
 interface Props {
-  // hero = the card on the hero; panel = interactive cards on dark.
-  variant?: 'hero' | 'panel';
+  // hero = the card on the hero; panel = interactive cards on dark;
+  // light = frosted glass for beige panels (needs the light field behind it).
+  variant?: 'hero' | 'panel' | 'light';
   class?: string;
 }
 
 const { variant = 'hero', class: extraClasses = '' } = Astro.props;
 
-const glassClass = variant === 'hero' ? 'glass-hero' : 'glass-panel';
+const glassClass = {
+  hero: 'glass-hero',
+  panel: 'glass-panel',
+  light: 'glass-light',
+}[variant];
 ---
 
-<div class:list={[glassClass, 'p-6 text-ivory md:p-8', extraClasses]}>
+<div
+  class:list={[
+    glassClass,
+    'p-6 md:p-8',
+    // Dark glass holds light text; light glass holds dark text.
+    variant === 'light' ? 'text-ink' : 'text-ivory',
+    extraClasses,
+  ]}
+>
   <slot />
 </div>

@@ -17,14 +17,22 @@
 interface Props {
   // Same seed = the same field on every load. Change it to get a different look.
   seed?: number;
+  // dark = the green field (default); light = soft sage and celadon washes on
+  // beige, for glass bubbles that sit on a paper panel.
+  tone?: 'dark' | 'light';
 }
 
-const { seed = 42 } = Astro.props;
+const { seed = 42, tone = 'dark' } = Astro.props;
 ---
 
 <!-- The wrapper bleeds 40px past the frame so the blurred edges never show. -->
 <div class="field-wrap" data-field-wrap>
-  <canvas class="field js-field" data-seed={seed} aria-hidden="true"></canvas>
+  <canvas
+    class="field js-field"
+    data-seed={seed}
+    data-tone={tone}
+    aria-hidden="true"
+  ></canvas>
 </div>
 
 <style>
@@ -68,7 +76,10 @@ const { seed = 42 } = Astro.props;
 </style>
 
 <script>
-  import { paintBlurredField } from '../../assets/visuals/blurred-field';
+  import {
+    paintBlurredField,
+    LIGHT_FIELD,
+  } from '../../assets/visuals/blurred-field';
 
   // Paint every field canvas on the page once the layout has a size.
   const fields = document.querySelectorAll<HTMLCanvasElement>('.js-field');
@@ -76,7 +87,9 @@ const { seed = 42 } = Astro.props;
   function paintAll(): void {
     fields.forEach((canvas) => {
       const seed = Number(canvas.dataset.seed ?? 42);
-      paintBlurredField(canvas, seed);
+      // The light tone is used on beige panels; the default is the green field.
+      const colors = canvas.dataset.tone === 'light' ? LIGHT_FIELD : undefined;
+      paintBlurredField(canvas, seed, colors);
     });
   }
 

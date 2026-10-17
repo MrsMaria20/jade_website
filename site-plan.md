@@ -26,7 +26,7 @@ Mobile: compact notch with a menu button opening a full-screen sheet, plus a sti
 
 Visual reference: hero from `heromockupex.png` and `reference/source/01-field-and-flight-v2.html`; the rest from `reference/source/02-ff2-site-home.html`. The bloom section in that file is not used.
 
-**Layout rule:** the home page is four panels, and each fills exactly one screen (the browser window), so the next panel appears as the visitor scrolls. Paper panels are flat paper color (a crumpled-paper texture was tried and rejected).
+**Layout rule:** the home page is five panels, and each fills exactly one screen (the browser window), so the next panel appears as the visitor scrolls. Colour rhythm: green hero, beige services, green how it works, beige every project, green contact. Beige panels are NOT flat: they use the **light field** (soft sage and celadon washes over beige) so they feel related to the green ones (a crumpled-paper texture was tried and rejected). **Window-opening transition** (the panel is a rounded frame that grows from a smaller window as you scroll to it and closes as you scroll back): on services (a trial, remove `data-frame-grow` to turn it off) and on contact. It is not on how it works or every project.
 
 ### 1. Hero: the field (dark)
 - Frame: field + grain + ASCII doves; notched navigation cut into the top.
@@ -37,7 +37,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
   - Buttons: **Start a project** (→ `/contact`) · See our services (→ `#services`)
 - No vertical side text and no scroll cue (both removed from the mockup).
 
-### 2. Services: paper, one screen (`#services`)
+### 2. Services: beige with the light field, one screen (`#services`)
 - Label: `01 · SERVICES`
 - Header: **Two ways to get your website live.** On the right: "Most projects start here. We confirm the exact scope on a call." and a **Book a call** button (→ `/contact#book`).
 - Two starting-point cards (light and dark, side by side). **No prices and no revision or change rules on the site**; budget and exact scope are settled on the call.
@@ -50,11 +50,12 @@ The one colored panel between two beige ones, so the page has a rhythm: green he
 - Label: `02 · HOW IT WORKS`
 - Header: **From first conversation to live site, in three steps.**
 - Three steps (names avoid the word "Launch"): **Talk it through** (we define what your site needs, together) → **We build it** (we handle every step; you don't need to learn a site builder) → **You're live** (your site goes live on your own domain).
+- Founding clients strip (dashed border, under the steps): The first four projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`). Set `foundingSpotsOpen` to `false` in `src/data/site.ts` when all four spots are taken, and the strip disappears from the site.
 
 ### 4. Every project: paper, one screen (`#every-project`)
 - Label: `03 · EVERY PROJECT`
 - Header: **What you get either way.**
-- Layout: the header sits on the beige; the three points are frosted-glass bubbles (the hero card's glass) inside a rounded green-field window, so the glass has something to blur. No scroll-linked letter reveal on this header (that effect is kept for the "how it works" header only).
+- Layout: a full-width beige panel with the light field. The header and the three points sit directly on it, and the three points are frosted-glass bubbles (white-tinted glass with a bright edge) over the light field, so the glass has something soft to blur. No window transition and no letter reveal here (the letter reveal is kept for the "how it works" header only).
 - Three points: **Designed from scratch** (your site is designed around your business, not built from a template) · **Works on every device** (built to work well on phones, tablets, and computers) · **You own everything** (your domain, your site, and your accounts are in your name). All three confirmed by the owner.
 
 ### 5. Contact: the field, one screen (`#contact`)
@@ -64,7 +65,7 @@ The one colored panel between two beige ones, so the page has a rhythm: green he
   - Text: "A 20-minute call about your business and what your website needs to do for it. You'll leave knowing the next step."
   - Email line: "Prefer to write? team@jadeagentic.com"
 - Right (panel glass): booking card, "20 minutes", button **Choose a time** (→ `/contact#book`). Do not mention cost; the call is free, but price stays off the card.
-- Founding clients strip (dashed border, full width, below the two columns): The first four projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`). Set `foundingSpotsOpen` to `false` in `src/data/site.ts` when all four spots are taken, and the strip disappears.
+- (No founding clients strip here: it moved to the "how it works" panel, which leaves this panel roomy on purpose. Extra space sits between "Prefer to write?" and the coming-soon line.)
 - Coming-soon line (below, quieter): "Coming soon: AI assistants that handle the routine work, so you can focus on what matters most. Email us to hear first." The email link is a plain `mailto:` link; no second form.
 
 ### Motion on the home page
