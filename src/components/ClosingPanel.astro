@@ -21,7 +21,13 @@ import BlurredField from './BlurredField.astro';
 import SectionIntro from './SectionIntro.astro';
 import GlassPanel from './GlassPanel.astro';
 import Button from './Button.astro';
-import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
+import {
+  bookCallHref,
+  contactEmail,
+  emailPlaceholder,
+  foundingSpotsOpen,
+  foundingSpotsWord,
+} from '../data/site';
 ---
 
 <!-- ===== CLOSING PANEL: dark frame with the field behind it ===== -->
@@ -84,20 +90,27 @@ import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
         </div>
       </div>
 
-      <!-- ===== FOUNDING CLIENTS: a reason to book now ===== -->
-      <div
-        data-reveal
-        class="flex flex-col gap-5 rounded-[20px] border border-dashed border-ivory/30 px-6 py-6 md:flex-row md:items-center md:justify-between md:gap-10 md:px-8"
-      >
-        <span class="eyebrow shrink-0 text-sage">Founding clients</span>
-        <p class="grow text-base leading-normal text-mist">
-          The first [NUMBER] projects are offered at a reduced rate, in exchange
-          for a testimonial and permission to share the work.
-        </p>
-        <Button href="/contact" variant="secondary" class="shrink-0 self-start">
-          Ask about a spot
-        </Button>
-      </div>
+      <!-- ===== FOUNDING CLIENTS: a reason to book now (hidden once spots are full) ===== -->
+      {foundingSpotsOpen && (
+        <div
+          data-reveal
+          class="flex flex-col gap-5 rounded-[20px] border border-dashed border-ivory/30 px-6 py-6 md:flex-row md:items-center md:justify-between md:gap-10 md:px-8"
+        >
+          <span class="eyebrow shrink-0 text-sage">Founding clients</span>
+          <p class="grow text-base leading-normal text-mist">
+            The first {foundingSpotsWord} projects are offered at a reduced
+            rate, in exchange for a testimonial and permission to share the
+            work.
+          </p>
+          <Button
+            href="/contact"
+            variant="secondary"
+            class="shrink-0 self-start"
+          >
+            Ask about a spot
+          </Button>
+        </div>
+      )}
 
       <!-- ===== COMING SOON: one honest line about AI assistants ===== -->
       <div

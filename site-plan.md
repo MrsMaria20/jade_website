@@ -58,7 +58,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
   - Text: "A 20-minute call about your business and what your website needs to do for it. You'll leave knowing the next step."
   - Email line: "Prefer to write? [YOUR EMAIL]"
 - Right (panel glass): booking card, "20 minutes", button **Choose a time** (→ `/contact#book`). Do not mention cost; the call is free, but price stays off the card.
-- Founding clients strip (dashed border, full width, below the two columns): The first [NUMBER] projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`)
+- Founding clients strip (dashed border, full width, below the two columns): The first four projects are offered at a reduced rate, in exchange for a testimonial and permission to share the work. **Ask about a spot** (→ `/contact`). Set `foundingSpotsOpen` to `false` in `src/data/site.ts` when all four spots are taken, and the strip disappears.
 - Coming-soon line (below, quieter): "Coming soon: AI assistants that handle the routine work, so you can focus on what matters most. Email us to hear first." The email link is a plain `mailto:` link; no second form.
 
 ### Motion on the home page
@@ -147,6 +147,6 @@ The Markdown body holds the brief and figure captions.
 - Done: contact email is **team@jadeagentic.com** (set in `src/data/site.ts`). Email only; no phone number is shown on the site, by choice.
 - `TODO:` [CALENDLY URL]
 - `TODO:` [TALLY FORM URL] (only if the project form is kept)
-- `TODO:` final timeline wording for the hero (it says "[X] weeks"; with real ranges of about a week to 3 weeks, reword, e.g. "in as little as a week" or "within one to three weeks"), founding spots ([NUMBER], owner will provide)
+- `TODO:` final timeline wording for the hero (it says "[X] weeks"; with real ranges of about a week to 3 weeks, reword, e.g. "in as little as a week" or "within one to three weeks"), founding spots (decided: four)
 - Decided: no prices on the site; price, budget, revisions, and change rules are covered on the call and in the written agreement.
 - `TODO:` social links (no accounts yet; a company LinkedIn page is planned, then its URL goes in `src/data/site.ts`)

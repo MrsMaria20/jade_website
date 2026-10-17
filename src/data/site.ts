@@ -23,6 +23,12 @@ export const bookCallHref = '/contact#book';
 export const contactEmail: string | null = 'team@jadeagentic.com';
 export const emailPlaceholder = '[YOUR EMAIL]';
 
+// The founding clients offer: the number of spots (written as a word, for the
+// sentence on the site) and whether any are still open. When all four are
+// taken, set foundingSpotsOpen to false and the offer disappears from every page.
+export const foundingSpotsWord = 'four';
+export const foundingSpotsOpen = true;
+
 // The Work page is built but hidden. Set this to true when the first real
 // project is published, and a "Work" link appears in the nav and footer.
 export const workPublished: boolean = false;
