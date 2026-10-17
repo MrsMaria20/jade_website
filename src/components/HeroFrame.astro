@@ -15,7 +15,6 @@
 
 import BlurredField from './BlurredField.astro';
 import AsciiDoves from './AsciiDoves.astro';
-import PointerGlow from './PointerGlow.astro';
 import Nav from './Nav.astro';
 
 interface Props {
@@ -58,9 +57,6 @@ const heightClasses =
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.16] mix-blend-overlay"
     />
-
-    <!-- ===== LAYER 2b: a soft light that follows the pointer ===== -->
-    <PointerGlow />
 
     <!-- ===== LAYER 3: the doves ===== -->
     {doves && <AsciiDoves />}

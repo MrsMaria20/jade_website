@@ -63,9 +63,9 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 
 ### Motion on the home page
 All of it is slow and calm, and every effect has a still version under reduced motion.
-- **Hero:** headline rises line by line; label, card fade up; field and headline move slightly on scroll; a soft light follows the pointer (mouse and trackpad only).
+- **Hero:** headline rises line by line; label, card fade up; field and headline move slightly on scroll.
 - **How it works header:** the title writes itself in, each letter fading in at random, and it is tied to the scroll position: scrolling down writes it in, scrolling up fades it back out, and stopping part-way leaves it part-way (reference: `assets/visuals/transition_reference.mov`, kept on the owner's computer only). Used on this header only, so it stays special.
-- **Contact frame:** opens like a window, growing from a smaller rounded frame to full width as you scroll to it. A soft pointer light also sits on the field here.
+- **Contact frame:** opens like a window, growing from a smaller rounded frame to full width as you scroll to it.
 - **Cards:** Launch and Studio rise slightly on hover, and the timeline line draws across in green.
 - **Sections:** content fades up 30px as it enters.
 

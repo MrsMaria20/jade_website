@@ -18,7 +18,6 @@
 */
 
 import BlurredField from './BlurredField.astro';
-import PointerGlow from './PointerGlow.astro';
 import SectionIntro from './SectionIntro.astro';
 import GlassPanel from './GlassPanel.astro';
 import Button from './Button.astro';
@@ -39,8 +38,6 @@ import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.16] mix-blend-overlay"
     />
-
-    <PointerGlow />
 
     <div class="relative z-10 flex min-h-[inherit] flex-col justify-center gap-[clamp(28px,5vh,56px)] px-6 py-[clamp(40px,7vh,110px)] md:px-[88px]">
       <!-- ===== TWO COLUMNS: invitation on the left, booking card on the right ===== -->
