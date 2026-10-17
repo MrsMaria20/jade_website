@@ -10,11 +10,14 @@
   story and no portrait (the logo mark stands in for it).
 
   Beige panel on the light field (see CLAUDE.md), full width, one screen tall.
+  The label, title, and paragraphs sit together inside one large light-glass
+  panel, with generous space between the title and the text.
   Only facts the owner has confirmed are used. The note about the mark comes
   from brand/brand-guide.md.
 */
 
 import BlurredField from './BlurredField.astro';
+import GlassPanel from './GlassPanel.astro';
 import SectionIntro from './SectionIntro.astro';
 ---
 
@@ -25,7 +28,7 @@ import SectionIntro from './SectionIntro.astro';
 >
   <BlurredField seed={44} tone="light" />
 
-  <div class="relative z-10 mx-auto grid w-full max-w-[1232px] items-center gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] md:gap-20">
+  <div class="relative z-10 mx-auto grid w-full max-w-[1232px] items-center gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.65fr)] md:gap-16">
     <!-- ===== THE LOGO MARK, large (ink on beige, one color only) ===== -->
     <div data-reveal class="flex justify-center md:justify-start">
       <img
@@ -37,26 +40,32 @@ import SectionIntro from './SectionIntro.astro';
       />
     </div>
 
-    <!-- ===== WHO WE ARE ===== -->
-    <div data-reveal class="flex flex-col gap-[clamp(20px,4vh,40px)]">
-      <SectionIntro
-        label="01 · WHO WE ARE"
-        title="A web studio for businesses like yours."
-        surface="light"
-      />
+    <!-- ===== WHO WE ARE: one large glass panel holding the title and the text ===== -->
+    <div data-reveal>
+      <GlassPanel
+        variant="light"
+        class="flex flex-col gap-[clamp(28px,7vh,72px)] p-7! md:p-[clamp(32px,6vh,64px)]!"
+      >
+        <SectionIntro
+          label="01 · WHO WE ARE"
+          title="A web studio for businesses like yours."
+          surface="light"
+          class="max-w-none"
+        />
 
-      <div class="flex max-w-[620px] flex-col gap-5 text-[17px] leading-relaxed text-moss">
-        <p>
-          Jade Agentic is a web design and development studio for small to
-          medium businesses. We build custom websites, designed so your brand
-          resonates with the people you want to reach, and we handle every step
-          from the first conversation to a live site.
-        </p>
-        <p>
-          Our mark is a jade bonsai inside a disc, drawn after the bi, an
-          ancient carved jade disc.
-        </p>
-      </div>
+        <div class="flex max-w-[620px] flex-col gap-5 text-[17px] leading-relaxed text-moss">
+          <p>
+            Jade Agentic is a web design and development studio for small to
+            medium businesses. We build custom websites, designed so your brand
+            resonates with the people you want to reach, and we handle every
+            step from the first conversation to a live site.
+          </p>
+          <p>
+            Our mark is a jade bonsai inside a disc, drawn after the bi, an
+            ancient carved jade disc.
+          </p>
+        </div>
+      </GlassPanel>
     </div>
   </div>
 </section>
