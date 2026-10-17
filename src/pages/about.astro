@@ -2,21 +2,67 @@
 /*
   about.astro (About page, "/about")
 
-  What it is: a PLACEHOLDER so the nav link works. Build step 6 replaces it with
-  the real page (reference/source/02-ff2-site-about.html).
+  What it is: the About page, in five panels that each fill one screen: hero,
+  who we are, how we work, what's next, and the shared contact panel. It is about
+  Jade Agentic as a business (not a personal story), in a "we" voice.
+  Which mockup it matches: reference/source/02-ff2-site-about.html (layout only;
+  its personal story, portrait, and toolkit sections are not used, see site-plan.md).
+  Copy comes from site-plan.md.
 */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PlaceholderFrame from '../components/PlaceholderFrame.astro';
+import HeroFrame from '../components/HeroFrame.astro';
+import WhoWeArePanel from '../components/WhoWeArePanel.astro';
+import HowWeWorkPanel from '../components/HowWeWorkPanel.astro';
+import WhatsNextPanel from '../components/WhatsNextPanel.astro';
+import ClosingPanel from '../components/ClosingPanel.astro';
 ---
 
 <BaseLayout
   title="About | Jade Agentic"
-  description="Who is behind Jade Agentic."
+  description="Jade Agentic is a small web studio building custom websites for small to medium businesses. You work directly with the people who build your site."
 >
-  <PlaceholderFrame
-    label="Placeholder page"
-    title="About"
-    note="This page is built in step 6."
-  />
+  <main id="main">
+    <!-- ===== HERO: full-screen frame with the field and doves ===== -->
+    <HeroFrame variant="tall">
+      <div class="flex min-h-[inherit] flex-col justify-end gap-6 px-6 pt-28 pb-10 lg:px-[60px] lg:pb-[58px]">
+        <p data-hero-fade="0.2" class="eyebrow text-celadon">
+          jadeagentic.com / about
+        </p>
+
+        <!-- Two lines that rise into place, as on the home hero. -->
+        <h1
+          data-hero-parallax
+          class="font-serif text-[clamp(44px,7.6vw,104px)] leading-[0.9] font-normal tracking-[-0.03em] text-ivory"
+        >
+          <span class="-mb-[0.3em] block overflow-hidden pb-[0.3em]">
+            <span class="hero-line block">Real people,</span>
+          </span>
+          <span class="-mb-[0.3em] block overflow-hidden pb-[0.3em]">
+            <span class="hero-line block">start to finish.</span>
+          </span>
+        </h1>
+
+        <p
+          data-hero-fade="0.9"
+          class="max-w-[560px] text-[17px] leading-relaxed text-mist"
+        >
+          A small studio, on purpose. You work directly with whoever designs and
+          builds your site, from the first call to launch.
+        </p>
+      </div>
+    </HeroFrame>
+
+    <!-- ===== WHO WE ARE: what the studio is ===== -->
+    <WhoWeArePanel />
+
+    <!-- ===== HOW WE WORK: three points about working with us ===== -->
+    <HowWeWorkPanel />
+
+    <!-- ===== WHAT'S NEXT: websites now, more coming ===== -->
+    <WhatsNextPanel />
+
+    <!-- ===== CONTACT: the same closing panel as the home page ===== -->
+    <ClosingPanel />
+  </main>
 </BaseLayout>

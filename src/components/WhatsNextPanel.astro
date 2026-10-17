@@ -1,0 +1,78 @@
+---
+/*
+  WhatsNextPanel.astro
+
+  What it is: the About page's roadmap panel: what the studio does now
+  (websites) and what is coming (AI assistants and agentic workflows), each in
+  a frosted-glass bubble on a beige panel. Honest by design: anything not
+  available yet is labelled "Coming soon".
+  Where it's used: src/pages/about.astro, between "how we work" and contact.
+  Which mockup it matches: the "03 · where this is headed" block in
+  reference/source/02-ff2-site-about.html (Now / Next / Later), simplified.
+
+  Beige panel on the light field with light glass bubbles (see CLAUDE.md:
+  there is no limit on glass panels; glass just needs a field behind it).
+  Copy is from site-plan.md; the agentic workflows line is a draft to confirm.
+*/
+
+import BlurredField from './BlurredField.astro';
+import GlassPanel from './GlassPanel.astro';
+import SectionIntro from './SectionIntro.astro';
+
+// What the studio does now and what is coming. `status` is shown as a small label.
+const items = [
+  {
+    status: 'Now',
+    name: 'Websites',
+    text: 'Custom websites, designed around your business and live on your own domain.',
+  },
+  {
+    status: 'Coming soon',
+    name: 'AI assistants',
+    text: 'Assistants that handle the routine work, so you can focus on what matters most.',
+  },
+  {
+    status: 'Coming soon',
+    name: 'Agentic workflows',
+    text: 'Routine processes handled from start to finish.',
+  },
+];
+---
+
+<!-- ===== WHAT'S NEXT: one screen tall, beige with the light field ===== -->
+<section
+  id="whats-next"
+  class="relative flex min-h-svh flex-col justify-center overflow-hidden bg-paper px-6 py-[clamp(40px,7vh,110px)] text-ink lg:px-[104px]"
+>
+  <BlurredField seed={66} tone="light" />
+
+  <div class="relative z-10 mx-auto flex w-full max-w-[1232px] flex-col gap-[clamp(28px,6vh,72px)]">
+    <div data-reveal>
+      <SectionIntro
+        label="03 · WHAT'S NEXT"
+        title="Websites now. More on the way."
+        surface="light"
+        class="max-w-[900px]"
+      />
+    </div>
+
+    <ul class="grid gap-4 md:grid-cols-3 md:gap-5">
+      {items.map((item) => (
+        <li data-reveal class="flex">
+          <GlassPanel
+            variant="light"
+            class="flex w-full flex-col gap-4 md:p-[clamp(24px,4.5vh,36px)]"
+          >
+            <span class="font-mono text-[11px] tracking-[0.16em] text-moss uppercase">
+              {item.status}
+            </span>
+            <h3 class="font-serif text-[32px] leading-none font-normal text-ink md:text-[34px]">
+              {item.name}
+            </h3>
+            <p class="text-[17px] leading-relaxed text-moss">{item.text}</p>
+          </GlassPanel>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

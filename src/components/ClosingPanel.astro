@@ -33,6 +33,12 @@ import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
   >
     <!-- The same multi-tone field as the hero, with a different seed so it reads as its own place. No doves here. -->
     <BlurredField seed={7} />
+    <!-- A light dark veil keeps the small text easy to read, as on the other green panels. -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 bg-night/30"
+    ></div>
+
     <img
       src="/grain.svg"
       alt=""
@@ -90,7 +96,7 @@ import { bookCallHref, contactEmail, emailPlaceholder } from '../data/site';
         data-reveal
         class="mt-[clamp(12px,5vh,56px)] flex flex-col gap-3 border-t border-ivory/[0.14] pt-8 md:flex-row md:items-baseline md:gap-8"
       >
-        <span class="eyebrow shrink-0 text-sage">Coming soon</span>
+        <span class="eyebrow shrink-0 text-celadon">Coming soon</span>
         <p class="text-base leading-relaxed text-mist">
           AI assistants that handle the routine work, so you can focus on what
           matters most.{' '}

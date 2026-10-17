@@ -46,7 +46,7 @@ See `tokens.css` for every value. In short:
 | Accent + support | jade `#3F6E5E`, lichen `#56665C`, fern `#7E927F`, leak `#D9E4C8` |
 
 **Pairings that pass contrast**
-- On night/field: ivory (headlines, buttons), mist (body), sage (labels).
+- On night/field: ivory (headlines, buttons), mist (body). Small labels that sit over the *moving field* use celadon (sage failed 4.5:1 over the field's brighter strokes, measured); sage is fine on flat night.
 - On paper/card: ink (headlines), moss (body), lichen or jade (labels).
 - **Fern fails for small text** (4.3:1). Use it only at 18px+, or use sage/mist instead.
 

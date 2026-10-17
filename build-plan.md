@@ -31,8 +31,9 @@ One step at a time. Before each step: propose a plan and wait for approval. Afte
 - Built and reviewed (commit `bb6a63e`), then removed on purpose: it repeated the home page and there isn't enough project evidence yet. "Services" is now a section of the home page.
 - Revisit after the four founding projects, or when the AI services launch.
 
-## Step 6 — About page
-- Reference: `reference/source/02-ff2-site-about.html`.
+## Step 6 — About page: built
+- Hero, who we are, how we work, what's next, and the shared contact panel; company-focused, "we" voice. See `site-plan.md`.
+- To review: the "how we work" panel (kept for a first look, may be cut).
 
 ## Step 7 — Contact page
 - Short hero, Calendly inline embed (lazy, `#book`), email card, Tally project form if kept (lazy).
