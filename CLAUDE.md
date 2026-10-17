@@ -82,7 +82,7 @@ When the mockups and this file disagree, this file wins. When unsure, ask instea
 
 ## Voice
 
-Results first: say what the business gets (its brand resonating with the right audience, a site that does its job, an easy process, live in [X] weeks), not how the work is done. Plain, direct sentences; no fluffy language. Full rules in `brand/voice-and-copy.md`.
+Results first: say what the business gets (its brand resonating with the right audience, a site that does its job, an easy process), not how the work is done. Plain, direct sentences; no fluffy language. Full rules in `brand/voice-and-copy.md`.
 
 ## Motion
 

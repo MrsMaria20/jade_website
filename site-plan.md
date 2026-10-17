@@ -33,7 +33,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 - Frame: field + grain + ASCII doves; notched navigation cut into the top.
 - No label above the headline (the "A SMALL WEB STUDIO" label was removed).
 - Headline (serif, very large, bottom left, two lines): **Websites built to represent you**
-- Hero glass card (right): "Custom websites for small to medium businesses, built so your brand resonates with the people you want to reach. We define what your site needs together, then handle every step from there. In [X] weeks, your site is live."
+- Hero glass card (right): "Custom websites for small to medium businesses, built so your brand resonates with the people you want to reach. We define what your site needs together, then handle every step from there." (No timeline in the hero: the owner is new and does not want to promise a number; timelines are agreed per project on the call.)
   - On phones (under 768px) only the first sentence is shown, so the card stays short; the second button reads "Services" there.
   - Buttons: **Start a project** (→ `/contact`) · See our services (→ `#services`)
 - No vertical side text and no scroll cue (both removed from the mockup).
@@ -43,7 +43,7 @@ Visual reference: hero from `heromockupex.png` and `reference/source/01-field-an
 - Header: **Two ways to get your website live.** On the right: "Most projects start here. We confirm the exact scope on a call." and the **See our services** button (→ `/services`).
 - Two starting-point cards (light and dark, side by side). **No prices and no revision or change rules on the site**; budget and exact scope are settled on the call.
   - **Launch** · one or two pages, a minimal marketing site. DRAFT: "A focused site that puts your business in front of the right people and makes it easy to get in touch." Includes: contact form, booking link, search basics, domain connection. Timeline: about a week.
-  - **Studio** · the complete, built-out website. DRAFT: "A complete website that represents your whole business, with a page for everything your customers look for." Includes: everything in Launch, plus more pages; scope confirmed on a call. Timeline: 2 to 3 weeks.
+  - **Studio** · the complete, built-out website. DRAFT: "A complete website that represents your whole business, with a page for everything your customers look for." Includes: everything in Launch, plus more pages; scope confirmed on a call. Timeline: 3 to 4 weeks.
   - Timelines are ranges; the clock starts once scope is agreed and content is received.
 
 ### 3. How it works: paper, one screen (`#how-it-works`)
@@ -85,7 +85,7 @@ Visual reference: `reference/source/02-ff2-site-services.html` (layout only). Fo
 
 Not built, on purpose: the mockup's add-ons picker and its side-by-side revision-rounds table (scope and revisions are settled on a call). A questions section is left out until real questions have been asked. A detailed AI section can be added when there are real details; for now the coming-soon line in the contact panel covers it.
 
-**Timelines (owner's experience):** a small to medium site takes about 4 to 7 days; a very detailed site takes 2 to 3 weeks. Shown as "About a week" (Launch) and "2 to 3 weeks" (Studio).
+**Timelines:** the owner's best case is about 4 to 7 days for a small to medium site and 2 to 3 weeks for a very detailed one. Because the studio is new, the site quotes wider ranges with a buffer: "1 to 2 weeks" (Launch) and "3 to 4 weeks" (Studio). Tighten them after the founding projects, once the real pace is known.
 
 ## About `/about`
 
@@ -147,6 +147,6 @@ The Markdown body holds the brief and figure captions.
 - Done: contact email is **team@jadeagentic.com** (set in `src/data/site.ts`). Email only; no phone number is shown on the site, by choice.
 - `TODO:` [CALENDLY URL]
 - `TODO:` [TALLY FORM URL] (only if the project form is kept)
-- `TODO:` final timeline wording for the hero (it says "[X] weeks"; with real ranges of about a week to 3 weeks, reword, e.g. "in as little as a week" or "within one to three weeks"), founding spots (decided: four)
+- Decided: founding spots are four; no timeline number in the hero; card ranges are 1 to 2 weeks and 3 to 4 weeks.
 - Decided: no prices on the site; price, budget, revisions, and change rules are covered on the call and in the written agreement.
 - `TODO:` social links (no accounts yet; a company LinkedIn page is planned, then its URL goes in `src/data/site.ts`)
