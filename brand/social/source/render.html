@@ -43,7 +43,7 @@
     </div>
 
     <script src="field.js"></script>
-    <script src="doves.js"></script>
+    <script src="doves-still.js"></script>
     <script>
       const params = new URLSearchParams(location.search);
       const kind = params.get('kind') || 'banner';
@@ -51,9 +51,28 @@
 
       // Each asset: its size, how blurred the field is, which seeds to use, and how many doves.
       const KINDS = {
-        banner: { w: 1128, h: 191, blur: 20, fseed: 14,  dseed: 3, doves: 5, fieldH: 560 },
+        banner: { w: 1128, h: 191, blur: 13, fseed: 14, dseed: 3, doves: 5, fieldH: 560, grain: 0.22,
+                // Hand-placed doves: x and y are in CSS pixels, `lift` is how high the wings are
+                // raised (0 to 1), so each bird has a clean, open wing shape and none overlap.
+                birds: [
+                  { x: 92,   y: 58,  s: 1.0,  lift: 0.9  },
+                  { x: 238,  y: 104, s: 1.15, lift: 0.5  },
+                  { x: 862,  y: 62,  s: 1.1,  lift: 0.95 },
+                  { x: 990,  y: 106, s: 0.95, lift: 0.7  },
+                  { x: 1086, y: 56,  s: 1.05, lift: 0.85 },
+                ] },
         avatar: { w: 400,  h: 400, blur: 16, fseed: 12, dseed: 1, doves: 0 },
-        og:     { w: 1200, h: 630, blur: 24, fseed: 5,  dseed: 4, doves: 7 },
+        og:     { w: 1200, h: 630, blur: 18, fseed: 5,  dseed: 4, doves: 7, grain: 0.2,
+                // Hand-placed doves, kept clear of the logo (top left), the web address (top right),
+                // and the headline (bottom left), and well apart from one another.
+                birds: [
+                  { x: 300,  y: 300, s: 1.1,  lift: 0.9  },
+                  { x: 470,  y: 170, s: 1.0,  lift: 0.6  },
+                  { x: 700,  y: 260, s: 1.15, lift: 0.95 },
+                  { x: 880,  y: 150, s: 1.0,  lift: 0.8  },
+                  { x: 1030, y: 310, s: 1.1,  lift: 0.5  },
+                  { x: 1110, y: 190, s: 0.95, lift: 0.9  },
+                ] },
       };
       const cfg = { ...KINDS[kind] };
       if (params.get('fseed')) cfg.fseed = Number(params.get('fseed'));
@@ -63,6 +82,7 @@
       stage.style.width = cfg.w + 'px';
       stage.style.height = cfg.h + 'px';
       document.getElementById('grain').src = 'file://' + ROOT + '/public/grain.svg';
+      if (cfg.grain) document.getElementById('grain').style.opacity = cfg.grain;
       document.getElementById('field').style.filter = `blur(${cfg.blur}px) saturate(1.08)`;
       // The field is painted on a canvas at least as tall as fieldH and cropped to the middle,
       // so short, wide assets (the banner) keep the hero's soft cloud proportions.
@@ -106,6 +126,23 @@
       // A repeatable "random" so the doves land in the same places every time.
       function seeded(seed) { let s = seed >>> 0; return () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; }; }
 
+      // A scripted source of "random" numbers: the dove code asks for 7 numbers per bird, in a fixed
+      // order (x, y, size, speed, heading, wobble, flap phase). Feeding it chosen values places each
+      // bird exactly where we want it, with the wing pose we want.
+      function scriptedRandom(birds, W, H) {
+        const out = [];
+        const TAU = Math.PI * 2;
+        birds.forEach((b) => {
+          // flap = 1.2 + phase and the wing lift is cos(flap); invert that to get the phase for the lift we want.
+          const flap = Math.acos(Math.min(1, Math.max(-1, b.lift)));
+          const phase = (((flap - 1.2) % TAU) + TAU) % TAU;
+          out.push(b.x / W, (b.y / H - 0.14) / 0.5, (b.s - 0.55) / 0.8, 0.5, 0.5, 0.5, phase / TAU);
+        });
+        let i = 0;
+        const fallback = seeded(7);
+        return () => (i < out.length ? out[i++] : fallback());
+      }
+
       async function draw() {
         await document.fonts.load('11px "JetBrains Mono"');
         await document.fonts.load('500 58px "Cormorant Garamond"');
@@ -114,8 +151,14 @@
         JadeField.paintBlurredField(document.getElementById('field'), cfg.fseed);
         if (cfg.doves > 0) {
           const realRandom = Math.random;
-          Math.random = seeded(cfg.dseed);
-          JadeDoves.createAsciiDoves(document.getElementById('doves'), { count: cfg.doves, reducedMotion: true, pointerTarget: stage });
+          const doveCanvas = document.getElementById('doves');
+          Math.random = cfg.birds ? scriptedRandom(cfg.birds, doveCanvas.clientWidth, doveCanvas.clientHeight) : seeded(cfg.dseed);
+          JadeDoves.createAsciiDoves(doveCanvas, {
+            count: cfg.birds ? cfg.birds.length : cfg.doves,
+            reducedMotion: true,
+            pointerTarget: stage,
+            font: '12px "JetBrains Mono", ui-monospace, monospace',
+          });
           Math.random = realRandom;
         }
         await new Promise((r) => setTimeout(r, 700));

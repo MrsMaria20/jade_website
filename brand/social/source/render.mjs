@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const [kind, outFile, dsf = '1', fseed = '', dseed = ''] = process.argv.slice(2);
+const [kind, outFile, dsf = '1', fseed = '', dseed = '', cropArg = ''] = process.argv.slice(2);   // crop: x,y,w,h in CSS px
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = '/Users/kristinalogan/Desktop/Desktop/Professional/Jade/jade_web';
 const SIZES = { banner: [1128, 191], avatar: [400, 400], og: [1200, 630] };
@@ -34,7 +34,8 @@ if (dseed) q += `&dseed=${dseed}`;
 await send('Page.navigate', { url: `file://${HERE}/render.html?${q}` });
 for (let i = 0; i < 60; i++) { if (await ev('window.__ready === true')) break; await sleep(250); }
 await sleep(300);
-const shot = await send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: W, height: H, scale: 1 } });
+const [cx, cy, cw, ch] = cropArg ? cropArg.split(',').map(Number) : [0, 0, W, H];
+const shot = await send('Page.captureScreenshot', { format: 'png', clip: { x: cx, y: cy, width: cw, height: ch, scale: 1 } });
 writeFileSync(outFile, Buffer.from(shot.data, 'base64'));
 console.log(`wrote ${outFile}  (${W}x${H} css px at ${dsf}x)`);
 ws.close(); chrome.kill(); process.exit(0);
