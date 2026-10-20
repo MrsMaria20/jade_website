@@ -45,7 +45,7 @@ One step at a time. Before each step: propose a plan and wait for approval. Afte
 
 ## Step 9 — Polish and checks
 - Responsive pass at 390 / 768 / 1024 / 1440. Contrast, focus states, alt text, keyboard navigation.
-- Meta titles/descriptions, Open Graph image, sitemap, robots.txt, 404 page.
+- Meta titles/descriptions, Open Graph image (use `brand/social/social-share-1200x630.png`, copied into `public/`), sitemap, robots.txt, 404 page.
 - Lighthouse: performance, accessibility, best practices, SEO all 95+.
 
 ## Step 10 — Launch

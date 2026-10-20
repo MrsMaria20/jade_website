@@ -25,6 +25,10 @@ import {
 } from '../data/site';
 
 const currentYear = new Date().getFullYear();
+
+// Only accounts with a real link are shown; with none, the column is hidden.
+const activeSocials = socialLinks.filter((social) => social.href);
+const hasSocials = activeSocials.length > 0;
 ---
 
 <footer class="px-4 pb-4">
@@ -52,7 +56,14 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- ===== LINK COLUMNS ===== -->
-    <div class="grid grid-cols-2 gap-10 border-t border-ivory/[0.14] pt-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div
+      class:list={[
+        'grid grid-cols-2 gap-10 border-t border-ivory/[0.14] pt-10',
+        hasSocials
+          ? 'md:grid-cols-[1.4fr_1fr_1fr_1fr]'
+          : 'md:grid-cols-[1.4fr_1fr_1fr]',
+      ]}
+    >
       <!-- Brand column -->
       <div class="col-span-2 flex flex-col gap-3 md:col-span-1">
         <Logo />
@@ -102,24 +113,22 @@ const currentYear = new Date().getFullYear();
         )}
       </div>
 
-      <!-- Elsewhere column -->
-      <div class="flex flex-col gap-2.5 text-[14.5px] text-mist">
-        <h3 class="mb-1 font-mono text-[11px] font-normal tracking-[0.18em] text-sage uppercase">
-          Elsewhere
-        </h3>
-        {socialLinks.map((social) =>
-          social.href ? (
+      <!-- Elsewhere column: only when at least one account has a real link -->
+      {hasSocials && (
+        <div class="flex flex-col gap-2.5 text-[14.5px] text-mist">
+          <h3 class="mb-1 font-mono text-[11px] font-normal tracking-[0.18em] text-sage uppercase">
+            Elsewhere
+          </h3>
+          {activeSocials.map((social) => (
             <a
               href={social.href}
               class="w-fit transition-colors duration-500 ease-calm hover:text-ivory focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-celadon motion-reduce:transition-none"
             >
               {social.label}
             </a>
-          ) : (
-            <span>[{social.label}]</span>
-          ),
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
 
     <!-- ===== COPYRIGHT ROW ===== -->

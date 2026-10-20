@@ -55,9 +55,9 @@ export const mainLinks: SiteLink[] = [
   { label: 'Contact', href: '/contact' },
 ];
 
-// Social profiles. Empty until real links exist; the footer shows the
-// bracketed placeholder text for any entry without an href.
+// Social profiles. The footer's "Elsewhere" column only shows accounts that have
+// a real href, and the whole column is hidden while none do. To add LinkedIn,
+// set its href below to the company page address.
 export const socialLinks: { label: string; href: string | null }[] = [
   { label: 'LinkedIn', href: null },
-  { label: 'Instagram', href: null },
 ];

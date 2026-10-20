@@ -77,7 +77,7 @@ All of it is slow and calm, and every effect has a still version under reduced m
 - **Sections:** content fades up 30px as it enters.
 
 ### Footer (all pages)
-Night background: closing line + **Book a call** / email buttons; columns: logo + short descriptor · Pages (Services, About, Contact) · Elsewhere: [LinkedIn] [Instagram]; bottom row: © 2026 JADE AGENTIC · JADEAGENTIC.COM. `TODO:` footer copy in the new voice.
+Night background: closing line + **Book a call** / email buttons; columns: logo + short descriptor · Pages (Services, About, Contact) · Elsewhere: LinkedIn only (shown once the company page link is set; hidden until then; no Instagram); bottom row: © 2026 JADE AGENTIC · JADEAGENTIC.COM. `TODO:` footer copy in the new voice.
 
 ---
 

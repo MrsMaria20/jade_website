@@ -104,6 +104,10 @@ Contrast note: over the light field, small labels use `moss`, not `jade` (jade f
 - **ASCII doves** (`assets/visuals/ascii-doves.ts`): seven doves drawn from "·" and "•" in JetBrains Mono, porcelain `#F4F1E8`, with motion trails, depth by size, and drift away from the pointer. Still image under reduced motion. Pause off screen.
 - **The bloom** was removed from the site plan; do not build it.
 
+## Social assets
+
+Ready-made images for LinkedIn and link sharing live in `brand/social/`: a LinkedIn banner, a LinkedIn logo, and a 1200 x 630 share image. They use the hero's blurred field and doves, the ivory logo on dark green, the wordmark in Cormorant Garamond, and the tagline "Websites built to represent you." See `brand/social/README.md` for sizes and how to re-make them.
+
 ## Motion
 
 - Ease `cubic-bezier(.2,.7,.15,1)`; reveals 1.1–1.3s; nothing bounces or snaps.

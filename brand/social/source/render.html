@@ -1,0 +1,127 @@
+<!doctype html>
+<!--
+  Jade Agentic social assets: LinkedIn banner, LinkedIn logo, and share image.
+
+  What it is: one page that draws the brand's "front page" look (the blurred green
+  field, film grain, and ASCII doves from the website's hero) with the Jade logo,
+  the wordmark, and the tagline, at the exact size each platform wants.
+  How it is used: open with ?kind=banner | avatar | og. A screenshot at the page's
+  size (or 2x) is the finished image. Seeds (?fseed= for the field, ?dseed= for the
+  doves) make the result repeatable.
+  Brand rules followed: ivory logo on dark, one color only, no effects on the mark;
+  Cormorant Garamond for the name and headline, Instrument Sans for small text.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap"
+    />
+    <style>
+      html, body { margin: 0; background: #16261c; }
+      #stage { position: relative; overflow: hidden; background: #1b2e22; }
+      .wrap { position: absolute; inset: -40px; }
+      canvas.field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      img.grain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.16; mix-blend-mode: overlay; }
+      canvas.doves { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      .layer { position: absolute; inset: 0; color: #efebdf; }
+      .word { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; line-height: 1; }
+      .tag  { font-family: "Instrument Sans", sans-serif; color: #c9d2c3; }
+      .mono { font-family: "JetBrains Mono", monospace; text-transform: uppercase; color: #c9d2c3; }
+      .headline { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 400; letter-spacing: -0.03em; color: #efebdf; margin: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <div class="wrap"><canvas id="field" class="field"></canvas></div>
+      <img class="grain" id="grain" alt="" />
+      <canvas id="doves" class="doves"></canvas>
+      <div class="layer" id="content"></div>
+    </div>
+
+    <script src="field.js"></script>
+    <script src="doves.js"></script>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const kind = params.get('kind') || 'banner';
+      const ROOT = params.get('root');   // absolute path to the project, for the logo and grain files
+
+      // Each asset: its size, how blurred the field is, which seeds to use, and how many doves.
+      const KINDS = {
+        banner: { w: 1128, h: 191, blur: 20, fseed: 14,  dseed: 3, doves: 5, fieldH: 560 },
+        avatar: { w: 400,  h: 400, blur: 16, fseed: 12, dseed: 1, doves: 0 },
+        og:     { w: 1200, h: 630, blur: 24, fseed: 5,  dseed: 4, doves: 7 },
+      };
+      const cfg = { ...KINDS[kind] };
+      if (params.get('fseed')) cfg.fseed = Number(params.get('fseed'));
+      if (params.get('dseed')) cfg.dseed = Number(params.get('dseed'));
+
+      const stage = document.getElementById('stage');
+      stage.style.width = cfg.w + 'px';
+      stage.style.height = cfg.h + 'px';
+      document.getElementById('grain').src = 'file://' + ROOT + '/public/grain.svg';
+      document.getElementById('field').style.filter = `blur(${cfg.blur}px) saturate(1.08)`;
+      // The field is painted on a canvas at least as tall as fieldH and cropped to the middle,
+      // so short, wide assets (the banner) keep the hero's soft cloud proportions.
+      const wrap = document.querySelector('.wrap');
+      const wrapH = Math.max(cfg.h + 80, cfg.fieldH || 0);
+      wrap.style.inset = 'auto';
+      wrap.style.left = '-40px';
+      wrap.style.width = (cfg.w + 80) + 'px';
+      wrap.style.height = wrapH + 'px';
+      wrap.style.top = ((cfg.h - wrapH) / 2) + 'px';
+
+      // The content for each asset.
+      const logo = 'file://' + ROOT + '/public/logo/jade-disc-ivory.svg';
+      const content = document.getElementById('content');
+      if (kind === 'banner') {
+        content.innerHTML = `
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:24px;">
+            <img src="${logo}" width="92" height="92" alt="" />
+            <div>
+              <div class="word" style="font-size:58px;">Jade Agentic</div>
+              <div class="tag" style="font-size:18px; margin-top:8px; letter-spacing:0.01em;">Websites built to represent you.</div>
+            </div>
+          </div>`;
+      } else if (kind === 'avatar') {
+        content.innerHTML = `
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+            <img src="${logo}" width="260" height="260" alt="" />
+          </div>`;
+      } else {
+        content.innerHTML = `
+          <div style="position:absolute; left:64px; top:56px; display:flex; align-items:center; gap:14px;">
+            <img src="${logo}" width="46" height="46" alt="" />
+            <span class="word" style="font-size:34px;">Jade Agentic</span>
+          </div>
+          <div class="mono" style="position:absolute; right:64px; top:68px; font-size:14px; letter-spacing:0.2em;">jadeagentic.com</div>
+          <h1 class="headline" style="position:absolute; left:64px; bottom:60px; font-size:122px; line-height:0.88;">
+            Websites built<br />to represent you
+          </h1>`;
+      }
+
+      // A repeatable "random" so the doves land in the same places every time.
+      function seeded(seed) { let s = seed >>> 0; return () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; }; }
+
+      async function draw() {
+        await document.fonts.load('11px "JetBrains Mono"');
+        await document.fonts.load('500 58px "Cormorant Garamond"');
+        await document.fonts.load('400 18px "Instrument Sans"');
+        await document.fonts.ready;
+        JadeField.paintBlurredField(document.getElementById('field'), cfg.fseed);
+        if (cfg.doves > 0) {
+          const realRandom = Math.random;
+          Math.random = seeded(cfg.dseed);
+          JadeDoves.createAsciiDoves(document.getElementById('doves'), { count: cfg.doves, reducedMotion: true, pointerTarget: stage });
+          Math.random = realRandom;
+        }
+        await new Promise((r) => setTimeout(r, 700));
+        window.__ready = true;
+      }
+      draw();
+    </script>
+  </body>
+</html>
