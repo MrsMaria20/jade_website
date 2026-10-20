@@ -31,9 +31,15 @@ const isValidLink =
   calendlyUrl.startsWith('https://calendly.com/');
 
 // Calendly asks embeds to say which site they are on, and that they are inline.
+// The colour settings tint the calendar in the brand colours (hex codes WITHOUT
+// the #): jade for the accent (day circles and buttons), ink for text, and white
+// for the background, which matches the card. Calendly ignores them if an
+// account's plan does not allow custom colours.
+const brandColors =
+  'primary_color=3f6e5e&text_color=1c241f&background_color=ffffff';
 const joiner = calendlyUrl?.includes('?') ? '&' : '?';
 const embedUrl = isValidLink
-  ? `${calendlyUrl}${joiner}embed_domain=${siteDomain}&embed_type=Inline`
+  ? `${calendlyUrl}${joiner}embed_domain=${siteDomain}&embed_type=Inline&${brandColors}`
   : null;
 ---
 
