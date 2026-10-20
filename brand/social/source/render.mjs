@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const [kind, outFile, dsf = '1', fseed = '', dseed = '', cropArg = ''] = process.argv.slice(2);   // crop: x,y,w,h in CSS px
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = '/Users/kristinalogan/Desktop/Desktop/Professional/Jade/jade_web';
-const SIZES = { banner: [1128, 191], avatar: [400, 400], og: [1200, 630] };
+const SIZES = { banner: [1128, 191], banner4: [1584, 396], avatar: [400, 400], og: [1200, 630] };
 const [W, H] = SIZES[kind];
 
 const PORT = 9300 + Math.floor(Math.random() * 500);

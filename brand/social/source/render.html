@@ -51,6 +51,15 @@
 
       // Each asset: its size, how blurred the field is, which seeds to use, and how many doves.
       const KINDS = {
+        banner4: { w: 1584, h: 396, blur: 24, fseed: 14, dseed: 3, doves: 5, fieldH: 760, grain: 0.22,
+                   // Doves stay left and right of the centre text, well apart from one another.
+                   birds: [
+                     { x: 110,  y: 128, s: 1.1,  lift: 0.9  },
+                     { x: 285,  y: 218, s: 1.25, lift: 0.5  },
+                     { x: 1250, y: 128, s: 1.2,  lift: 0.95 },
+                     { x: 1385, y: 226, s: 1.05, lift: 0.7  },
+                     { x: 1500, y: 122, s: 1.15, lift: 0.85 },
+                   ] },
         banner: { w: 1128, h: 191, blur: 13, fseed: 14, dseed: 3, doves: 5, fieldH: 560, grain: 0.22,
                 // Hand-placed doves: x and y are in CSS pixels, `lift` is how high the wings are
                 // raised (0 to 1), so each bird has a clean, open wing shape and none overlap.
@@ -104,6 +113,16 @@
             <div>
               <div class="word" style="font-size:58px;">Jade Agentic</div>
               <div class="tag" style="font-size:18px; margin-top:8px; letter-spacing:0.01em;">Websites built to represent you.</div>
+            </div>
+          </div>`;
+      } else if (kind === 'banner4') {
+        // Everything sits in the central band (about y 100 to 300 of 396) so a shorter crop keeps it all.
+        content.innerHTML = `
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:38px;">
+            <img src="${logo}" width="148" height="148" alt="" />
+            <div>
+              <div class="word" style="font-size:94px;">Jade Agentic</div>
+              <div class="tag" style="font-size:29px; margin-top:12px; letter-spacing:0.01em;">Websites built to represent you.</div>
             </div>
           </div>`;
       } else if (kind === 'avatar') {

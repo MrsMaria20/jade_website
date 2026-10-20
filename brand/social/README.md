@@ -6,13 +6,13 @@ tagline "Websites built to represent you."
 
 | File | Size | Where to use it |
 |---|---|---|
-| `linkedin-banner-1128x191@3x.png` | 3384 x 573 (3x of LinkedIn's 1128 x 191, for extra sharpness) | LinkedIn company page cover image |
+| `linkedin-banner-1584x396@2x.png` | 3168 x 792 (a 4:1 banner, 2x of 1584 x 396) | **Use this first.** LinkedIn's 4:1 cover (personal profiles; company pages that show a 4:1 frame) |
+| `linkedin-banner-1128x191@3x.png` | 3384 x 573 (3x of LinkedIn's 1128 x 191, for extra sharpness) | The older, longer company-page shape (about 5.9:1). Use only if LinkedIn's upload tool shows a 1128 x 191 frame |
 | `linkedin-logo-800x800.png` | 800 x 800 | LinkedIn company page logo (it shows small, so the mark has no text) |
 | `social-share-1200x630.png` | 1200 x 630 | The image shown when the website is shared (the "Open Graph" image); used in build step 9 |
 
 Notes
-- The LinkedIn banner keeps its content in the centre, so it still reads when LinkedIn
-  crops the edges on a phone.
+- Both LinkedIn banners keep their content in the centre. The 4:1 one keeps everything inside the middle ~68% of its height, so it still works when a shorter frame crops it, and when LinkedIn crops the sides on a phone.
 - The doves are placed by hand, well apart from each other and from the text, and drawn with a single crisp wing (the website's moving doves draw a faint second wing, which looks right in motion but smudges in a still image).
 - The logo is ivory on dark green, the brand's primary version, with no effects on the mark.
 - Colours and type come from `brand/brand-guide.md`. No prices, claims, or names appear in these images.
