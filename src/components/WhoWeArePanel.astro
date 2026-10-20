@@ -3,16 +3,20 @@
   WhoWeArePanel.astro
 
   What it is: the About page's first content panel: what Jade Agentic is, in a
-  couple of company-level sentences. One wide, centered light-glass card holds
-  the small logo mark, a thin divider, the label, the title, and the paragraph,
-  all centered.
+  couple of company-level sentences. One wide light-glass card holds the large
+  logo mark on the left and, on the right, the label, title, and paragraph.
   Where it's used: src/pages/about.astro, right after the hero.
-  Which mockup it matches: the owner's reference layout for this panel (a centered
-  glass card with the mark on top). Company-focused: no personal story, no portrait.
+  Which mockup it matches: the owner's second reference layout for this panel
+  (logo on the left, text on the right, divided by a thin vertical line).
+  Company-focused: no personal story, no portrait.
+
+  ONE surface: the logo section and the text section share the exact same glass
+  background (the reference had two shades; the owner asked for one). The thin
+  line between them is only a hairline, not a different color. The whole card
+  lifts and gains a soft shadow on hover as a single piece, like the home page
+  cards. The mark is ink on light, untouched (the brand guide forbids effects on it).
 
   Beige panel on the light field (see CLAUDE.md), full width, one screen tall.
-  The card rises and gains a soft shadow on hover, like the home page cards.
-  The mark is ink on light, untouched (the brand guide forbids effects on the logo).
   Only facts the owner has confirmed are used.
 */
 
@@ -24,45 +28,46 @@ import SectionIntro from './SectionIntro.astro';
 <!-- ===== WHO WE ARE: one screen tall, beige with the light field ===== -->
 <section
   id="who-we-are"
-  class="relative flex min-h-svh flex-col justify-center overflow-hidden bg-paper px-6 py-[clamp(40px,7vh,110px)] text-ink lg:px-[104px]"
+  class="relative flex min-h-svh flex-col justify-center overflow-hidden bg-paper px-6 py-[clamp(40px,7vh,110px)] text-ink lg:px-[88px]"
 >
   <BlurredField seed={44} tone="light" />
 
-  <div data-reveal class="relative z-10 mx-auto w-full max-w-[1040px]">
+  <div data-reveal class="relative z-10 mx-auto w-full max-w-[1260px]">
+    <!-- One glass card; its two halves are NOT given separate backgrounds. -->
     <GlassPanel
       variant="light"
-      class="flex flex-col items-center justify-between gap-[clamp(40px,9vh,104px)] p-7! text-center transition-[transform,box-shadow] duration-500 ease-calm hover:-translate-y-1 hover:shadow-[0_28px_48px_-28px_rgba(28,36,31,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:min-h-[clamp(520px,82vh,780px)] md:p-[clamp(36px,7vh,80px)]!"
+      class="grid p-0! transition-[transform,box-shadow] duration-500 ease-calm hover:-translate-y-1 hover:shadow-[0_28px_48px_-28px_rgba(28,36,31,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:min-h-[clamp(480px,76vh,740px)] md:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)]"
     >
-      <!-- ===== TOP GROUP: the mark, divider, label, and title, kept together near the top ===== -->
-      <div class="flex flex-col items-center gap-[clamp(18px,3.4vh,34px)]">
-        <!-- ===== THE LOGO MARK, small, at the top (ink on light, one color only) ===== -->
+      <!-- ===== LEFT: the logo mark, large (ink on light, one color only) ===== -->
+      <div class="flex items-center justify-center px-8 py-10 md:p-10">
         <img
           src="/logo/jade-disc-ink.svg"
           alt="The Jade Agentic mark: a jade bonsai tree inside a disc"
-          width="96"
-          height="96"
-          class="h-[clamp(64px,10vh,96px)] w-[clamp(64px,10vh,96px)]"
-        />
-
-        <!-- A thin divider under the mark. -->
-        <span aria-hidden="true" class="h-px w-[72px] bg-ink/25"></span>
-
-        <!-- ===== LABEL AND TITLE, centered ===== -->
-        <SectionIntro
-          label="01 · WHO WE ARE"
-          title="A web studio for businesses like yours."
-          surface="light"
-          class="max-w-none items-center text-center text-balance"
+          width="280"
+          height="280"
+          class="h-[clamp(150px,30vh,280px)] w-[clamp(150px,30vh,280px)]"
         />
       </div>
 
-      <!-- ===== THE PARAGRAPH ===== -->
-      <p class="max-w-[720px] text-[17px] leading-relaxed text-moss">
-        Jade Agentic is a web design and development studio for small to medium
-        businesses. We build custom websites, designed so your brand resonates
-        with the people you want to reach, and we handle every step from the
-        first conversation to a live site.
-      </p>
+      <!-- ===== RIGHT: label at the top, title and paragraph lower down ===== -->
+      <div class="flex flex-col justify-between gap-[clamp(32px,7vh,72px)] border-t border-ink/10 p-7 md:border-t-0 md:border-l md:p-[clamp(36px,7vh,80px)]">
+        <p class="eyebrow text-moss">01 · WHO WE ARE</p>
+
+        <div class="flex flex-col gap-[clamp(24px,5vh,48px)]">
+          <SectionIntro
+            title="A web studio for businesses like yours."
+            surface="light"
+            class="max-w-none text-balance"
+          />
+
+          <p class="max-w-[640px] text-[17px] leading-relaxed text-pretty text-moss">
+            Jade Agentic is a web design and development studio for small to
+            medium businesses. We build custom websites, designed so your brand
+            resonates with the people you want to reach, and we handle every
+            step from the first conversation to a live site.
+          </p>
+        </div>
+      </div>
     </GlassPanel>
   </div>
 </section>
