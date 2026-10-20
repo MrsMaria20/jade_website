@@ -2,22 +2,54 @@
 /*
   contact.astro (Contact page, "/contact")
 
-  What it is: a PLACEHOLDER so the nav link works. Build step 7 replaces it with
-  the real page and the Calendly embed (reference/source/02-ff2-site-contact.html).
-  The "Book a call" buttons point to the #book anchor on this page.
+  What it is: the Contact page, in two panels that each fill one screen: a hero,
+  and the booking panel with the Calendly calendar. Every "Book a call" button on
+  the site lands on the booking panel (/contact#book).
+  Which mockup it matches: reference/source/02-ff2-site-contact.html (layout only;
+  the project form is not built, see site-plan.md).
+  Copy comes from site-plan.md.
 */
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PlaceholderFrame from '../components/PlaceholderFrame.astro';
+import HeroFrame from '../components/HeroFrame.astro';
+import BookingPanel from '../components/BookingPanel.astro';
 ---
 
 <BaseLayout
   title="Contact | Jade Agentic"
-  description="Book a 20-minute call with Jade Agentic."
+  description="Book a 20-minute intro call with Jade Agentic, or send an email. Tell us about your business and what your website needs to do for it."
 >
-  <PlaceholderFrame
-    label="Placeholder page"
-    title="Contact"
-    note="This page is built in step 7."
-  />
+  <main id="main">
+    <!-- ===== HERO: full-screen frame with the field and doves ===== -->
+    <HeroFrame variant="tall">
+      <div class="flex min-h-[inherit] flex-col justify-end gap-6 px-6 pt-28 pb-10 lg:px-[60px] lg:pb-[58px]">
+        <p data-hero-fade="0.2" class="eyebrow text-celadon">
+          jadeagentic.com / contact
+        </p>
+
+        <!-- Two lines that rise into place, as on the other heroes. -->
+        <h1
+          data-hero-parallax
+          class="font-serif text-[clamp(44px,7.6vw,104px)] leading-[0.9] font-normal tracking-[-0.03em] text-ivory"
+        >
+          <span class="-mb-[0.3em] block overflow-hidden pb-[0.3em]">
+            <span class="hero-line block">Tell us about</span>
+          </span>
+          <span class="-mb-[0.3em] block overflow-hidden pb-[0.3em]">
+            <span class="hero-line block">your business.</span>
+          </span>
+        </h1>
+
+        <p
+          data-hero-fade="0.9"
+          class="max-w-[560px] text-[17px] leading-relaxed text-mist"
+        >
+          Book a 20-minute call, or just email. Whichever feels easiest.
+        </p>
+      </div>
+    </HeroFrame>
+
+    <!-- ===== BOOK A CALL: the Calendly calendar and the email option ===== -->
+    <BookingPanel />
+  </main>
 </BaseLayout>

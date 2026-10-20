@@ -1,0 +1,79 @@
+---
+/*
+  CalendlyEmbed.astro
+
+  What it is: the booking calendar for the 20-minute intro call, shown inside a
+  white rounded card. It is Calendly's own booking page in an iframe.
+  Where it's used: BookingPanel.astro on the Contact page (anchor #book).
+  Which mockup it matches: the booking card in reference/source/02-ff2-site-contact.html
+  (which says "booking is confirmed in Calendly").
+
+  The link comes from `calendlyUrl` in src/data/site.ts. Until it is set, a visible
+  [BRACKET] placeholder is shown instead, as the brand rules require.
+
+  Performance: the iframe uses loading="lazy", so the browser fetches Calendly
+  only when a visitor scrolls near it. If an embed is ever blocked (some browsers
+  and extensions do that), a plain link below it opens the calendar in a new tab.
+*/
+
+import { calendlyUrl, siteDomain } from '../data/site';
+
+interface Props {
+  // Extra classes for sizing the card (the height is set by the parent).
+  class?: string;
+}
+
+const { class: extraClasses = '' } = Astro.props;
+
+// Only accept a real Calendly address, so a typo can't embed something else.
+const isValidLink =
+  typeof calendlyUrl === 'string' &&
+  calendlyUrl.startsWith('https://calendly.com/');
+
+// Calendly asks embeds to say which site they are on, and that they are inline.
+const joiner = calendlyUrl?.includes('?') ? '&' : '?';
+const embedUrl = isValidLink
+  ? `${calendlyUrl}${joiner}embed_domain=${siteDomain}&embed_type=Inline`
+  : null;
+---
+
+<!-- The card shows the Calendly calendar, or a placeholder until the link is set in src/data/site.ts. -->
+<div class="flex flex-col gap-3">
+  <div
+    class:list={[
+      'overflow-hidden rounded-[22px] bg-white shadow-[0_22px_44px_-26px_rgba(28,36,31,0.4)]',
+      extraClasses,
+    ]}
+  >
+    {embedUrl ? (
+      <iframe
+        src={embedUrl}
+        title="Book a 20-minute intro call with Jade Agentic"
+        loading="lazy"
+        class="h-full w-full border-0"
+      />
+    ) : (
+      <div class="flex h-full flex-col items-center justify-center gap-3 border border-dashed border-ink/25 p-8 text-center">
+        <span class="eyebrow text-moss">[Calendly link]</span>
+        <p class="max-w-xs text-base leading-relaxed text-moss">
+          The booking calendar appears here once your Calendly link is added.
+        </p>
+      </div>
+    )}
+  </div>
+
+  {isValidLink && (
+    <p class="text-sm text-moss">
+      Calendar not showing?{' '}
+      <a
+        href={calendlyUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="border-b border-ink/40 pb-0.5 text-ink"
+      >
+        Open it in a new tab
+      </a>
+      .
+    </p>
+  )}
+</div>

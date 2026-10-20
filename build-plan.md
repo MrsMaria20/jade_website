@@ -35,9 +35,9 @@ One step at a time. Before each step: propose a plan and wait for approval. Afte
 - Hero, who we are, how we work, what's next, and the shared contact panel; company-focused, "we" voice. See `site-plan.md`.
 - To review: the "how we work" panel (kept for a first look, may be cut).
 
-## Step 7 — Contact page
-- Short hero, Calendly inline embed (lazy, `#book`), email card, Tally project form if kept (lazy).
-- Placeholder boxes if URLs aren't ready yet.
+## Step 7 — Contact page: built
+- Hero, and a booking panel (`#book`) with the Calendly embed (lazy-loaded) and an email card. No project form.
+- Waiting on the Calendly event link: set `calendlyUrl` in `src/data/site.ts`; until then a placeholder box shows.
 
 ## Step 8 — Work page (built, hidden)
 - `/work` index and `/work/<slug>` case-study template from a content collection; everything hidden while no project has `draft: false`.

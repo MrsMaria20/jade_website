@@ -23,6 +23,13 @@ export const bookCallHref = '/contact#book';
 export const contactEmail: string | null = 'team@jadeagentic.com';
 export const emailPlaceholder = '[YOUR EMAIL]';
 
+// The Calendly link for the 20-minute intro call. Use the EVENT link, not your
+// profile link, for example 'https://calendly.com/yourname/20min'. While this is
+// null, the Contact page shows a visible placeholder instead of the booking
+// calendar. Once it is set, the calendar appears (and loads only when a visitor
+// scrolls to it, so it does not slow the page down).
+export const calendlyUrl: string | null = null;
+
 // The founding clients offer: the number of spots (written as a word, for the
 // sentence on the site) and whether any are still open. When all four are
 // taken, set foundingSpotsOpen to false and the offer disappears from every page.

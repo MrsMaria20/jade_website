@@ -13,7 +13,7 @@ Live domain: jadeagentic.com
 - **GSAP + ScrollTrigger** for scroll animation (headline reveals, section fade-ups)
 - **HTML canvas, no library** for the ASCII doves and the blurred field (`src/components/AsciiDoves.astro`, `BlurredField.astro`)
 - **Google Fonts**: Cormorant Garamond, Instrument Sans, JetBrains Mono
-- **Tally** (project form) and **Calendly** (20-minute intro call), both embedded
+- **Calendly** (20-minute intro call), embedded on the Contact page. There is no project form (Tally was dropped: booking is the one conversion goal, and budget is discussed on the call).
 - **Vercel** hosting, deployed from GitHub. No backend, no database.
 - No React unless a feature truly needs it. Ask before adding any new dependency.
 
@@ -94,7 +94,7 @@ Results first: say what the business gets (its brand resonating with the right a
 
 - Mobile first. Check every section at 390px wide and at 1440px.
 - Text contrast at least 4.5:1 (3:1 for 24px+). Real `<button>` and `<a>` elements, visible focus states, alt text.
-- Target 95+ mobile Lighthouse performance. Lazy-load embeds (Calendly, Tally).
+- Target 95+ mobile Lighthouse performance. Lazy-load embeds (Calendly).
 - Placeholders stay in [BRACKETS] until real content arrives. Never invent prices, stats, reviews, or client names.
 
 ## Code style: readable first

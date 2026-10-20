@@ -101,15 +101,12 @@ Left out on purpose: the mockup's personal "Hi, I'm [Your name]" story and portr
 
 ## Contact `/contact`
 
-Visual reference: `reference/source/02-ff2-site-contact.html`.
+Visual reference: `reference/source/02-ff2-site-contact.html` (layout only). Two panels, each filling one screen. **Booking is the one conversion goal**, so there is no project form (the mockup's Tally form asks for a rough budget, which conflicts with settling budget on a call; email already covers "send a brief").
 
-1. **Short hero** (field, 640px tall, doves): label `JADEAGENTIC.COM / CONTACT`; headline `TODO`; subline: book a 20-minute call, send a short brief, or email.
-2. **Two columns, paper:**
-   - Left: **Project form**, Tally embed (`TODO:` [TALLY FORM URL]; optional, confirm whether to keep). The mockup's 3-step form shows the questions: name, email, business + website → what you need + rough budget ([A] / [A]–[B] / [B]+ / not sure) → message.
-   - Right (`#book`): **Calendly inline embed** for the 20-minute intro call (`TODO:` [CALENDLY URL]); below it an email card: [YOUR EMAIL].
-3. Footer.
+1. **Hero** (green field, doves): label `JADEAGENTIC.COM / CONTACT`; headline **Tell us about your business.**; line: "Book a 20-minute call, or just email. Whichever feels easiest."
+2. **Book a call** (`#book`, beige light field): left: `01 · BOOK A CALL`, **Pick a time.**, "A 20-minute call about your business and what your website needs to do for it. You'll leave knowing the next step.", and a light-glass card, "Prefer to write?" with **team@jadeagentic.com** and "Send a note, a link to your current site, or a few sites you love." Right: the **Calendly calendar** in a white rounded card (lazy-loaded), with an "Open it in a new tab" fallback link.
 
----
+Every "Book a call" button on the site goes to `/contact#book`. The Calendly link is set once, as `calendlyUrl` in `src/data/site.ts` (the EVENT link, e.g. `https://calendly.com/yourname/20min`). Until it is set, a visible `[Calendly link]` placeholder box shows. Only real `https://calendly.com/` links are accepted.
 
 ## Work `/work`: BUILT, NOT PUBLISHED
 
@@ -152,8 +149,8 @@ The Markdown body holds the brief and figure captions.
 
 ## Real details still needed
 - Done: contact email is **team@jadeagentic.com** (set in `src/data/site.ts`). Email only; no phone number is shown on the site, by choice.
-- `TODO:` [CALENDLY URL]
-- `TODO:` [TALLY FORM URL] (only if the project form is kept)
+- `TODO:` the Calendly event link (set `calendlyUrl` in `src/data/site.ts`). Needs a 20-minute event, availability, time zone, and meeting location set up in Calendly.
+- Decided: no project form (Tally dropped).
 - Decided: founding spots are four; no timeline number in the hero; card ranges are 1 to 2 weeks and 3 to 4 weeks.
 - Decided: no prices on the site; price, budget, revisions, and change rules are covered on the call and in the written agreement.
 - `TODO:` social links (no accounts yet; a company LinkedIn page is planned, then its URL goes in `src/data/site.ts`)
