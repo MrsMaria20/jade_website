@@ -83,6 +83,8 @@ The only real requirements:
 - **A field behind it.** Glass only reads as glass when there is something to show through. Use dark glass on the green field and light glass on the light field. Flat paper with nothing behind it gives glass nothing to blur, so give a beige panel the light field first.
 - **Readable text.** Text inside stays at least 16px and meets 4.5:1 contrast (measure it over the darkest and lightest parts of the field).
 
+**Hover effect (all glass panels):** every glass panel rises about 4px and its shadow deepens on hover. It is built into the glass styles themselves (`src/styles/global.css`), so any glass panel, including future ones, gets it automatically. It only runs on devices that can hover, and with reduced motion the panel stays still and only the shadow changes.
+
 Light glass (`.glass-light`) is the version for beige panels: white-tinted, bright edge, soft shadow. It works over the **light field** (soft sage and celadon washes over beige), which every beige panel uses so the page never has flat beige.
 
 **Raised panels** (cards with a soft shadow, such as Launch and Studio) have no per-page limit either. Use as many as the layout needs.

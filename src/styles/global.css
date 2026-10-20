@@ -103,3 +103,56 @@
       0 22px 44px -26px rgb(28 36 31 / 0.4);
   }
 }
+
+/*
+  Hover effect for ALL glass panels (dark hero glass, dark panel glass, and light
+  glass): the panel rises a few pixels and its shadow deepens, so it feels like a
+  raised surface. It lives here, on the glass styles themselves, so every glass
+  panel on the site gets it, including any added later.
+
+  - Only on devices that can hover (mouse or trackpad), so a tap on a phone does
+    not leave a panel stuck raised.
+  - With reduced motion, the panel does not move; only the shadow changes.
+  - The light glass keeps its bright top edge while the shadow deepens.
+*/
+@layer components {
+  .glass-hero,
+  .glass-panel,
+  .glass-light {
+    transition:
+      transform 500ms var(--ease-calm),
+      box-shadow 500ms var(--ease-calm);
+  }
+
+  @media (hover: hover) {
+    .glass-light:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.75),
+        0 30px 52px -26px rgb(28 36 31 / 0.5);
+    }
+
+    /* On dark glass the shadow is black, and a faint light edge keeps the top defined. */
+    .glass-hero:hover,
+    .glass-panel:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        inset 0 1px 0 rgb(239 235 223 / 0.2),
+        0 30px 52px -24px rgb(0 0 0 / 0.55);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glass-hero,
+    .glass-panel,
+    .glass-light {
+      transition: box-shadow 500ms var(--ease-calm);
+    }
+
+    .glass-light:hover,
+    .glass-hero:hover,
+    .glass-panel:hover {
+      transform: none;
+    }
+  }
+}

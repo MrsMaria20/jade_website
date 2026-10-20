@@ -7,14 +7,14 @@
   logo mark on the left and, on the right, the label, title, and paragraph.
   Where it's used: src/pages/about.astro, right after the hero.
   Which mockup it matches: the owner's second reference layout for this panel
-  (logo on the left, text on the right, divided by a thin vertical line).
+  (logo on the left, text on the right; the owner asked for no dividing line).
   Company-focused: no personal story, no portrait.
 
   ONE surface: the logo section and the text section share the exact same glass
-  background (the reference had two shades; the owner asked for one). The thin
-  line between them is only a hairline, not a different color. The whole card
-  lifts and gains a soft shadow on hover as a single piece, like the home page
-  cards. The mark is ink on light, untouched (the brand guide forbids effects on it).
+  background (the reference had two shades; the owner asked for one), with no
+  dividing line between them. The whole card lifts and gains a soft shadow on
+  hover as a single piece; that hover effect comes from the glass style itself
+  (src/styles/global.css), shared by every glass panel. The mark is ink on light, untouched (the brand guide forbids effects on it).
 
   Alignment (owner's request): the top of the title lines up with the top of the
   logo, and the bottom of the paragraph lines up with the bottom of the logo. Both
@@ -41,7 +41,7 @@ import SectionIntro from './SectionIntro.astro';
     <!-- One glass card; its two halves are NOT given separate backgrounds. -->
     <GlassPanel
       variant="light"
-      class="grid p-0! transition-[transform,box-shadow] duration-500 ease-calm hover:-translate-y-1 hover:shadow-[0_28px_48px_-28px_rgba(28,36,31,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 [--logo:clamp(150px,30vh,260px)] md:[--logo:clamp(230px,43vh,390px)] md:min-h-[clamp(500px,78vh,760px)] md:grid-cols-[calc(var(--logo)+5rem)_minmax(0,1fr)]"
+      class="grid p-0! [--logo:clamp(150px,30vh,260px)] md:[--logo:clamp(230px,43vh,390px)] md:min-h-[clamp(500px,78vh,760px)] md:grid-cols-[calc(var(--logo)+5rem)_minmax(0,1fr)]"
     >
       <!-- ===== LEFT: the logo mark, large (ink on light, one color only) ===== -->
       <div class="flex items-center justify-center px-8 py-10 md:p-10">
@@ -55,7 +55,7 @@ import SectionIntro from './SectionIntro.astro';
       </div>
 
       <!-- ===== RIGHT: the label at the top of the card; the title and paragraph in a band as tall as the logo ===== -->
-      <div class="relative flex flex-col gap-[clamp(24px,5vh,48px)] border-t border-ink/10 p-7 md:flex-row md:items-center md:border-t-0 md:border-l md:p-[clamp(36px,7vh,80px)]">
+      <div class="relative flex flex-col gap-[clamp(24px,5vh,48px)] p-7 md:flex-row md:items-center md:p-[clamp(36px,7vh,80px)]">
         <p class="eyebrow text-moss md:absolute md:top-[clamp(36px,7vh,80px)] md:left-[clamp(36px,7vh,80px)]">
           01 · WHO WE ARE
         </p>
