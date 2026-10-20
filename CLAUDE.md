@@ -94,7 +94,7 @@ Results first: say what the business gets (its brand resonating with the right a
 
 - Mobile first. Check every section at 390px wide and at 1440px.
 - Text contrast at least 4.5:1 (3:1 for 24px+). Real `<button>` and `<a>` elements, visible focus states, alt text.
-- Target 95+ mobile Lighthouse performance. Lazy-load embeds (Calendly).
+- Target 95+ mobile Lighthouse performance (currently 100 on every page). Keep it there: the hero entrance animation is CSS-only (do not make first-paint content wait for a script), fonts load without blocking, and Calendly is loaded only when a visitor scrolls to it (`CalendlyEmbed.astro`).
 - Placeholders stay in [BRACKETS] until real content arrives. Never invent prices, stats, reviews, or client names.
 
 ## Code style: readable first
