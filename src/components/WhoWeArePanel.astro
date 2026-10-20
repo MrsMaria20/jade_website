@@ -16,6 +16,11 @@
   lifts and gains a soft shadow on hover as a single piece, like the home page
   cards. The mark is ink on light, untouched (the brand guide forbids effects on it).
 
+  Alignment (owner's request): the top of the title lines up with the top of the
+  logo, and the bottom of the paragraph lines up with the bottom of the logo. Both
+  use one shared size, the CSS variable --logo, so they stay in step at every
+  screen size. The logo is large enough to leave a clear gap between the two.
+
   Beige panel on the light field (see CLAUDE.md), full width, one screen tall.
   Only facts the owner has confirmed are used.
 */
@@ -36,7 +41,7 @@ import SectionIntro from './SectionIntro.astro';
     <!-- One glass card; its two halves are NOT given separate backgrounds. -->
     <GlassPanel
       variant="light"
-      class="grid p-0! transition-[transform,box-shadow] duration-500 ease-calm hover:-translate-y-1 hover:shadow-[0_28px_48px_-28px_rgba(28,36,31,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:min-h-[clamp(480px,76vh,740px)] md:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)]"
+      class="grid p-0! transition-[transform,box-shadow] duration-500 ease-calm hover:-translate-y-1 hover:shadow-[0_28px_48px_-28px_rgba(28,36,31,0.45)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 [--logo:clamp(150px,30vh,260px)] md:[--logo:clamp(230px,43vh,390px)] md:min-h-[clamp(500px,78vh,760px)] md:grid-cols-[calc(var(--logo)+5rem)_minmax(0,1fr)]"
     >
       <!-- ===== LEFT: the logo mark, large (ink on light, one color only) ===== -->
       <div class="flex items-center justify-center px-8 py-10 md:p-10">
@@ -45,22 +50,25 @@ import SectionIntro from './SectionIntro.astro';
           alt="The Jade Agentic mark: a jade bonsai tree inside a disc"
           width="280"
           height="280"
-          class="h-[clamp(150px,30vh,280px)] w-[clamp(150px,30vh,280px)]"
+          class="h-(--logo) w-(--logo)"
         />
       </div>
 
-      <!-- ===== RIGHT: label at the top, title and paragraph lower down ===== -->
-      <div class="flex flex-col justify-between gap-[clamp(32px,7vh,72px)] border-t border-ink/10 p-7 md:border-t-0 md:border-l md:p-[clamp(36px,7vh,80px)]">
-        <p class="eyebrow text-moss">01 · WHO WE ARE</p>
+      <!-- ===== RIGHT: the label at the top of the card; the title and paragraph in a band as tall as the logo ===== -->
+      <div class="relative flex flex-col gap-[clamp(24px,5vh,48px)] border-t border-ink/10 p-7 md:flex-row md:items-center md:border-t-0 md:border-l md:p-[clamp(36px,7vh,80px)]">
+        <p class="eyebrow text-moss md:absolute md:top-[clamp(36px,7vh,80px)] md:left-[clamp(36px,7vh,80px)]">
+          01 · WHO WE ARE
+        </p>
 
-        <div class="flex flex-col gap-[clamp(24px,5vh,48px)]">
+        <!-- The band: the title's top is the logo's top, the paragraph's bottom is the logo's bottom. -->
+        <div class="flex flex-col gap-[clamp(24px,5vh,48px)] md:min-h-(--logo) md:justify-between md:gap-6">
           <SectionIntro
             title="A web studio for businesses like yours."
             surface="light"
             class="max-w-none text-balance"
           />
 
-          <p class="max-w-[640px] text-[17px] leading-relaxed text-pretty text-moss">
+          <p class="max-w-[680px] text-[17px] leading-relaxed text-pretty text-moss">
             Jade Agentic is a web design and development studio for small to
             medium businesses. We build custom websites, designed so your brand
             resonates with the people you want to reach, and we handle every
