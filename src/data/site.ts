@@ -59,5 +59,5 @@ export const mainLinks: SiteLink[] = [
 // a real href, and the whole column is hidden while none do. To add LinkedIn,
 // set its href below to the company page address.
 export const socialLinks: { label: string; href: string | null }[] = [
-  { label: 'LinkedIn', href: null },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/jade-agentic' },
 ];

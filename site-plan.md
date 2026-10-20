@@ -77,7 +77,7 @@ All of it is slow and calm, and every effect has a still version under reduced m
 - **Sections:** content fades up 30px as it enters.
 
 ### Footer (all pages)
-Night background: closing line + **Book a call** / email buttons; columns: logo + short descriptor · Pages (Services, About, Contact) · Elsewhere: LinkedIn only (shown once the company page link is set; hidden until then; no Instagram); bottom row: © 2026 JADE AGENTIC · JADEAGENTIC.COM. `TODO:` footer copy in the new voice.
+Night background: closing line + **Book a call** / email buttons; columns: logo + short descriptor · Pages (Services, About, Contact) · Elsewhere: LinkedIn only (https://www.linkedin.com/company/jade-agentic, set in `src/data/site.ts`; no Instagram); bottom row: © 2026 JADE AGENTIC · JADEAGENTIC.COM. `TODO:` footer copy in the new voice.
 
 ---
 
@@ -153,4 +153,4 @@ The Markdown body holds the brief and figure captions.
 - Decided: no project form (Tally dropped).
 - Decided: founding spots are four; no timeline number in the hero; card ranges are 1 to 2 weeks and 3 to 4 weeks.
 - Decided: no prices on the site; price, budget, revisions, and change rules are covered on the call and in the written agreement.
-- `TODO:` social links (no accounts yet; a company LinkedIn page is planned, then its URL goes in `src/data/site.ts`)
+- Done: LinkedIn company page is live and linked in the footer (`https://www.linkedin.com/company/jade-agentic`). No Instagram.
