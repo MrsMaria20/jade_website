@@ -149,7 +149,7 @@ The Markdown body holds the brief and figure captions.
 
 ## Real details still needed
 - Done: contact email is **team@jadeagentic.com** (set in `src/data/site.ts`). Email only; no phone number is shown on the site, by choice.
-- `TODO:` the Calendly event link (set `calendlyUrl` in `src/data/site.ts`). Needs a 20-minute event, availability, time zone, and meeting location set up in Calendly.
+- Done: the Calendly event link is set (`calendlyUrl` in `src/data/site.ts`) and the embed is verified. The event itself is "Jade Agentic Discovery Call, 20 min" (the link's name ends in `30min`, which is only a leftover label). Things Calendly controls, not the site: the host name shown at the top of the calendar, the "Powered by Calendly" ribbon (free plan), and Calendly's own cookie notice.
 - Decided: no project form (Tally dropped).
 - Decided: founding spots are four; no timeline number in the hero; card ranges are 1 to 2 weeks and 3 to 4 weeks.
 - Decided: no prices on the site; price, budget, revisions, and change rules are covered on the call and in the written agreement.

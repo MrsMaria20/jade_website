@@ -28,7 +28,8 @@ export const emailPlaceholder = '[YOUR EMAIL]';
 // null, the Contact page shows a visible placeholder instead of the booking
 // calendar. Once it is set, the calendar appears (and loads only when a visitor
 // scrolls to it, so it does not slow the page down).
-export const calendlyUrl: string | null = null;
+export const calendlyUrl: string | null =
+  'https://calendly.com/kristina-jadeagentic/30min';
 
 // The founding clients offer: the number of spots (written as a word, for the
 // sentence on the site) and whether any are still open. When all four are
