@@ -1,0 +1,5 @@
+# Jade Agentic: search engines may visit every page.
+User-agent: *
+Allow: /
+
+Sitemap: https://jadeagentic.com/sitemap.xml

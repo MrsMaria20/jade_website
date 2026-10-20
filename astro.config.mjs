@@ -9,6 +9,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://jadeagentic.com',
+  // The site's CSS is small, so it is placed straight into each page instead of a
+  // separate file the browser has to fetch before showing anything.
+  build: {
+    inlineStylesheets: 'always',
+  },
   vite: {
     plugins: [tailwindcss()],
   },

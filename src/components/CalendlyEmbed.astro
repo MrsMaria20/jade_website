@@ -11,9 +11,12 @@
   The link comes from `calendlyUrl` in src/data/site.ts. Until it is set, a visible
   [BRACKET] placeholder is shown instead, as the brand rules require.
 
-  Performance: the iframe uses loading="lazy", so the browser fetches Calendly
-  only when a visitor scrolls near it. If an embed is ever blocked (some browsers
-  and extensions do that), a plain link below it opens the calendar in a new tab.
+  Performance: Calendly's booking page is heavy (about 2.7 MB of its own files,
+  including a payments library), so it is NOT requested until the visitor scrolls
+  to within a quarter of a screen of the card. (The browser's built-in lazy loading
+  starts too early on a slow connection, so a small script does the waiting.)
+  If the script cannot run, or an embed is blocked, the plain link below the card
+  opens the calendar in a new tab.
 */
 
 import { calendlyUrl, siteDomain } from '../data/site';
@@ -52,12 +55,20 @@ const embedUrl = isValidLink
     ]}
   >
     {embedUrl ? (
-      <iframe
-        src={embedUrl}
-        title="Book a 20-minute intro call with Jade Agentic"
-        loading="lazy"
-        class="h-full w-full border-0"
-      />
+      <div class="relative h-full w-full">
+        <!-- Shown for the moment it takes Calendly to load; its page covers this when ready. -->
+        <p
+          aria-hidden="true"
+          class="absolute inset-0 grid place-items-center text-sm text-moss"
+        >
+          Loading the calendar…
+        </p>
+        <iframe
+          data-calendly-src={embedUrl}
+          title="Book a 20-minute intro call with Jade Agentic"
+          class="relative h-full w-full border-0"
+        />
+      </div>
     ) : (
       <div class="flex h-full flex-col items-center justify-center gap-3 border border-dashed border-ink/25 p-8 text-center">
         <span class="eyebrow text-moss">[Calendly link]</span>
@@ -83,3 +94,33 @@ const embedUrl = isValidLink
     </p>
   )}
 </div>
+
+<script>
+  // Give the calendar its address only when the visitor is about to reach it.
+  const calendar = document.querySelector<HTMLIFrameElement>(
+    'iframe[data-calendly-src]',
+  );
+
+  if (calendar) {
+    const load = () => {
+      calendar.src = calendar.dataset.calendlySrc ?? '';
+    };
+
+    if ('IntersectionObserver' in window) {
+      const watcher = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            load();
+            watcher.disconnect();
+          }
+        },
+        // Start loading a little before the card is on screen, so it is nearly ready on arrival.
+        { rootMargin: '25% 0px' },
+      );
+      watcher.observe(calendar);
+    } else {
+      // Very old browsers: load straight away.
+      load();
+    }
+  }
+</script>
