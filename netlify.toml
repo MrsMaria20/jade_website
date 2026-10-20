@@ -1,0 +1,15 @@
+# Netlify build settings for the Jade Agentic website.
+#
+# What it is: tells Netlify how to build and publish the site when the GitHub
+# repository changes. Netlify reads this file automatically.
+# Notes:
+#   - `npm run build` makes the finished static site in the `dist` folder.
+#   - The Node version matches what the project needs (package.json: node >= 22.12).
+#   - Netlify serves dist/404.html on its own for addresses that do not exist.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
